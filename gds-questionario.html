@@ -505,6 +505,60 @@
     background: rgba(255,255,255,0.2);
   }
 
+  /* DRAFT AUTOSAVE */
+  .draft-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--verde-medio);
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.4s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .draft-indicator.visivel { opacity: 1; }
+
+  .draft-notice {
+    background: #edf7f2;
+    border: 1px solid var(--verde-menta);
+    border-left: 4px solid var(--verde-claro);
+    border-radius: 10px;
+    padding: 13px 18px;
+    font-size: 13px;
+    color: var(--texto-leve);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .draft-notice strong { color: var(--verde-escuro); }
+
+  .btn-limpar {
+    background: none;
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--texto-leve);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .btn-limpar:hover {
+    border-color: #e07070;
+    color: #c0392b;
+    background: #fef5f5;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 640px) {
     .header { padding: 32px 20px; }
@@ -558,10 +612,16 @@
   <div class="progress-bar-inner">
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     <span class="progress-label" id="progressLabel">0% preenchido</span>
+    <span class="draft-indicator" id="salvandoIndicador">💾 Rascunho salvo</span>
   </div>
 </div>
 
 <div class="container">
+  <div id="draftNotice" class="draft-notice" style="display:none">
+    <span>♻️ <strong>Rascunho recuperado</strong> — Seus dados preenchidos anteriormente foram restaurados automaticamente. Você pode continuar de onde parou.</span>
+    <button type="button" class="btn-limpar" onclick="limparRascunhoManual()">🗑️ Limpar rascunho</button>
+  </div>
+
   <form id="formGDS" novalidate>
 
     <!-- SEÇÃO 1 — IDENTIDADE -->
@@ -935,14 +995,123 @@
     <h3>✅ Dados compilados com sucesso</h3>
     <p>Copie o bloco abaixo e use-o como briefing para gerar o documento HTML da apresentação comercial GDS Imóveis.</p>
     <pre id="resultadoTexto"></pre>
-    <button class="btn-copy" onclick="copiarResultado()">
-      📋 Copiar dados
-    </button>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
+      <button class="btn-copy" onclick="copiarResultado()">
+        📋 Copiar dados
+      </button>
+      <button class="btn-copy btn-apagar" onclick="apagarRascunhoFinal()" style="border-color:rgba(255,120,120,0.4);color:#ffaaaa;">
+        🗑️ Apagar rascunho salvo
+      </button>
+    </div>
   </div>
 
 </div>
 
 <script>
+// ===== LOCALSTORAGE AUTOSAVE =====
+const GDS_DRAFT_KEY = 'gds_questionario_rascunho';
+
+function salvarRascunho() {
+  const form = document.getElementById('formGDS');
+  const dados = {};
+
+  // Inputs de texto / textarea / select
+  form.querySelectorAll('input:not([type=radio]):not([type=checkbox]), textarea, select').forEach(function(el) {
+    if (el.name) dados[el.name] = el.value;
+  });
+
+  // Checkboxes — armazena array de valores marcados por nome
+  const cbNames = {};
+  form.querySelectorAll('input[type=checkbox]').forEach(function(el) {
+    if (!el.name) return;
+    if (!cbNames[el.name]) cbNames[el.name] = [];
+    if (el.checked) cbNames[el.name].push(el.value);
+    dados[el.name] = cbNames[el.name];
+  });
+
+  // Radios — armazena o valor selecionado
+  form.querySelectorAll('input[type=radio]:checked').forEach(function(el) {
+    if (el.name) dados[el.name] = el.value;
+  });
+
+  try {
+    localStorage.setItem(GDS_DRAFT_KEY, JSON.stringify(dados));
+    mostrarIndicadorSalvo();
+  } catch(e) {
+    // localStorage indisponível (modo privativo sem espaço etc.) — falha silenciosa
+  }
+}
+
+function carregarRascunho() {
+  let raw;
+  try { raw = localStorage.getItem(GDS_DRAFT_KEY); } catch(e) { return; }
+  if (!raw) return;
+
+  let dados;
+  try { dados = JSON.parse(raw); } catch(e) { return; }
+
+  const form = document.getElementById('formGDS');
+  let restaurou = false;
+
+  // Inputs de texto / textarea / select
+  form.querySelectorAll('input:not([type=radio]):not([type=checkbox]), textarea, select').forEach(function(el) {
+    if (el.name && dados[el.name] !== undefined && dados[el.name] !== '') {
+      el.value = dados[el.name];
+      restaurou = true;
+    }
+  });
+
+  // Checkboxes
+  form.querySelectorAll('input[type=checkbox]').forEach(function(el) {
+    if (!el.name) return;
+    var saved = dados[el.name];
+    if (Array.isArray(saved) && saved.length > 0) {
+      el.checked = saved.includes(el.value);
+      if (el.checked) restaurou = true;
+    }
+  });
+
+  // Radios
+  form.querySelectorAll('input[type=radio]').forEach(function(el) {
+    if (el.name && dados[el.name] === el.value) {
+      el.checked = true;
+      restaurou = true;
+    }
+  });
+
+  if (restaurou) {
+    document.getElementById('draftNotice').style.display = 'flex';
+    atualizarProgresso();
+  }
+}
+
+function limparRascunho() {
+  try { localStorage.removeItem(GDS_DRAFT_KEY); } catch(e) {}
+}
+
+function limparRascunhoManual() {
+  if (!confirm('Deseja apagar todos os dados salvos? O formulário será redefinido.')) return;
+  limparRascunho();
+  document.getElementById('formGDS').reset();
+  document.getElementById('draftNotice').style.display = 'none';
+  atualizarProgresso();
+}
+
+var _saveTimeout;
+function salvarRascunhoDebounced() {
+  clearTimeout(_saveTimeout);
+  _saveTimeout = setTimeout(salvarRascunho, 600);
+}
+
+function mostrarIndicadorSalvo() {
+  var ind = document.getElementById('salvandoIndicador');
+  if (!ind) return;
+  ind.classList.add('visivel');
+  clearTimeout(ind._ocultarTimeout);
+  ind._ocultarTimeout = setTimeout(function() { ind.classList.remove('visivel'); }, 2500);
+}
+// ===================================
+
 // PROGRESS
 function atualizarProgresso() {
   const campos = document.querySelectorAll('input[required], textarea[required], select[required]');
@@ -966,7 +1135,12 @@ function atualizarProgresso() {
 document.querySelectorAll('input, textarea, select').forEach(el => {
   el.addEventListener('input', atualizarProgresso);
   el.addEventListener('change', atualizarProgresso);
+  el.addEventListener('input', salvarRascunhoDebounced);
+  el.addEventListener('change', salvarRascunhoDebounced);
 });
+
+// Restaurar rascunho ao carregar a página
+document.addEventListener('DOMContentLoaded', carregarRascunho);
 
 // FORM SUBMIT
 document.getElementById('formGDS').addEventListener('submit', function(e) {
@@ -1055,9 +1229,23 @@ function copiarResultado() {
   const texto = document.getElementById('resultadoTexto').textContent;
   navigator.clipboard.writeText(texto).then(() => {
     const btn = document.querySelector('.btn-copy');
+    const original = btn.textContent.trim();
     btn.textContent = '✅ Copiado!';
     setTimeout(() => { btn.textContent = '📋 Copiar dados'; }, 2000);
   });
+}
+
+function apagarRascunhoFinal() {
+  if (!confirm('Tem certeza que deseja apagar o rascunho salvo?\nEsta ação não pode ser desfeita.')) return;
+  limparRascunho();
+  document.getElementById('draftNotice').style.display = 'none';
+  const btn = document.querySelector('.btn-apagar');
+  if (btn) {
+    btn.textContent = '✅ Rascunho apagado';
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.style.cursor = 'default';
+  }
 }
 </script>
 
