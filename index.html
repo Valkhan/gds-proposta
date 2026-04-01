@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDS Imóveis — Estudo de Mercado</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   DESIGN SYSTEM — GDS IMÓVEIS
+   Aesthetic: Refined Editorial / Luxury Real Estate
+============================================= */
+:root {
+  /* Verdes — fixos */
+  --verde-profundo:   #14351f;
+  --verde-escuro:     #1e4d2b;
+  --verde-medio:      #2d6e3e;
+  --verde-claro:      #3d8f52;
+  --verde-sage:       #7aaa89;
+  --verde-nebula:     #c6deca;
+  --ivory:            #f5f0e8;
+  --ivory-dark:       #ede7d9;
+  --texto-escuro:     #1a2920;
+  --texto-medio:      #3a5044;
+  --texto-leve:       #6a8572;
+  --branco:           #ffffff;
+  --sombra:           rgba(20,53,31,0.12);
+  --ff-display:       'Cormorant Garamond', Georgia, serif;
+  --ff-body:          'Jost', sans-serif;
+
+  /* COR SECUNDÁRIA — controlada pelo seletor */
+  --accent:           #b8956a;
+  --accent-light:     #d4b48c;
+  --accent-dark:      #8a6e4f;
+  --accent-glow:      rgba(184,149,106,0.18);
+  --accent-border:    rgba(184,149,106,0.28);
+}
+
+/* ── TEMAS DE COR SECUNDÁRIA ───────────────── */
+/* Dourado (default) */
+[data-accent="dourado"] {
+  --accent:       #b8956a;
+  --accent-light: #d4b48c;
+  --accent-dark:  #8a6e4f;
+  --accent-glow:  rgba(184,149,106,0.18);
+  --accent-border:rgba(184,149,106,0.28);
+}
+/* Prata */
+[data-accent="prata"] {
+  --accent:       #9aa5ad;
+  --accent-light: #bdc6cc;
+  --accent-dark:  #72818a;
+  --accent-glow:  rgba(154,165,173,0.18);
+  --accent-border:rgba(154,165,173,0.28);
+}
+/* Bronze */
+[data-accent="bronze"] {
+  --accent:       #9c6b3c;
+  --accent-light: #bb8a5e;
+  --accent-dark:  #734e2b;
+  --accent-glow:  rgba(156,107,60,0.18);
+  --accent-border:rgba(156,107,60,0.28);
+}
+/* Branco / Marfim */
+[data-accent="branco"] {
+  --accent:       #d8d0c0;
+  --accent-light: #ebe6dc;
+  --accent-dark:  #b0a898;
+  --accent-glow:  rgba(216,208,192,0.22);
+  --accent-border:rgba(216,208,192,0.35);
+}
+/* Cobre — calidez de materiais construtivos */
+[data-accent="cobre"] {
+  --accent:       #b06040;
+  --accent-light: #cc7f5a;
+  --accent-dark:  #854830;
+  --accent-glow:  rgba(176,96,64,0.18);
+  --accent-border:rgba(176,96,64,0.28);
+}
+/* Ardósia — sofisticação de revestimentos */
+[data-accent="ardosia"] {
+  --accent:       #7a8e85;
+  --accent-light: #9db0a6;
+  --accent-dark:  #566860;
+  --accent-glow:  rgba(122,142,133,0.18);
+  --accent-border:rgba(122,142,133,0.28);
+}
+/* Terracota — referência ao solo e construção */
+[data-accent="terracota"] {
+  --accent:       #a0614a;
+  --accent-light: #c07e65;
+  --accent-dark:  #784638;
+  --accent-glow:  rgba(160,97,74,0.18);
+  --accent-border:rgba(160,97,74,0.28);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  font-family: var(--ff-body);
+  background: var(--ivory);
+  color: var(--texto-escuro);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal        { opacity:0; transform:translateY(28px);  transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1); }
+.reveal.visible{ opacity:1; transform:none; }
+.reveal-left   { opacity:0; transform:translateX(-28px); transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1); }
+.reveal-left.visible { opacity:1; transform:none; }
+.reveal-right  { opacity:0; transform:translateX(28px);  transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1); }
+.reveal-right.visible{ opacity:1; transform:none; }
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+.delay-5{transition-delay:.5s}
+
+/* =============================================
+   SELETOR DE PALETA FLUTUANTE
+============================================= */
+.palette-launcher {
+  position: fixed;
+  bottom: 32px; left: 28px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.palette-btn {
+  width: 42px; height: 42px;
+  background: var(--verde-profundo);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+}
+
+.palette-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.28);
+}
+
+.palette-btn svg {
+  width: 17px; height: 17px;
+  color: var(--accent);
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1), color 0.3s;
+}
+
+.palette-btn.open svg { transform: rotate(45deg); }
+
+/* Painel de cores */
+.palette-panel {
+  background: rgba(20,53,31,0.97);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 18px 16px 14px;
+  margin-bottom: 10px;
+  width: 200px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+
+  /* oculto por default */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scale(0.97);
+  transform-origin: bottom left;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.palette-panel.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0) scale(1);
+}
+
+.palette-panel-title {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.palette-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.palette-option {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 1px solid transparent;
+}
+
+.palette-option:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.palette-option.active {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.palette-swatch {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  border: 1.5px solid rgba(255,255,255,0.15);
+}
+
+.palette-option.active .palette-swatch::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+
+.palette-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.palette-option-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+}
+
+.palette-option-desc {
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+}
+
+.palette-separator {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 6px 0;
+}
+
+/* ── HEADER ── */
+.site-header {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:0 48px;
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+  background:rgba(20,53,31,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--accent-border);
+  transition: border-color 0.5s;
+}
+
+.header-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
+
+.header-logo-mark {
+  width:38px; height:38px;
+  border:1.5px solid var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  transition:border-color 0.5s;
+}
+.header-logo-mark::before {
+  content:''; position:absolute; inset:3px;
+  border:1px solid var(--accent-border);
+  transition:border-color 0.5s;
+}
+.header-logo-mark span {
+  font-family:var(--ff-display); font-size:15px; font-weight:600;
+  color:var(--accent); letter-spacing:1px; transition:color 0.5s;
+}
+
+.header-logo-text { display:flex; flex-direction:column; gap:1px; }
+.header-logo-text strong {
+  font-family:var(--ff-display); font-size:17px; font-weight:600;
+  color:var(--branco); letter-spacing:1.5px; line-height:1;
+}
+.header-logo-text small {
+  font-size:9px; font-weight:300; color:var(--accent-light);
+  letter-spacing:3px; text-transform:uppercase; transition:color 0.5s;
+}
+
+.header-nav { display:flex; align-items:center; gap:32px; }
+.header-nav a {
+  font-size:11px; font-weight:500; letter-spacing:2.5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.65); text-decoration:none; transition:color 0.2s;
+}
+.header-nav a:hover { color:var(--accent-light); }
+
+.header-cta {
+  background:transparent; border:1px solid var(--accent);
+  color:var(--accent) !important; padding:8px 20px;
+  transition: all 0.25s, border-color 0.5s, color 0.5s !important;
+}
+.header-cta:hover {
+  background:var(--accent) !important;
+  color:var(--verde-profundo) !important;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; background:var(--verde-profundo);
+  display:grid; grid-template-columns:1fr 1fr;
+  position:relative; overflow:hidden;
+}
+
+.hero-pattern {
+  position:absolute; inset:0; opacity:0.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect x='10' y='10' width='100' height='100' fill='none' stroke='%23c6deca' stroke-width='0.5'/%3E%3Crect x='25' y='25' width='35' height='30' fill='none' stroke='%23c6deca' stroke-width='0.5'/%3E%3Crect x='70' y='25' width='25' height='30' fill='none' stroke='%23c6deca' stroke-width='0.5'/%3E%3Crect x='25' y='65' width='70' height='35' fill='none' stroke='%23c6deca' stroke-width='0.5'/%3E%3Cline x1='60' y1='25' x2='60' y2='55' stroke='%23c6deca' stroke-width='0.5'/%3E%3Cline x1='25' y1='55' x2='95' y2='55' stroke='%23c6deca' stroke-width='0.5'/%3E%3Ccircle cx='87.5' cy='40' r='4' fill='none' stroke='%23c6deca' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size:120px 120px;
+}
+
+.hero-diagonal {
+  position:absolute; top:0; right:42%;
+  width:1px; height:100%;
+  background:linear-gradient(to bottom, transparent 0%, var(--accent-border) 30%, var(--accent-border) 70%, transparent 100%);
+  transform:skewX(-6deg); transition:background 0.5s;
+}
+
+.hero-left {
+  padding:140px 64px 80px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative; z-index:2;
+}
+
+.hero-pretitle {
+  display:flex; align-items:center; gap:16px; margin-bottom:32px;
+  opacity:0; animation:fadeUp 0.8s 0.3s ease forwards;
+}
+.hero-pretitle-line { width:40px; height:1px; background:var(--accent); transition:background 0.5s; }
+.hero-pretitle span {
+  font-size:10px; font-weight:500; letter-spacing:4px;
+  text-transform:uppercase; color:var(--accent); transition:color 0.5s;
+}
+
+.hero-greeting {
+  font-family:var(--ff-display); font-size:22px; font-weight:300;
+  color:rgba(255,255,255,0.65); margin-bottom:8px; font-style:italic;
+  opacity:0; animation:fadeUp 0.8s 0.4s ease forwards;
+}
+.hero-name {
+  font-family:var(--ff-display); font-size:clamp(42px,5vw,64px); font-weight:600;
+  color:var(--branco); line-height:1.05; margin-bottom:28px;
+  opacity:0; animation:fadeUp 0.8s 0.5s ease forwards;
+}
+.hero-desc {
+  font-size:15px; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.8;
+  max-width:420px; margin-bottom:48px;
+  opacity:0; animation:fadeUp 0.8s 0.6s ease forwards;
+}
+.hero-stats {
+  display:flex; gap:40px;
+  opacity:0; animation:fadeUp 0.8s 0.7s ease forwards;
+}
+.hero-stat {
+  display:flex; flex-direction:column; gap:4px;
+  border-left:1px solid var(--accent-border); padding-left:20px;
+  transition:border-color 0.5s;
+}
+.hero-stat-num {
+  font-family:var(--ff-display); font-size:36px; font-weight:300;
+  color:var(--accent-light); line-height:1; transition:color 0.5s;
+}
+.hero-stat-label { font-size:10px; font-weight:400; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); }
+
+.hero-right {
+  position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  padding:140px 48px 80px;
+}
+
+.hero-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+  padding:44px; max-width:400px; width:100%;
+  opacity:0; animation:fadeUp 0.8s 0.8s ease forwards; position:relative;
+}
+.hero-card::before {
+  content:''; position:absolute; top:-1px; left:32px;
+  width:60px; height:2px; background:var(--accent); transition:background 0.5s;
+}
+.hero-card::after {
+  content:''; position:absolute; bottom:-1px; right:32px;
+  width:60px; height:2px; background:var(--verde-claro);
+}
+.hero-card-label {
+  font-size:9px; font-weight:500; letter-spacing:3.5px; text-transform:uppercase;
+  color:var(--accent); margin-bottom:28px; transition:color 0.5s;
+}
+.hero-card-img-wrap {
+  width:80px; height:80px; border-radius:50%; overflow:hidden;
+  border:2px solid var(--accent-border); margin-bottom:20px;
+  background:var(--verde-medio); display:flex; align-items:center; justify-content:center;
+  transition:border-color 0.5s;
+}
+.hero-card-img-wrap img { width:100%; height:100%; object-fit:cover; }
+.hero-card-img-wrap .initials {
+  font-family:var(--ff-display); font-size:28px; color:var(--accent-light);
+  font-weight:300; transition:color 0.5s;
+}
+.hero-card-name { font-family:var(--ff-display); font-size:24px; font-weight:600; color:var(--branco); margin-bottom:4px; }
+.hero-card-title { font-size:11px; font-weight:300; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:28px; }
+.hero-card-divider { height:1px; background:rgba(255,255,255,0.08); margin-bottom:24px; }
+.hero-card-info { display:flex; flex-direction:column; gap:12px; }
+.hero-card-info-row { display:flex; gap:12px; align-items:center; }
+.hero-card-info-icon { width:20px; color:var(--verde-sage); flex-shrink:0; transition:color 0.5s; }
+.hero-card-info-text { font-size:13px; font-weight:300; color:rgba(255,255,255,0.6); }
+
+/* ── SECTION BASE ── */
+.section { padding:100px 0; }
+.section-inner { max-width:1100px; margin:0 auto; padding:0 48px; }
+
+.section-label {
+  font-size:10px; font-weight:500; letter-spacing:4px; text-transform:uppercase;
+  color:var(--verde-claro); margin-bottom:16px;
+  display:flex; align-items:center; gap:12px;
+}
+.section-label::before {
+  content:''; display:inline-block; width:24px; height:1px; background:var(--verde-claro);
+}
+.section-title {
+  font-family:var(--ff-display); font-size:clamp(32px,3.5vw,48px);
+  font-weight:400; line-height:1.15; color:var(--verde-profundo); margin-bottom:24px;
+}
+.section-title em { font-style:italic; color:var(--verde-medio); }
+.section-body { font-size:15px; font-weight:300; line-height:1.85; color:var(--texto-medio); max-width:640px; }
+
+/* ── INTRO ── */
+.intro-section { background:var(--ivory); position:relative; }
+.intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.house-illustration { width:100%; aspect-ratio:4/3; position:relative; display:flex; align-items:center; justify-content:center; }
+.house-illustration svg { width:100%; max-width:380px; }
+
+/* ── PRICING ── */
+.pricing-section { background:var(--verde-profundo); position:relative; overflow:hidden; }
+.pricing-section::before {
+  content:''; position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect x='1' y='1' width='78' height='78' fill='none' stroke='%23ffffff' stroke-width='0.2' opacity='0.15'/%3E%3C/svg%3E");
+  background-size:80px 80px;
+}
+.pricing-section .section-title { color:var(--ivory); }
+.pricing-section .section-label { color:var(--accent-light); }
+.pricing-section .section-label::before { background:var(--accent-light); transition:background 0.5s; }
+.pricing-section .section-body { color:rgba(255,255,255,0.6); }
+
+.pricing-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; margin-top:56px; }
+.pricing-scale { display:flex; flex-direction:column; gap:0; }
+
+.pricing-bar-row {
+  display:grid; grid-template-columns:140px 1fr 80px;
+  align-items:center; gap:16px; padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.pricing-bar-label { font-size:12px; font-weight:300; color:rgba(255,255,255,0.55); text-align:right; }
+.pricing-bar-track { height:8px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; }
+.pricing-bar-fill {
+  height:100%; border-radius:2px;
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 1.2s cubic-bezier(.4,0,.2,1);
+}
+.pricing-bar-fill.abaixo  { background:var(--verde-sage); }
+.pricing-bar-fill.mercado { background:var(--accent); transition:background 0.5s, transform 1.2s cubic-bezier(.4,0,.2,1); }
+.pricing-bar-fill.acima   { background:#c97a6a; }
+.pricing-bar-row.active .pricing-bar-fill { transform:scaleX(1); }
+.pricing-bar-value { font-size:12px; font-weight:400; color:rgba(255,255,255,0.4); white-space:nowrap; }
+
+.pricing-benefits { display:flex; flex-direction:column; gap:20px; }
+.pricing-benefit {
+  display:flex; gap:20px; align-items:flex-start; padding:20px 24px;
+  background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);
+  border-left:2px solid var(--verde-sage);
+}
+.pricing-benefit-num {
+  font-family:var(--ff-display); font-size:32px; font-weight:300;
+  color:rgba(255,255,255,0.12); line-height:1; flex-shrink:0; width:32px;
+}
+.pricing-benefit-text { font-size:14px; font-weight:300; color:rgba(255,255,255,0.65); line-height:1.7; }
+
+/* ── PROPERTY ── */
+.property-section { background:var(--ivory); }
+.property-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+.property-photo { position:relative; }
+.property-photo-frame {
+  width:100%; aspect-ratio:4/3; background:var(--ivory-dark);
+  border:1px solid var(--verde-nebula); overflow:hidden; position:relative;
+}
+.property-photo-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.property-photo-placeholder {
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#e8f0eb 0%,#dce8df 100%);
+}
+.property-photo-frame::after {
+  content:''; position:absolute; bottom:-12px; right:-12px;
+  width:80%; height:80%; border:1px solid var(--verde-nebula); z-index:-1;
+}
+.property-address-badge {
+  position:absolute; bottom:16px; left:16px;
+  background:rgba(20,53,31,0.92); color:var(--branco);
+  padding:10px 18px; font-size:12px; font-weight:300; letter-spacing:0.5px;
+  backdrop-filter:blur(8px);
+}
+.property-specs { display:flex; flex-direction:column; gap:0; }
+.property-spec-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 0; border-bottom:1px solid var(--verde-nebula);
+}
+.property-spec-key { font-size:11px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--texto-leve); }
+.property-spec-val { font-family:var(--ff-display); font-size:18px; font-weight:400; color:var(--verde-profundo); }
+.property-notes { margin-top:28px; padding:20px 24px; background:var(--ivory-dark); border-left:2px solid var(--accent); transition:border-color 0.5s; }
+.property-notes-label { font-size:10px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; transition:color 0.5s; }
+.property-notes-text { font-size:14px; font-weight:300; color:var(--texto-medio); line-height:1.7; }
+
+/* ── METHODOLOGY ── */
+.method-section { background:var(--ivory-dark); position:relative; }
+.method-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:64px; }
+.method-step {
+  background:var(--branco); padding:40px 28px;
+  border-top:2px solid var(--verde-nebula); transition:border-color 0.3s;
+}
+.method-step:hover { border-top-color:var(--verde-medio); }
+.method-step-num { font-family:var(--ff-display); font-size:56px; font-weight:300; color:var(--verde-nebula); line-height:1; margin-bottom:20px; }
+.method-step-title { font-family:var(--ff-display); font-size:20px; font-weight:600; color:var(--verde-profundo); margin-bottom:12px; }
+.method-step-text { font-size:13px; font-weight:300; color:var(--texto-medio); line-height:1.75; }
+
+/* ── AMOSTRAS ── */
+.samples-section { background:var(--ivory); }
+.samples-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+.sample-card {
+  background:var(--branco); border:1px solid var(--verde-nebula);
+  transition:box-shadow 0.3s, transform 0.3s; position:relative;
+}
+.sample-card:hover { box-shadow:0 12px 40px var(--sombra); transform:translateY(-4px); }
+.sample-card-img { width:100%; height:160px; object-fit:cover; display:block; background:var(--ivory-dark); }
+.sample-card-img-placeholder {
+  width:100%; height:160px;
+  background:linear-gradient(135deg,#e0ebe3,#cddbd0);
+  display:flex; align-items:center; justify-content:center;
+}
+.sample-card-body { padding:24px; }
+.sample-card-neighborhood { font-size:10px; font-weight:500; letter-spacing:2.5px; text-transform:uppercase; color:var(--verde-claro); margin-bottom:6px; }
+.sample-card-address { font-family:var(--ff-display); font-size:17px; font-weight:400; color:var(--verde-profundo); margin-bottom:16px; line-height:1.3; }
+.sample-card-specs { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+.sample-card-spec { font-size:12px; font-weight:400; color:var(--texto-leve); }
+.sample-card-price { font-family:var(--ff-display); font-size:22px; font-weight:400; color:var(--verde-profundo); }
+.sample-card-price small { font-size:12px; font-weight:300; color:var(--texto-leve); font-family:var(--ff-body); }
+.sample-card-link {
+  display:block; margin-top:16px; font-size:11px; font-weight:500; letter-spacing:2px;
+  text-transform:uppercase; color:var(--verde-medio); text-decoration:none;
+  border-top:1px solid var(--verde-nebula); padding-top:16px; transition:color 0.2s;
+}
+.sample-card-link:hover { color:var(--verde-profundo); }
+
+/* ── TABELA ── */
+.table-section { background:var(--ivory-dark); }
+.compare-table-wrap { overflow-x:auto; margin-top:48px; border:1px solid var(--verde-nebula); }
+.compare-table { width:100%; border-collapse:collapse; font-size:13px; min-width:700px; }
+.compare-table th {
+  background:var(--verde-profundo); color:rgba(255,255,255,0.7);
+  font-size:9px; font-weight:500; letter-spacing:2.5px; text-transform:uppercase;
+  padding:16px 20px; text-align:left; white-space:nowrap;
+}
+.compare-table th.hl { color:var(--accent-light); transition:color 0.5s; }
+.compare-table td { padding:16px 20px; border-bottom:1px solid var(--verde-nebula); color:var(--texto-medio); font-weight:300; vertical-align:middle; }
+.compare-table tr:last-child td { border-bottom:none; }
+.compare-table tr.subject-row td { background:rgba(45,110,62,0.06); color:var(--verde-profundo); font-weight:500; }
+.compare-table tr.subject-row td:first-child { border-left:3px solid var(--verde-medio); }
+.compare-table tr:not(.subject-row):hover td { background:rgba(255,255,255,0.5); }
+.compare-table td.price-col { font-family:var(--ff-display); font-size:17px; color:var(--verde-profundo); }
+.table-note { margin-top:20px; font-size:12px; font-weight:300; color:var(--texto-leve); font-style:italic; line-height:1.7; }
+
+/* ── RESULTADO ── */
+.result-section { background:var(--verde-profundo); position:relative; overflow:hidden; }
+.result-section::before {
+  content:''; position:absolute; top:-200px; right:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background:rgba(45,110,62,0.3); filter:blur(80px);
+}
+.result-inner {
+  max-width:1100px; margin:0 auto; padding:100px 48px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  position:relative; z-index:1;
+}
+.result-left .section-label { color:var(--accent-light); transition:color 0.5s; }
+.result-left .section-label::before { background:var(--accent-light); transition:background 0.5s; }
+.result-left .section-title { color:var(--ivory); }
+.result-left .section-body { color:rgba(255,255,255,0.55); max-width:100%; }
+
+.result-price-box {
+  background:rgba(255,255,255,0.04); border:1px solid var(--accent-border);
+  padding:48px; text-align:center; position:relative; transition:border-color 0.5s;
+}
+.result-price-box::before {
+  content:''; position:absolute; top:-1px; left:20%; width:60%; height:2px;
+  background:var(--accent); transition:background 0.5s;
+}
+.result-price-label { font-size:10px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; transition:color 0.5s; }
+.result-price-range { font-size:12px; font-weight:300; color:rgba(255,255,255,0.4); letter-spacing:1px; margin-bottom:8px; }
+.result-price-value { font-family:var(--ff-display); font-size:clamp(36px,4vw,52px); font-weight:300; color:var(--branco); margin-bottom:4px; }
+.result-price-sqm { font-size:13px; font-weight:300; color:rgba(255,255,255,0.4); margin-bottom:32px; }
+.result-bar { height:6px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; margin-bottom:8px; }
+.result-bar-fill {
+  height:100%; background:linear-gradient(to right, var(--verde-sage), var(--accent));
+  border-radius:2px; transform:scaleX(0); transform-origin:left;
+  transition:transform 1.5s cubic-bezier(.4,0,.2,1) 0.3s, background 0.5s;
+}
+.result-bar-fill.active { transform:scaleX(1); }
+.result-bar-labels { display:flex; justify-content:space-between; font-size:10px; color:rgba(255,255,255,0.3); margin-bottom:24px; }
+.result-position-note { font-size:12px; font-weight:300; color:rgba(255,255,255,0.5); padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); }
+
+/* ── MARKETING ── */
+.marketing-section { background:var(--ivory); }
+.marketing-channels { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:56px; }
+.marketing-channel {
+  background:var(--branco); padding:32px;
+  border-bottom:2px solid transparent; transition:border-color 0.3s,background 0.3s;
+}
+.marketing-channel:hover { background:var(--ivory-dark); border-bottom-color:var(--verde-medio); }
+.marketing-channel-icon {
+  width:44px; height:44px; border:1px solid var(--verde-nebula);
+  display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+}
+.marketing-channel-icon svg { width:20px; height:20px; color:var(--verde-medio); }
+.marketing-channel-name { font-family:var(--ff-display); font-size:19px; font-weight:600; color:var(--verde-profundo); margin-bottom:10px; }
+.marketing-channel-text { font-size:13px; font-weight:300; color:var(--texto-medio); line-height:1.75; margin-bottom:16px; }
+.marketing-channel-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.marketing-channel-tag {
+  font-size:10px; font-weight:400; letter-spacing:1px;
+  color:var(--verde-medio); background:rgba(45,110,62,0.07);
+  padding:3px 10px; border:1px solid rgba(45,110,62,0.15);
+}
+
+/* ── DIFERENCIAIS ── */
+.diff-section { background:var(--ivory-dark); }
+.diff-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-top:56px; }
+.diff-list { display:flex; flex-direction:column; gap:2px; }
+.diff-item { display:flex; gap:0; align-items:stretch; background:var(--branco); overflow:hidden; }
+.diff-item-accent { width:3px; flex-shrink:0; background:var(--verde-nebula); transition:background 0.3s; }
+.diff-item:hover .diff-item-accent { background:var(--verde-medio); }
+.diff-item-content { padding:22px 24px; display:flex; flex-direction:column; gap:4px; }
+.diff-item-title { font-family:var(--ff-display); font-size:17px; font-weight:600; color:var(--verde-profundo); }
+.diff-item-text { font-size:13px; font-weight:300; color:var(--texto-medio); line-height:1.65; }
+.diff-numbers { display:flex; flex-direction:column; gap:32px; }
+.diff-number-item { padding:32px; background:var(--verde-profundo); position:relative; }
+.diff-number-item::before {
+  content:''; position:absolute; top:-1px; left:0;
+  width:40px; height:2px; background:var(--accent); transition:background 0.5s;
+}
+.diff-number-val { font-family:var(--ff-display); font-size:48px; font-weight:300; color:var(--accent-light); line-height:1; margin-bottom:6px; transition:color 0.5s; }
+.diff-number-label { font-size:11px; font-weight:300; letter-spacing:1.5px; color:rgba(255,255,255,0.5); }
+
+/* ── CTA ── */
+.cta-section { background:var(--ivory); }
+.cta-inner { max-width:900px; margin:0 auto; padding:100px 48px; text-align:center; }
+.cta-pretitle {
+  font-size:10px; font-weight:500; letter-spacing:4px; text-transform:uppercase;
+  color:var(--verde-claro); margin-bottom:20px;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+}
+.cta-pretitle::before,.cta-pretitle::after { content:''; display:inline-block; width:24px; height:1px; background:var(--verde-claro); }
+.cta-title { font-family:var(--ff-display); font-size:clamp(36px,4vw,56px); font-weight:400; line-height:1.15; color:var(--verde-profundo); margin-bottom:20px; }
+.cta-title em { font-style:italic; color:var(--verde-medio); }
+.cta-body { font-size:15px; font-weight:300; color:var(--texto-medio); line-height:1.8; max-width:560px; margin:0 auto 48px; }
+.cta-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:48px; }
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--verde-profundo); color:var(--ivory);
+  padding:17px 36px; font-family:var(--ff-body); font-size:12px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+  border:2px solid var(--verde-profundo); transition:all 0.3s; cursor:pointer;
+}
+.btn-primary:hover { background:transparent; color:var(--verde-profundo); }
+.btn-secondary {
+  display:inline-flex; align-items:center; gap:10px;
+  background:transparent; color:var(--verde-profundo);
+  padding:17px 36px; font-family:var(--ff-body); font-size:12px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase; text-decoration:none;
+  border:2px solid var(--verde-nebula); transition:all 0.3s; cursor:pointer;
+}
+.btn-secondary:hover { border-color:var(--verde-profundo); background:var(--ivory-dark); }
+.btn-whatsapp { background:#1a5c2a; border-color:#1a5c2a; color:var(--branco); }
+.btn-whatsapp:hover { background:transparent; color:#1a5c2a; }
+
+.cta-contact-strip { display:flex; justify-content:center; gap:48px; flex-wrap:wrap; padding-top:40px; border-top:1px solid var(--verde-nebula); }
+.cta-contact-item { display:flex; flex-direction:column; gap:4px; align-items:center; }
+.cta-contact-label { font-size:10px; font-weight:500; letter-spacing:2.5px; text-transform:uppercase; color:var(--texto-leve); }
+.cta-contact-value { font-family:var(--ff-display); font-size:20px; color:var(--verde-profundo); text-decoration:none; transition:color 0.2s; }
+.cta-contact-value:hover { color:var(--verde-claro); }
+
+/* ── FOOTER ── */
+.site-footer { background:var(--verde-profundo); padding:60px 48px 40px; position:relative; overflow:hidden; }
+.site-footer::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right, transparent, var(--accent), transparent); transition:background 0.5s;
+}
+.footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+.footer-brand-name { font-family:var(--ff-display); font-size:26px; font-weight:600; color:var(--branco); letter-spacing:2px; margin-bottom:4px; }
+.footer-brand-sub { font-size:10px; font-weight:300; letter-spacing:3px; text-transform:uppercase; color:var(--accent-light); margin-bottom:20px; transition:color 0.5s; }
+.footer-brand-text { font-size:13px; font-weight:300; color:rgba(255,255,255,0.45); line-height:1.75; }
+.footer-col-title {
+  font-size:10px; font-weight:500; letter-spacing:3px; text-transform:uppercase;
+  color:var(--accent); margin-bottom:24px; padding-bottom:12px;
+  border-bottom:1px solid var(--accent-border); transition:color 0.5s, border-color 0.5s;
+}
+.footer-col-list { display:flex; flex-direction:column; gap:10px; list-style:none; }
+.footer-col-list li { font-size:13px; font-weight:300; color:rgba(255,255,255,0.5); display:flex; gap:10px; align-items:center; }
+.footer-col-list li::before { content:''; width:12px; height:1px; background:var(--verde-sage); flex-shrink:0; }
+.footer-bottom {
+  max-width:1100px; margin:0 auto; padding-top:32px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+}
+.footer-bottom-left { font-size:12px; font-weight:300; color:rgba(255,255,255,0.3); }
+.footer-bottom-right { font-size:11px; font-weight:400; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.25); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr} .hero-right{display:none}
+  .hero-left{padding:120px 32px 64px}
+  .intro-grid,.pricing-grid,.property-grid,.result-inner,.diff-grid{grid-template-columns:1fr}
+  .method-steps{grid-template-columns:1fr 1fr}
+  .marketing-channels{grid-template-columns:1fr}
+  .samples-grid{grid-template-columns:1fr}
+  .site-header{padding:0 24px} .header-nav{display:none}
+  .section-inner{padding:0 24px}
+  .site-footer{padding:48px 24px 32px}
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .cta-inner{padding:64px 24px}
+  .palette-launcher{bottom:24px;left:18px}
+}
+@media(max-width:640px){
+  .method-steps{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .cta-contact-strip{gap:28px}
+}
+</style>
+</head>
+<body data-accent="dourado">
+
+<!-- ===== SELETOR DE PALETA FLUTUANTE ===== -->
+<div class="palette-launcher" id="paletteLauncher">
+  <button class="palette-btn" id="paletteBtn" title="Selecionar cor de destaque" aria-label="Abrir seletor de cores">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+    </svg>
+  </button>
+  <div class="palette-panel" id="palettePanel">
+    <div class="palette-panel-title">Cor de destaque</div>
+    <div class="palette-options" id="paletteOptions"></div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="header">
+  <a href="#" class="header-logo">
+    <div class="header-logo-mark"><span>GDS</span></div>
+    <div class="header-logo-text">
+      <strong id="h-empresa-nome">GDS Imóveis</strong>
+      <small>Consultoria Imobiliária</small>
+    </div>
+  </a>
+  <nav class="header-nav">
+    <a href="#imovel">O Imóvel</a>
+    <a href="#mercado">Mercado</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#resultado">Resultado</a>
+    <a href="#contato" class="header-cta">Falar com consultor</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-diagonal"></div>
+  <div class="hero-left">
+    <div class="hero-pretitle">
+      <div class="hero-pretitle-line"></div>
+      <span>Estudo de Mercado &amp; Plano de Marketing</span>
+    </div>
+    <div class="hero-greeting">Prezado(a),</div>
+    <h1 class="hero-name" id="h-cliente-nome">José Roberto</h1>
+    <p class="hero-desc">Entender o posicionamento real do seu imóvel no mercado é o primeiro passo para uma venda segura, justa e eficiente. Este estudo foi preparado com cuidado para orientar sua decisão com base em dados concretos da região.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num" id="h-anos">16</div><div class="hero-stat-label">Anos de mercado</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" id="h-vendidos">+800</div><div class="hero-stat-label">Imóveis intermediados</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" id="h-corretores">14</div><div class="hero-stat-label">Consultores ativos</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-label">Consultora Responsável</div>
+      <div class="hero-card-img-wrap" id="h-foto-wrap"><div class="initials" id="h-iniciais">SG</div></div>
+      <div class="hero-card-name" id="h-corretor-nome">Sandra Guedes</div>
+      <div class="hero-card-title" id="h-corretor-titulo">Consultora Imobiliária</div>
+      <div class="hero-card-divider"></div>
+      <div class="hero-card-info">
+        <div class="hero-card-info-row">
+          <svg class="hero-card-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <span class="hero-card-info-text" id="h-corretor-tel">(11) 99165-3010</span>
+        </div>
+        <div class="hero-card-info-row">
+          <svg class="hero-card-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span class="hero-card-info-text" id="h-corretor-email">sandra@gdsimoveis.com.br</span>
+        </div>
+        <div class="hero-card-info-row">
+          <svg class="hero-card-info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span class="hero-card-info-text" id="h-corretor-creci">CRECI-SP 98765</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divisor: escuro → claro (fachada) -->
+<svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#14351f">
+  <path d="M0,80 L0,60 L40,60 L40,20 L80,20 L80,0 L120,0 L120,20 L140,20 L140,60 L180,60 L180,40 L220,40 L220,10 L260,10 L260,40 L280,40 L280,60 L320,60 L320,30 L360,30 L360,0 L400,0 L400,30 L430,30 L430,60 L480,60 L480,45 L520,45 L520,15 L560,15 L560,45 L590,45 L590,60 L640,60 L640,35 L680,35 L680,5 L720,5 L720,35 L750,35 L750,60 L800,60 L800,50 L840,50 L840,20 L880,20 L880,50 L910,50 L910,60 L960,60 L960,40 L1000,40 L1000,10 L1040,10 L1040,40 L1070,40 L1070,60 L1120,60 L1120,45 L1160,45 L1160,15 L1200,15 L1200,45 L1230,45 L1230,60 L1280,60 L1280,30 L1320,30 L1320,0 L1360,0 L1360,30 L1400,30 L1400,60 L1440,60 L1440,80 Z" fill="#f5f0e8"/>
+</svg>
+
+<!-- ===== SEÇÃO 1 — INTRODUÇÃO ===== -->
+<section class="intro-section section" id="sobre">
+  <div class="section-inner">
+    <div class="intro-grid">
+      <div class="reveal">
+        <div class="section-label">Contexto</div>
+        <h2 class="section-title">A relação entre preço <em>e velocidade</em> de venda</h2>
+        <p class="section-body">A precificação correta é, sem dúvida, o fator que mais influencia o tempo de venda de um imóvel. Imóveis anunciados acima do valor real de mercado tendem a permanecer mais tempo disponíveis, perdem atratividade ao longo do tempo e, paradoxalmente, costumam ser negociados por valores ainda menores do que o preço justo original.</p>
+        <br>
+        <p class="section-body">Nosso compromisso é orientá-lo com base em dados reais, para que seu imóvel seja posicionado de forma estratégica — atraindo compradores qualificados no menor prazo possível e pelo valor que ele efetivamente representa.</p>
+      </div>
+      <div class="reveal delay-2">
+        <div class="house-illustration">
+          <svg viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="190" cy="265" rx="140" ry="8" fill="#14351f" opacity="0.08"/>
+            <rect x="60" y="140" width="260" height="120" fill="#e8f0eb" stroke="#2d6e3e" stroke-width="1.5"/>
+            <polygon points="40,140 190,40 340,140" fill="#1e4d2b" stroke="#14351f" stroke-width="1"/>
+            <rect x="240" y="65" width="20" height="50" fill="#2d6e3e" stroke="#14351f" stroke-width="1"/>
+            <rect x="90" y="165" width="55" height="50" fill="#b8d4c0" stroke="#2d6e3e" stroke-width="1"/>
+            <line x1="117.5" y1="165" x2="117.5" y2="215" stroke="#2d6e3e" stroke-width="1"/>
+            <line x1="90" y1="190" x2="145" y2="190" stroke="#2d6e3e" stroke-width="1"/>
+            <rect x="235" y="165" width="55" height="50" fill="#b8d4c0" stroke="#2d6e3e" stroke-width="1"/>
+            <line x1="262.5" y1="165" x2="262.5" y2="215" stroke="#2d6e3e" stroke-width="1"/>
+            <line x1="235" y1="190" x2="290" y2="190" stroke="#2d6e3e" stroke-width="1"/>
+            <rect x="158" y="195" width="64" height="65" fill="#1e4d2b" stroke="#14351f" stroke-width="1"/>
+            <rect x="158" y="225" width="64" height="35" fill="#1e4d2b"/>
+            <circle cx="215" cy="235" r="3" fill="#b8956a" class="house-knob"/>
+            <line x1="190" y1="40" x2="190" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+            <line x1="40" y1="260" x2="340" y2="260" stroke="#7aaa89" stroke-width="1" opacity="0.4"/>
+            <circle cx="75" cy="255" r="15" fill="#3d8f52" opacity="0.6"/>
+            <circle cx="88" cy="252" r="12" fill="#2d6e3e" opacity="0.7"/>
+            <circle cx="305" cy="255" r="15" fill="#3d8f52" opacity="0.6"/>
+            <circle cx="292" cy="252" r="12" fill="#2d6e3e" opacity="0.7"/>
+            <line x1="355" y1="140" x2="355" y2="260" stroke="#b8956a" stroke-width="1" opacity="0.4" class="house-measure"/>
+            <line x1="350" y1="140" x2="360" y2="140" stroke="#b8956a" stroke-width="1" opacity="0.4" class="house-measure"/>
+            <line x1="350" y1="260" x2="360" y2="260" stroke="#b8956a" stroke-width="1" opacity="0.4" class="house-measure"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divisor: claro → escuro (planta baixa) -->
+<svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#f5f0e8">
+  <path d="M0,0 L0,60 L1440,60 L1440,0 L1380,0 L1380,30 L1320,30 L1320,0 L1200,0 L1200,20 L1140,20 L1140,0 L1000,0 L1000,30 L940,30 L940,0 L800,0 L800,40 L740,40 L740,0 L600,0 L600,25 L540,25 L540,0 L400,0 L400,35 L340,35 L340,0 L200,0 L200,20 L140,20 L140,0 Z" fill="#14351f"/>
+</svg>
+
+<!-- ===== SEÇÃO 2 — PRECIFICAÇÃO ===== -->
+<section class="pricing-section section" id="mercado">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Precificação Estratégica</div>
+      <h2 class="section-title" style="max-width:560px">Como o preço impacta cada etapa <em>do processo de venda</em></h2>
+      <p class="section-body">A escala abaixo ilustra a relação direta entre o posicionamento de preço e os resultados esperados. Um imóvel corretamente precificado concentra interesse real, gera mais visitas e chega a um acordo em condições favoráveis para ambas as partes.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-scale reveal delay-1">
+        <div class="pricing-bar-row"><div class="pricing-bar-label">Abaixo do mercado</div><div class="pricing-bar-track"><div class="pricing-bar-fill abaixo" style="width:95%"></div></div><div class="pricing-bar-value">Venda rápida</div></div>
+        <div class="pricing-bar-row"><div class="pricing-bar-label">No valor de mercado</div><div class="pricing-bar-track"><div class="pricing-bar-fill mercado" style="width:80%"></div></div><div class="pricing-bar-value">Equilibrado</div></div>
+        <div class="pricing-bar-row"><div class="pricing-bar-label">5% acima</div><div class="pricing-bar-track"><div class="pricing-bar-fill acima" style="width:45%"></div></div><div class="pricing-bar-value">Lento</div></div>
+        <div class="pricing-bar-row"><div class="pricing-bar-label">10% acima</div><div class="pricing-bar-track"><div class="pricing-bar-fill acima" style="width:20%"></div></div><div class="pricing-bar-value">Muito lento</div></div>
+        <div class="pricing-bar-row"><div class="pricing-bar-label">15%+ acima</div><div class="pricing-bar-track"><div class="pricing-bar-fill acima" style="width:5%"></div></div><div class="pricing-bar-value">Estagnado</div></div>
+      </div>
+      <div class="pricing-benefits reveal delay-2" id="pricing-benefits-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Divisor escuro → claro -->
+<svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#14351f">
+  <path d="M0,60 L0,0 L60,0 L60,30 L120,30 L120,0 L260,0 L260,20 L320,20 L320,0 L460,0 L460,40 L520,40 L520,0 L660,0 L660,25 L720,25 L720,0 L860,0 L860,35 L920,35 L920,0 L1060,0 L1060,20 L1120,20 L1120,0 L1260,0 L1260,30 L1320,30 L1320,0 L1440,0 L1440,60 Z" fill="#f5f0e8"/>
+</svg>
+
+<!-- ===== SEÇÃO 3 — IMÓVEL ===== -->
+<section class="property-section section" id="imovel">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Seu Imóvel</div><h2 class="section-title">Características <em>identificadas</em></h2></div>
+    <br>
+    <div class="property-grid">
+      <div class="reveal delay-1">
+        <div class="property-photo">
+          <div class="property-photo-frame">
+            <div class="property-photo-placeholder" id="imovel-foto-placeholder">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><rect x="5" y="35" width="70" height="40" stroke="#7aaa89" stroke-width="1.5" fill="none"/><polygon points="5,35 40,8 75,35" stroke="#7aaa89" stroke-width="1.5" fill="none"/><rect x="30" y="52" width="20" height="23" stroke="#7aaa89" stroke-width="1.5" fill="none"/><rect x="14" y="44" width="15" height="13" stroke="#7aaa89" stroke-width="1" fill="none"/><rect x="51" y="44" width="15" height="13" stroke="#7aaa89" stroke-width="1" fill="none"/></svg>
+            </div>
+          </div>
+          <div class="property-address-badge" id="imovel-badge">Rua das Acácias, 420 — Parque São Domingos</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="property-specs" id="property-specs-list"></div>
+        <div class="property-notes"><div class="property-notes-label">Observações do consultor</div><p class="property-notes-text" id="property-obs"></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 4 — METODOLOGIA ===== -->
+<section class="method-section section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="section-label" style="justify-content:center">Metodologia</div>
+      <h2 class="section-title">Como chegamos <em>à sugestão de preço</em></h2>
+      <p class="section-body" style="margin:0 auto">O estudo é conduzido com base em amostras de imóveis com características comparáveis, coletadas nos principais portais e cruzadas com o histórico de transações da região. Nenhum valor é sugerido sem embasamento objetivo.</p>
+    </div>
+    <div class="method-steps" id="method-steps"></div>
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 5 — AMOSTRAS ===== -->
+<section class="samples-section section">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Amostras do Mercado</div><h2 class="section-title">Imóveis <em>comparáveis</em> identificados na região</h2><p class="section-body">A seguir, os imóveis similares utilizados como referência no estudo. A seleção considera localização, tipologia, área e condições gerais — não apenas resultados de busca automática.</p></div>
+    <div class="samples-grid" id="samples-grid"></div>
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 6 — TABELA ===== -->
+<section class="table-section section">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Análise Comparativa</div><h2 class="section-title">Posicionamento do seu imóvel <em>frente ao mercado</em></h2></div>
+    <div class="compare-table-wrap reveal delay-1">
+      <table class="compare-table">
+        <thead><tr>
+          <th>Endereço</th><th>Área</th><th>Dorm.</th><th>Suítes</th>
+          <th>Banh.</th><th>Vagas</th><th class="hl">Preço</th><th class="hl">Preço/m²</th>
+        </tr></thead>
+        <tbody id="compare-tbody"></tbody>
+      </table>
+    </div>
+    <p class="table-note reveal delay-2">Os valores apresentados são baseados em anúncios ativos nos principais portais de divulgação. A seleção foi realizada com base no conhecimento local e nas características objetivas de cada imóvel. Valores anunciados não são de responsabilidade da GDS Imóveis, mas servem como referência metodológica.</p>
+  </div>
+</section>
+
+<!-- Divisor ondulado claro → escuro -->
+<svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#ede7d9">
+  <path d="M0,50 L0,20 Q180,0 360,20 Q540,40 720,20 Q900,0 1080,20 Q1260,40 1440,20 L1440,50 Z" fill="#14351f"/>
+</svg>
+
+<!-- ===== SEÇÃO 7 — RESULTADO ===== -->
+<section class="result-section" id="resultado">
+  <div class="result-inner">
+    <div class="result-left reveal-left">
+      <div class="section-label">Resultado do Estudo</div>
+      <h2 class="section-title">Valor sugerido <em>para venda</em></h2>
+      <p class="section-body">Com base nas amostras analisadas e nas características específicas do imóvel, chegamos à seguinte sugestão de posicionamento, que equilibra atratividade de mercado e preservação do patrimônio do proprietário.</p>
+    </div>
+    <div class="result-right reveal-right delay-2">
+      <div class="result-price-box">
+        <div class="result-price-label">Valor Sugerido de Venda</div>
+        <div class="result-price-range" id="result-range">Entre R$ 355.000 e R$ 390.000</div>
+        <div class="result-price-value" id="result-value">R$ 370.000</div>
+        <div class="result-price-sqm" id="result-sqm">R$ 4.933 / m²</div>
+        <div class="result-bar"><div class="result-bar-fill" id="result-bar-fill" style="width:65%"></div></div>
+        <div class="result-bar-labels"><span id="result-min">R$ 355.000</span><span>Média de mercado</span><span id="result-max">R$ 390.000</span></div>
+        <div class="result-position-note" id="result-note">Ligeiramente abaixo da média — favorável para atratividade e velocidade de venda.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Divisor escuro → claro (ondulado) -->
+<svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#14351f">
+  <path d="M0,40 L0,20 Q360,0 720,20 Q1080,40 1440,20 L1440,40 Z" fill="#f5f0e8"/>
+</svg>
+
+<!-- ===== SEÇÃO 8 — MARKETING ===== -->
+<section class="marketing-section section" id="marketing">
+  <div class="section-inner">
+    <div class="reveal"><div class="section-label">Plano de Marketing</div><h2 class="section-title">Como iremos <em>apresentar seu imóvel</em> ao mercado</h2><p class="section-body">A divulgação é estruturada em múltiplas frentes simultâneas, garantindo que o imóvel alcance o maior número possível de compradores qualificados na região — e além dela.</p></div>
+    <div class="marketing-channels" id="marketing-channels"></div>
+  </div>
+</section>
+
+<!-- ===== SEÇÃO 9 — DIFERENCIAIS ===== -->
+<section class="diff-section section">
+  <div class="section-inner">
+    <div class="diff-grid">
+      <div>
+        <div class="reveal"><div class="section-label">Por que a GDS</div><h2 class="section-title">Nossos <em>compromissos</em> com você</h2><p class="section-body">Mais do que intermediar uma transação, nosso papel é garantir que cada etapa do processo seja conduzida com transparência, expertise e genuíno cuidado com o seu patrimônio.</p></div>
+        <br>
+        <div class="diff-list" id="diff-list"></div>
+      </div>
+      <div class="diff-numbers" id="diff-numbers"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Divisores curvo triplo -->
+<svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#ede7d9">
+  <path d="M0,60 L0,30 Q360,60 720,30 Q1080,0 1440,30 L1440,60 Z" fill="#14351f"/>
+</svg>
+<svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#14351f">
+  <path d="M0,40 L0,20 Q360,0 720,20 Q1080,40 1440,20 L1440,40 Z" fill="#f5f0e8"/>
+</svg>
+
+<!-- ===== SEÇÃO 10 — CTA ===== -->
+<section class="cta-section" id="contato">
+  <div class="cta-inner">
+    <div class="cta-pretitle reveal">Próximo passo</div>
+    <h2 class="cta-title reveal delay-1">Estamos prontos para <em>iniciar a venda</em> do seu imóvel</h2>
+    <p class="cta-body reveal delay-2">Este estudo representa o primeiro passo de uma parceria comprometida com a venda segura, justa e ágil do seu imóvel. Entre em contato com sua consultora para avançarmos juntos nas próximas etapas.</p>
+    <div class="cta-buttons reveal delay-3" id="cta-buttons"></div>
+    <div class="cta-contact-strip reveal delay-4" id="cta-strip"></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-name" id="f-nome">GDS Imóveis</div>
+      <div class="footer-brand-sub">Guedes Consultoria Imobiliária</div>
+      <p class="footer-brand-text" id="f-slogan">Você fala o que procura.<br>Nós entregamos a melhor opção.</p>
+    </div>
+    <div><div class="footer-col-title">Contato</div><ul class="footer-col-list" id="f-contato"></ul></div>
+    <div><div class="footer-col-title">Sobre a GDS</div><ul class="footer-col-list" id="f-sobre"></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-left" id="f-legal">© 2025 GDS Imóveis — Guedes Consultoria Imobiliária LTDA | CRECI 20451-J-SP</div>
+    <div class="footer-bottom-right">Estudo de Mercado Personalizado</div>
+  </div>
+</footer>
+
+<script>
+/* =============================================
+   JSON DE DADOS DINÂMICOS
+   Atualize os valores abaixo para personalizar
+============================================= */
+const DATA = {
+  empresa: {
+    nome: "GDS Imóveis", razaosocial: "Guedes Consultoria Imobiliária LTDA",
+    creci: "20451-J-SP", endereco: "Av. do Anastácio, 1525 — Parque São Domingos, SP",
+    telefone: "(11) 99165-3010", whatsapp: "5511991653010",
+    email: "contato@gdsimoveis.com.br", site: "www.gdsimoveis.com.br",
+    slogan: "Você fala o que procura. Nós entregamos a melhor opção.",
+    anos: 16, imoveis_vendidos: "+800", corretores: 14, clientes_ano: "+240"
+  },
+  corretor: {
+    nome: "Sandra Guedes", titulo: "Consultora Imobiliária", creci: "CRECI-SP 98765",
+    telefone: "(11) 99165-3010", email: "sandra@gdsimoveis.com.br", foto: "", iniciais: "SG"
+  },
+  cliente: { nome: "José Roberto", tratamento: "Sr. José Roberto" },
+  imovel: {
+    tipo: "Casa", endereco: "Rua das Acácias, 420", bairro: "Parque São Domingos",
+    cidade: "São Paulo — SP", ano_construcao: 2003, area: "75", dormitorios: "2",
+    suites: "1", banheiros: "2", vagas: "1", portaria: "Não possui",
+    infraestrutura: "Área de serviço, quintal", posicao_solar: "Leste",
+    estado: "Bom", mobiliado: "Semi-mobiliado", demanda_regiao: "Alta", foto: "",
+    observacoes: "O imóvel encontra-se desabitado no momento, com conservação adequada e excelente potencial de valorização dado o crescimento da região."
+  },
+  avaliacao: {
+    valor_sugerido: "R$ 370.000", valor_min: "R$ 355.000", valor_max: "R$ 390.000",
+    valor_sqm: "R$ 4.933/m²", media_amostras: "R$ 378.000", barra_pct: 0.65,
+    posicao: "Ligeiramente abaixo da média — favorável para atratividade e velocidade de venda."
+  },
+  amostras: [
+    { bairro:"Vila Tupi",    endereco:"Rua Cataguases",           area:"116m²",dormitorios:"3",suites:"1",banheiros:"2",vagas:"2",preco:"R$ 410.000",preco_sqm:"R$ 3.534/m²",foto:"",link:"https://www.vivareal.com.br" },
+    { bairro:"Vila Tupi",    endereco:"Rua S. Leonardo Villas Boas",area:"70m²",dormitorios:"2",suites:"0",banheiros:"2",vagas:"2",preco:"R$ 380.000",preco_sqm:"R$ 5.428/m²",foto:"",link:"https://www.vivareal.com.br" },
+    { bairro:"Vila Tupiry",  endereco:"Rua João Balbino Correa, 129",area:"69m²",dormitorios:"2",suites:"1",banheiros:"2",vagas:"0",preco:"R$ 319.990",preco_sqm:"R$ 4.637/m²",foto:"",link:"https://www.imovelweb.com.br" },
+    { bairro:"Vila Tupiry",  endereco:"Sem endereço de rua",      area:"70m²",dormitorios:"2",suites:"0",banheiros:"1",vagas:"2",preco:"R$ 360.000",preco_sqm:"R$ 5.142/m²",foto:"",link:"https://www.imovelweb.com.br" },
+    { bairro:"Vila Tupiry",  endereco:"Rua C. Luiz Gonzaga, 8105",area:"75m²",dormitorios:"1",suites:"0",banheiros:"1",vagas:"1",preco:"R$ 220.000",preco_sqm:"R$ 2.933/m²",foto:"",link:"https://www.imovelweb.com.br" }
+  ],
+  marketing: {
+    portais: ["VivaReal","ZAP Imóveis","ImovelWeb","OLX","Site GDS"],
+    redes:   ["Instagram","Facebook","Google Ads","Meta Ads","WhatsApp Business"],
+    acoes:   ["Fotografia profissional","Vídeo do imóvel","Tour virtual 360°","Placa no imóvel","E-mail marketing segmentado","Visita com corretores parceiros","Relatório de feedback periódico"]
+  },
+  diferenciais: [
+    { titulo:"Avaliação sem custo",        texto:"O estudo de mercado é realizado sem qualquer ônus ao proprietário, com metodologia comparativa e critérios objetivos." },
+    { titulo:"Assessoria financeira",      texto:"Somos correspondentes bancários credenciados pelo Itaú Unibanco, oferecendo condições exclusivas de financiamento aos compradores." },
+    { titulo:"Divulgação em múltiplos canais",texto:"O imóvel é anunciado simultaneamente nos principais portais do país e nas redes sociais, com gestão de mídia profissional." },
+    { titulo:"Rede de corretores parceiros",texto:"Contamos com uma rede ativa de corretores na região, multiplicando as chances de encontrar o comprador ideal." },
+    { titulo:"Feedback estruturado",       texto:"O proprietário recebe relatórios periódicos sobre o andamento das ações, visitas realizadas e percepções de mercado." },
+    { titulo:"Exclusividade com compromisso",texto:"A captação exclusiva garante foco total, evitando conflitos de precificação e preservando o valor percebido do imóvel." }
+  ],
+  numeros: [
+    { valor:"16",   sufixo:" anos", label:"de atuação no mercado" },
+    { valor:"+800", sufixo:"",      label:"imóveis vendidos e locados" },
+    { valor:"14",   sufixo:"",      label:"consultores especializados" }
+  ]
+};
+
+/* =============================================
+   PALETA DE CORES SECUNDÁRIAS
+============================================= */
+const PALETTES = [
+  {
+    id: "dourado", nome: "Dourado", desc: "Clássico e refinado",
+    swatch: "#b8956a",
+    grupo: "Clássicos"
+  },
+  {
+    id: "prata", nome: "Prata", desc: "Neutro e contemporâneo",
+    swatch: "#9aa5ad",
+    grupo: "Clássicos"
+  },
+  {
+    id: "bronze", nome: "Bronze", desc: "Robusto e tradicional",
+    swatch: "#9c6b3c",
+    grupo: "Clássicos"
+  },
+  {
+    id: "branco", nome: "Branco Marfim", desc: "Minimalista e limpo",
+    swatch: "#d8d0c0",
+    grupo: "Clássicos"
+  },
+  {
+    id: "cobre", nome: "Cobre", desc: "Calidez e modernidade",
+    swatch: "#b06040",
+    grupo: "Imobiliário"
+  },
+  {
+    id: "ardosia", nome: "Ardósia", desc: "Sofisticação de revestimentos",
+    swatch: "#7a8e85",
+    grupo: "Imobiliário"
+  },
+  {
+    id: "terracota", nome: "Terracota", desc: "Solo e construção",
+    swatch: "#a0614a",
+    grupo: "Imobiliário"
+  }
+];
+
+(function () {
+
+  /* ── RENDER PALETA ───────────────── */
+  const optContainer = document.getElementById('paletteOptions');
+  let currentAccent  = localStorage.getItem('gds-accent') || 'dourado';
+
+  function buildPalette() {
+    let lastGroup = null;
+    PALETTES.forEach(p => {
+      if (p.grupo !== lastGroup) {
+        if (lastGroup !== null) {
+          const sep = document.createElement('div');
+          sep.className = 'palette-separator';
+          optContainer.appendChild(sep);
+        }
+        lastGroup = p.grupo;
+      }
+      const el = document.createElement('div');
+      el.className = 'palette-option' + (p.id === currentAccent ? ' active' : '');
+      el.dataset.accent = p.id;
+      el.innerHTML = `
+        <div class="palette-swatch" style="background:${p.swatch}"></div>
+        <div class="palette-option-info">
+          <span class="palette-option-name">${p.nome}</span>
+          <span class="palette-option-desc">${p.desc}</span>
+        </div>`;
+      el.addEventListener('click', () => applyAccent(p.id));
+      optContainer.appendChild(el);
+    });
+  }
+
+  function applyAccent(id) {
+    document.body.setAttribute('data-accent', id);
+    currentAccent = id;
+    localStorage.setItem('gds-accent', id);
+    document.querySelectorAll('.palette-option').forEach(o => {
+      o.classList.toggle('active', o.dataset.accent === id);
+    });
+    // Atualiza a borda do botão para refletir a cor ativa
+    const pal = PALETTES.find(p => p.id === id);
+    if (pal) {
+      document.getElementById('paletteBtn').style.borderColor = pal.swatch;
+      document.querySelector('.palette-btn svg').style.color = pal.swatch;
+    }
+    closePalette();
+  }
+
+  // Abre / fecha painel
+  const btn   = document.getElementById('paletteBtn');
+  const panel = document.getElementById('palettePanel');
+
+  function openPalette()  { panel.classList.add('open'); btn.classList.add('open'); }
+  function closePalette() { panel.classList.remove('open'); btn.classList.remove('open'); }
+  function togglePalette(){ panel.classList.contains('open') ? closePalette() : openPalette(); }
+
+  btn.addEventListener('click', e => { e.stopPropagation(); togglePalette(); });
+  document.addEventListener('click', e => {
+    if (!document.getElementById('paletteLauncher').contains(e.target)) closePalette();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePalette(); });
+
+  buildPalette();
+  applyAccent(currentAccent); // aplica cor salva ou default
+
+  /* ── RENDER DINÂMICO ───────────────── */
+  const D = DATA;
+
+  // Header / Hero
+  document.getElementById('h-empresa-nome').textContent   = D.empresa.nome;
+  document.getElementById('h-cliente-nome').textContent   = D.cliente.tratamento || D.cliente.nome;
+  document.getElementById('h-anos').textContent           = D.empresa.anos;
+  document.getElementById('h-vendidos').textContent       = D.empresa.imoveis_vendidos;
+  document.getElementById('h-corretores').textContent     = D.empresa.corretores;
+  document.getElementById('h-iniciais').textContent       = D.corretor.iniciais;
+  document.getElementById('h-corretor-nome').textContent  = D.corretor.nome;
+  document.getElementById('h-corretor-titulo').textContent= D.corretor.titulo;
+  document.getElementById('h-corretor-tel').textContent   = D.corretor.telefone;
+  document.getElementById('h-corretor-email').textContent = D.corretor.email;
+  document.getElementById('h-corretor-creci').textContent = D.corretor.creci;
+
+  if (D.corretor.foto) {
+    document.getElementById('h-foto-wrap').innerHTML =
+      `<img src="${D.corretor.foto}" alt="${D.corretor.nome}">`;
+  }
+
+  // Imóvel
+  const im = D.imovel;
+  document.getElementById('imovel-badge').textContent = im.endereco + (im.bairro ? ' — ' + im.bairro : '');
+  document.getElementById('property-obs').textContent = im.observacoes;
+
+  const specs = [
+    { k:'Tipo',                v: im.tipo },
+    { k:'Bairro',              v: im.bairro + ' — ' + im.cidade },
+    { k:'Ano de construção',   v: im.ano_construcao },
+    { k:'Área privativa',      v: im.area + ' m²' },
+    { k:'Dormitórios',         v: im.dormitorios },
+    { k:'Suítes',              v: im.suites },
+    { k:'Banheiros',           v: im.banheiros },
+    { k:'Vagas de garagem',    v: im.vagas },
+    { k:'Portaria',            v: im.portaria },
+    { k:'Posição solar',       v: im.posicao_solar },
+    { k:'Estado de conservação',v: im.estado },
+    { k:'Mobiliado',           v: im.mobiliado },
+    { k:'Demanda da região',   v: im.demanda_regiao },
+  ];
+  const sl = document.getElementById('property-specs-list');
+  specs.forEach(s => {
+    const r = document.createElement('div');
+    r.className = 'property-spec-row';
+    r.innerHTML = `<span class="property-spec-key">${s.k}</span><span class="property-spec-val">${s.v}</span>`;
+    sl.appendChild(r);
+  });
+
+  // Benefícios precificação
+  const benefits = [
+    'Maior número de compradores interessados e de visitas qualificadas',
+    'Corretores parceiros motivados a apresentar o imóvel a seus clientes',
+    'Negociações mais favoráveis e propostas mais próximas do valor pedido',
+    'Menor risco de perda patrimonial por estagnação prolongada no mercado'
+  ];
+  const pbList = document.getElementById('pricing-benefits-list');
+  benefits.forEach((b, i) => {
+    const el = document.createElement('div');
+    el.className = 'pricing-benefit reveal delay-' + (i + 1);
+    el.innerHTML = `<div class="pricing-benefit-num">${String(i+1).padStart(2,'0')}</div><div class="pricing-benefit-text">${b}</div>`;
+    pbList.appendChild(el);
+  });
+
+  // Metodologia
+  const methodSteps = [
+    { n:'01', t:'Coleta de amostras',  tx:'Identificamos imóveis com características comparáveis nas proximidades, usando os principais portais e nossa base de dados local.' },
+    { n:'02', t:'Análise de variáveis',tx:'Cruzamos área, tipologia, infraestrutura, conservação e posição solar para uma comparação objetiva e ponderada.' },
+    { n:'03', t:'Ajuste de mercado',   tx:'Aplicamos fatores de correção com base na demanda atual da região e nas condições específicas do imóvel analisado.' },
+    { n:'04', t:'Sugestão de valor',   tx:'Chegamos a uma faixa de preço estratégica que equilibra a atratividade para compradores com a preservação do seu patrimônio.' },
+  ];
+  const ms = document.getElementById('method-steps');
+  methodSteps.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = `method-step reveal delay-${i+1}`;
+    el.innerHTML = `<div class="method-step-num">${s.n}</div><div class="method-step-title">${s.t}</div><div class="method-step-text">${s.tx}</div>`;
+    ms.appendChild(el);
+  });
+
+  // Amostras
+  const grid = document.getElementById('samples-grid');
+  D.amostras.forEach((a, i) => {
+    const el = document.createElement('div');
+    el.className = `sample-card reveal delay-${(i % 3) + 1}`;
+    const imgHtml = a.foto
+      ? `<img class="sample-card-img" src="${a.foto}" alt="${a.endereco}">`
+      : `<div class="sample-card-img-placeholder"><svg width="40" height="32" viewBox="0 0 40 32" fill="none"><rect x="1" y="12" width="38" height="20" stroke="#7aaa89" stroke-width="1"/><polygon points="1,12 20,1 39,12" stroke="#7aaa89" stroke-width="1" fill="none"/><rect x="14" y="19" width="12" height="13" stroke="#7aaa89" stroke-width="1" fill="none"/></svg></div>`;
+    el.innerHTML = `${imgHtml}<div class="sample-card-body"><div class="sample-card-neighborhood">${a.bairro}</div><div class="sample-card-address">${a.endereco}</div><div class="sample-card-specs"><span class="sample-card-spec">${a.area}</span><span class="sample-card-spec">${a.dormitorios} dorm.</span><span class="sample-card-spec">${a.vagas} vaga(s)</span></div><div class="sample-card-price">${a.preco} <small>${a.preco_sqm}</small></div>${a.link ? `<a class="sample-card-link" href="${a.link}" target="_blank" rel="noopener">Ver anúncio original</a>` : ''}</div>`;
+    grid.appendChild(el);
+  });
+
+  // Tabela
+  const tbody = document.getElementById('compare-tbody');
+  const av = D.avaliacao;
+  const trSubj = document.createElement('tr');
+  trSubj.className = 'subject-row';
+  trSubj.innerHTML = `<td>${im.endereco}</td><td>${im.area} m²</td><td>${im.dormitorios}</td><td>${im.suites}</td><td>${im.banheiros}</td><td>${im.vagas}</td><td class="price-col">${av.valor_sugerido}</td><td class="price-col">${av.valor_sqm}</td>`;
+  tbody.appendChild(trSubj);
+  D.amostras.forEach(a => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${a.endereco}</td><td>${a.area}</td><td>${a.dormitorios}</td><td>${a.suites}</td><td>${a.banheiros}</td><td>${a.vagas}</td><td class="price-col">${a.preco}</td><td>${a.preco_sqm}</td>`;
+    tbody.appendChild(tr);
+  });
+  const trMedia = document.createElement('tr');
+  trMedia.style.cssText = 'background:rgba(45,110,62,0.04)';
+  trMedia.innerHTML = `<td colspan="6" style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--texto-leve);font-weight:500">Média das amostras</td><td class="price-col" style="color:var(--accent);transition:color .5s">${av.media_amostras}</td><td></td>`;
+  tbody.appendChild(trMedia);
+
+  // Resultado
+  document.getElementById('result-range').textContent = 'Entre ' + av.valor_min + ' e ' + av.valor_max;
+  document.getElementById('result-value').textContent = av.valor_sugerido;
+  document.getElementById('result-sqm').textContent   = av.valor_sqm;
+  document.getElementById('result-min').textContent   = av.valor_min;
+  document.getElementById('result-max').textContent   = av.valor_max;
+  document.getElementById('result-note').textContent  = av.posicao;
+  document.getElementById('result-bar-fill').style.width = (av.barra_pct * 100) + '%';
+
+  // Marketing
+  const mIcons = {
+    portais:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    redes:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+    acoes:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`,
+  };
+  const mChans = [
+    { key:'portais', nome:'Portais Imobiliários',      texto:'O imóvel será anunciado simultaneamente nos principais portais do país, com fotos e descrição profissional.',                            tags: D.marketing.portais },
+    { key:'redes',   nome:'Redes Sociais e Mídia Digital',texto:'Campanhas gerenciadas profissionalmente para alcançar compradores ativos nas plataformas digitais de maior alcance.',            tags: D.marketing.redes },
+    { key:'acoes',   nome:'Ações Dedicadas ao Imóvel', texto:'Cada imóvel recebe um conjunto personalizado de ações que ampliam sua visibilidade e percepção de valor.',                          tags: D.marketing.acoes },
+  ];
+  const mGrid = document.getElementById('marketing-channels');
+  mChans.forEach((c, i) => {
+    const el = document.createElement('div');
+    el.className = `marketing-channel reveal delay-${i+1}`;
+    el.innerHTML = `<div class="marketing-channel-icon">${mIcons[c.key]}</div><div class="marketing-channel-name">${c.nome}</div><div class="marketing-channel-text">${c.texto}</div><div class="marketing-channel-tags">${c.tags.map(t=>`<span class="marketing-channel-tag">${t}</span>`).join('')}</div>`;
+    mGrid.appendChild(el);
+  });
+
+  // Diferenciais
+  const dList = document.getElementById('diff-list');
+  D.diferenciais.forEach((d, i) => {
+    const el = document.createElement('div');
+    el.className = `diff-item reveal delay-${(i % 3) + 1}`;
+    el.innerHTML = `<div class="diff-item-accent"></div><div class="diff-item-content"><div class="diff-item-title">${d.titulo}</div><div class="diff-item-text">${d.texto}</div></div>`;
+    dList.appendChild(el);
+  });
+  const dNums = document.getElementById('diff-numbers');
+  D.numeros.forEach((n, i) => {
+    const el = document.createElement('div');
+    el.className = `diff-number-item reveal-right delay-${i+1}`;
+    el.innerHTML = `<div class="diff-number-val">${n.valor}<span style="font-size:24px;opacity:.6">${n.sufixo}</span></div><div class="diff-number-label">${n.label}</div>`;
+    dNums.appendChild(el);
+  });
+
+  // CTA
+  const waLink = `https://wa.me/${D.empresa.whatsapp}?text=${encodeURIComponent('Olá, ' + D.corretor.nome + '! Gostaria de dar continuidade ao estudo de mercado do meu imóvel.')}`;
+  document.getElementById('cta-buttons').innerHTML = `
+    <a href="${waLink}" target="_blank" class="btn-primary btn-whatsapp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Falar pelo WhatsApp
+    </a>
+    <a href="mailto:${D.corretor.email}" class="btn-secondary">Enviar e-mail</a>
+    <a href="tel:${D.corretor.telefone.replace(/\D/g,'')}" class="btn-secondary">Ligar agora</a>`;
+
+  document.getElementById('cta-strip').innerHTML = `
+    <div class="cta-contact-item"><div class="cta-contact-label">Consultora</div><span class="cta-contact-value">${D.corretor.nome}</span></div>
+    <div class="cta-contact-item"><div class="cta-contact-label">Telefone</div><a class="cta-contact-value" href="tel:${D.corretor.telefone.replace(/\D/g,'')}">${D.corretor.telefone}</a></div>
+    <div class="cta-contact-item"><div class="cta-contact-label">E-mail</div><a class="cta-contact-value" href="mailto:${D.corretor.email}">${D.corretor.email}</a></div>
+    <div class="cta-contact-item"><div class="cta-contact-label">CRECI</div><span class="cta-contact-value" style="cursor:default">${D.empresa.creci}</span></div>`;
+
+  // Footer
+  document.getElementById('f-nome').textContent  = D.empresa.nome;
+  document.getElementById('f-legal').textContent = `© ${new Date().getFullYear()} ${D.empresa.nome} — ${D.empresa.razaosocial} | ${D.empresa.creci}`;
+  document.getElementById('f-contato').innerHTML = `<li>${D.empresa.telefone}</li><li>${D.empresa.email}</li><li>${D.empresa.site}</li><li>${D.empresa.endereco}</li>`;
+  document.getElementById('f-sobre').innerHTML   = `<li>${D.empresa.anos} anos de atuação</li><li>${D.empresa.imoveis_vendidos} imóveis intermediados</li><li>${D.empresa.corretores} consultores especializados</li><li>Correspondente Bancário — Itaú Unibanco</li>`;
+
+  /* ── SCROLL REVEAL ───────────────── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => obs.observe(el));
+
+  /* ── BARRAS PRECIFICAÇÃO ─────────── */
+  const barRows = document.querySelectorAll('.pricing-bar-row');
+  const barObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      barRows.forEach((r, i) => setTimeout(() => r.classList.add('active'), i * 180));
+      barObs.disconnect();
+    }
+  }, { threshold: 0.3 });
+  if (barRows.length) barObs.observe(barRows[0]);
+
+  /* ── RESULTADO BAR ───────────────── */
+  const resultFill = document.getElementById('result-bar-fill');
+  if (resultFill) {
+    const resObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { resultFill.classList.add('active'); resObs.disconnect(); }
+    }, { threshold: 0.3 });
+    resObs.observe(resultFill);
+  }
+
+  /* ── HEADER SCROLL ───────────────── */
+  const hdr = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    hdr.style.background = window.scrollY > 60 ? 'rgba(20,53,31,0.99)' : 'rgba(20,53,31,0.96)';
+  }, { passive: true });
+
+})();
+</script>
+</body>
+</html>

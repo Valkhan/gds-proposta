@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionário de Sondagem — GDS Imóveis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-escuro: #1a4a2e;
+    --verde-medio: #2d7a4f;
+    --verde-claro: #4caf7d;
+    --verde-menta: #a8d5b8;
+    --verde-fundo: #f0f7f3;
+    --ouro: #c9a84c;
+    --texto: #1c2b22;
+    --texto-leve: #4a6555;
+    --branco: #ffffff;
+    --borda: #d4e8dc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--verde-fundo);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%);
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 30%;
+    width: 400px; height: 200px;
+    border-radius: 50%;
+    background: rgba(76,175,125,0.12);
+  }
+
+  .header-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 6px 18px 6px 8px;
+    margin-bottom: 28px;
+  }
+
+  .logo-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--verde-escuro);
+  }
+
+  .logo-tag span {
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--branco);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .header h1 em {
+    color: var(--verde-claro);
+    font-style: normal;
+  }
+
+  .header p {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  .badge-strip {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: var(--branco);
+    border-bottom: 1px solid var(--borda);
+    padding: 0 40px;
+  }
+
+  .progress-bar-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 5px;
+    background: var(--borda);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde-medio), var(--verde-claro));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--texto-leve);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* MAIN FORM */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--borda);
+  }
+
+  .section-number {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--verde-escuro);
+    color: var(--branco);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--verde-escuro);
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    color: var(--texto-leve);
+    margin-top: 2px;
+  }
+
+  /* FIELDS */
+  .field-group {
+    display: grid;
+    gap: 20px;
+  }
+
+  .field-group.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto);
+    letter-spacing: 0.3px;
+  }
+
+  .field label .obrig {
+    color: var(--verde-medio);
+    margin-left: 3px;
+  }
+
+  .field label .hint {
+    font-weight: 400;
+    color: var(--texto-leve);
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    padding: 12px 16px;
+    border: 1.5px solid var(--borda);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--texto);
+    background: var(--branco);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    border-color: var(--verde-medio);
+    box-shadow: 0 0 0 3px rgba(45,122,79,0.1);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.6;
+  }
+
+  .field select {
+    cursor: pointer;
+  }
+
+  /* CHECKBOX GROUP */
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--borda);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--branco);
+  }
+
+  .checkbox-item:hover {
+    border-color: var(--verde-claro);
+    background: #f5fbf7;
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--verde-medio);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-item input[type="checkbox"]:checked + span {
+    color: var(--verde-escuro);
+    font-weight: 600;
+  }
+
+  .checkbox-item:has(input:checked) {
+    border-color: var(--verde-medio);
+    background: #edf7f2;
+  }
+
+  .checkbox-item span {
+    font-size: 13px;
+    color: var(--texto);
+    line-height: 1.4;
+  }
+
+  /* RADIO CARDS */
+  .radio-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .radio-card {
+    position: relative;
+  }
+
+  .radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+  }
+
+  .radio-card label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 12px;
+    border: 1.5px solid var(--borda);
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    background: var(--branco);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--texto);
+  }
+
+  .radio-card label .icon {
+    font-size: 22px;
+  }
+
+  .radio-card input:checked + label {
+    border-color: var(--verde-medio);
+    background: #edf7f2;
+    color: var(--verde-escuro);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(45,122,79,0.15);
+  }
+
+  /* TEXTAREA LARGE */
+  .textarea-large {
+    min-height: 120px !important;
+  }
+
+  /* INFO BOX */
+  .info-box {
+    background: linear-gradient(135deg, #e8f5ee, #f0f9f4);
+    border: 1px solid var(--verde-menta);
+    border-left: 4px solid var(--verde-medio);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--texto-leve);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  .info-box strong {
+    color: var(--verde-escuro);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--borda);
+    margin: 8px 0 24px;
+  }
+
+  /* SUBMIT */
+  .submit-section {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 36px;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  .submit-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--verde-escuro);
+    margin-bottom: 10px;
+  }
+
+  .submit-section p {
+    font-size: 14px;
+    color: var(--texto-leve);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--verde-escuro), var(--verde-medio));
+    color: var(--branco);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(26,74,46,0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(26,74,46,0.4);
+  }
+
+  .btn-submit svg {
+    width: 18px; height: 18px;
+  }
+
+  /* RESULT */
+  #resultado {
+    display: none;
+    margin-top: 40px;
+    background: var(--verde-escuro);
+    border-radius: 16px;
+    padding: 36px;
+    color: var(--branco);
+  }
+
+  #resultado h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--verde-claro);
+  }
+
+  #resultado p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  #resultado pre {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 24px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--verde-menta);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-family: 'DM Mono', 'Courier New', monospace;
+  }
+
+  .btn-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--branco);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .header { padding: 32px 20px; }
+    .container { padding: 32px 20px 60px; }
+    .field-group.cols-2 { grid-template-columns: 1fr; }
+    .header h1 { font-size: 26px; }
+    .progress-bar-wrap { padding: 0 20px; }
+    .submit-section { padding: 24px 20px; }
+  }
+
+  /* ANIMATION */
+  .section {
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+  .section:nth-child(8) { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-tag">
+      <div class="logo-dot">GDS</div>
+      <span>GDS Imóveis — Guedes Consultoria Imobiliária</span>
+    </div>
+    <h1>Questionário de <em>Sondagem Institucional</em></h1>
+    <p>Preencha os dados da empresa para gerar o conteúdo da apresentação comercial GDS. As respostas alimentarão automaticamente os tópicos do documento de estudo de mercado e plano de marketing.</p>
+    <div class="badge-strip">
+      <span class="badge">📍 Parque São Domingos, SP</span>
+      <span class="badge">📋 8 seções</span>
+      <span class="badge">⏱ ~10 minutos</span>
+      <span class="badge">🔒 Apenas dados da empresa</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-inner">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-label" id="progressLabel">0% preenchido</span>
+  </div>
+</div>
+
+<div class="container">
+  <form id="formGDS" novalidate>
+
+    <!-- SEÇÃO 1 — IDENTIDADE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div>
+          <div class="section-title">Identidade da Empresa</div>
+          <div class="section-subtitle">Dados institucionais que aparecem no cabeçalho e rodapé da apresentação</div>
+        </div>
+      </div>
+      <div class="field-group cols-2">
+        <div class="field">
+          <label>Nome fantasia da empresa <span class="obrig">*</span></label>
+          <input type="text" name="nome_empresa" placeholder="Ex: GDS Imóveis" required>
+        </div>
+        <div class="field">
+          <label>Razão social <span class="obrig">*</span></label>
+          <input type="text" name="razao_social" placeholder="Ex: Guedes Consultoria Imobiliária LTDA">
+        </div>
+        <div class="field">
+          <label>CRECI <span class="obrig">*</span></label>
+          <input type="text" name="creci" placeholder="Ex: 20451-J-SP">
+        </div>
+        <div class="field">
+          <label>Ano de fundação</label>
+          <input type="number" name="ano_fundacao" placeholder="Ex: 2010" min="1900" max="2025">
+        </div>
+        <div class="field">
+          <label>Endereço completo</label>
+          <input type="text" name="endereco" placeholder="Ex: Av. do Anastácio, 1525 — Parque São Domingos, SP">
+        </div>
+        <div class="field">
+          <label>Telefone / WhatsApp principal</label>
+          <input type="text" name="telefone" placeholder="Ex: (11) 99165-3010">
+        </div>
+        <div class="field">
+          <label>E-mail de contato</label>
+          <input type="email" name="email" placeholder="contato@gdsimoveis.com.br">
+        </div>
+        <div class="field">
+          <label>Site</label>
+          <input type="url" name="site" placeholder="https://www.gdsimoveis.com.br">
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2 — POSICIONAMENTO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div>
+          <div class="section-title">Posicionamento & Proposta de Valor</div>
+          <div class="section-subtitle">O que torna a GDS única no mercado — base do discurso comercial</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Tagline ou slogan atual da empresa <span class="obrig">*</span>
+            <span class="hint">A frase que resume a promessa da GDS ao cliente</span>
+          </label>
+          <input type="text" name="tagline" placeholder='Ex: "Você fala o que procura, nós entregamos a melhor opção"'>
+        </div>
+        <div class="field">
+          <label>Qual o principal diferencial competitivo da GDS frente a outras imobiliárias? <span class="obrig">*</span>
+            <span class="hint">Liste até 3 diferenciais reais, não genéricos</span>
+          </label>
+          <textarea name="diferenciais" class="textarea-large" placeholder="Ex: 1. Atendimento exclusivo por bairro com corretores especialistas&#10;2. Sistema de busca por código próprio&#10;3. Parceria com Itaú Unibanco para financiamento sem burocracia"></textarea>
+        </div>
+        <div class="field">
+          <label>Qual a principal dor do proprietário que a GDS resolve?
+            <span class="hint">O problema número 1 que faz alguém escolher a GDS para vender ou alugar seu imóvel</span>
+          </label>
+          <textarea name="dor_proprietario" placeholder="Ex: Dificuldade em precificar corretamente, demora para vender, insegurança no processo..."></textarea>
+        </div>
+        <div class="field">
+          <label>A GDS tem alguma especialidade de nicho ou tipo de imóvel?</label>
+          <div class="checkbox-group" style="margin-top:4px">
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="residencial"><span>🏠 Residencial (casas/sobrados)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="apartamentos"><span>🏢 Apartamentos</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="comercial"><span>🏪 Comercial</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="locacao"><span>🔑 Locação residencial</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="lancamentos"><span>🏗 Lançamentos / novos</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="nicho[]" value="terrenos"><span>🌳 Terrenos</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3 — ÁREA DE ATUAÇÃO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div>
+          <div class="section-title">Área de Atuação & Mercado</div>
+          <div class="section-subtitle">Onde a GDS atua e quem ela atende</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Principais bairros / regiões de atuação <span class="obrig">*</span>
+            <span class="hint">Liste os bairros onde a GDS tem maior presença e conhecimento de mercado</span>
+          </label>
+          <textarea name="bairros_atuacao" placeholder="Ex: Parque São Domingos, Pirituba, Lapa, Vila Anastácio, City América, Limão..."></textarea>
+        </div>
+        <div class="field cols-2">
+          <label>Número aproximado de imóveis ativos em carteira</label>
+          <div class="radio-cards">
+            <div class="radio-card"><input type="radio" name="carteira" id="c1" value="ate_100"><label for="c1"><span class="icon">📦</span>Até 100</label></div>
+            <div class="radio-card"><input type="radio" name="carteira" id="c2" value="100_300"><label for="c2"><span class="icon">📦</span>100 a 300</label></div>
+            <div class="radio-card"><input type="radio" name="carteira" id="c3" value="300_600"><label for="c3"><span class="icon">📦</span>300 a 600</label></div>
+            <div class="radio-card"><input type="radio" name="carteira" id="c4" value="acima_600"><label for="c4"><span class="icon">📦</span>Acima de 600</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Tempo médio de venda de um imóvel bem precificado
+            <span class="hint">Dado de mercado que será usado na seção de precificação</span>
+          </label>
+          <div class="radio-cards">
+            <div class="radio-card"><input type="radio" name="tempo_venda" id="tv1" value="ate_30"><label for="tv1"><span class="icon">⚡</span>Até 30 dias</label></div>
+            <div class="radio-card"><input type="radio" name="tempo_venda" id="tv2" value="30_60"><label for="tv2"><span class="icon">🕐</span>30 a 60 dias</label></div>
+            <div class="radio-card"><input type="radio" name="tempo_venda" id="tv3" value="60_90"><label for="tv3"><span class="icon">📅</span>60 a 90 dias</label></div>
+            <div class="radio-card"><input type="radio" name="tempo_venda" id="tv4" value="acima_90"><label for="tv4"><span class="icon">🗓</span>+90 dias</label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 4 — PLANO DE MARKETING -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div>
+          <div class="section-title">Plano de Marketing & Divulgação</div>
+          <div class="section-subtitle">Quais canais e ações a GDS utiliza para promover os imóveis dos clientes</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Portais imobiliários onde a GDS anuncia <span class="obrig">*</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="vivareal"><span>VivaReal</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="zap"><span>ZAP Imóveis</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="olx"><span>OLX</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="imovelweb"><span>ImovelWeb</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="mgfimoveis"><span>MGF Imóveis</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="portais[]" value="sitepróprio"><span>Site Próprio GDS</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Canais de redes sociais ativos <span class="obrig">*</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="instagram"><span>Instagram</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="facebook"><span>Facebook</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="google_ads"><span>Google Ads</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="meta_ads"><span>Meta Ads (impulsionamento)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="youtube"><span>YouTube</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="redes[]" value="whatsapp"><span>WhatsApp Business</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Ações de marketing que a GDS realiza para imóveis captados</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="fotos_prof"><span>📸 Fotos profissionais</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="video"><span>🎥 Vídeo do imóvel</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="tour_virtual"><span>🔭 Tour virtual / 360°</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="drone"><span>🚁 Foto aérea / drone</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="placa"><span>🪧 Placa no imóvel</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="email_mkt"><span>📧 E-mail marketing</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="visita_corretores"><span>👥 Visita com corretores parceiros</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="flyer"><span>📄 Flyers / materiais físicos</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="open_house"><span>🏡 Open House</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="acoes[]" value="feedback"><span>📊 Relatório de feedback periódico</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Descreva a periodicidade e formato do feedback ao proprietário
+            <span class="hint">Ex: relatório semanal por WhatsApp, reunião mensal, dashboard online...</span>
+          </label>
+          <textarea name="feedback_proprietario" placeholder="Descreva como a GDS mantém o proprietário informado sobre as ações e resultados..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 5 — FINANCIAMENTO E SERVIÇOS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div>
+          <div class="section-title">Serviços Adicionais & Parceiros</div>
+          <div class="section-subtitle">Serviços que ampliam a proposta de valor da GDS</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>A GDS oferece suporte a financiamento imobiliário? <span class="obrig">*</span></label>
+          <div class="radio-cards">
+            <div class="radio-card"><input type="radio" name="financiamento" id="fn1" value="sim_correspondente"><label for="fn1"><span class="icon">🏦</span>Sim, somos correspondente bancário</label></div>
+            <div class="radio-card"><input type="radio" name="financiamento" id="fn2" value="sim_parceiros"><span class="icon"></span><label for="fn2"><span class="icon">🤝</span>Sim, via parceiros bancários</label></div>
+            <div class="radio-card"><input type="radio" name="financiamento" id="fn3" value="orientacao"><label for="fn3"><span class="icon">📋</span>Apenas orientação básica</label></div>
+            <div class="radio-card"><input type="radio" name="financiamento" id="fn4" value="nao"><label for="fn4"><span class="icon">❌</span>Não oferece</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Bancos / parceiros de crédito
+            <span class="hint">Liste os bancos ou financeiras com quem a GDS trabalha</span>
+          </label>
+          <input type="text" name="bancos_parceiros" placeholder="Ex: Itaú Unibanco, Caixa Econômica, Bradesco...">
+        </div>
+        <div class="field">
+          <label>Outros serviços que a GDS oferece</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="avaliacao"><span>📊 Avaliação de imóveis (laudos)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="assessoria_juridica"><span>⚖️ Assessoria jurídica</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="adm_locacao"><span>🔧 Administração de locações</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="vistoria"><span>🔍 Vistoria técnica</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="consultoria_investimento"><span>💰 Consultoria de investimento</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="servicos[]" value="regularizacao"><span>📝 Regularização de documentos</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 6 — METODOLOGIA DE AVALIAÇÃO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div>
+          <div class="section-title">Metodologia de Avaliação de Imóveis</div>
+          <div class="section-subtitle">Como a GDS realiza o estudo de mercado e chega na sugestão de preço</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Descreva o método de avaliação/precificação utilizado pela GDS <span class="obrig">*</span>
+            <span class="hint">Quantas amostras? Quais variáveis? Qual ferramenta ou sistema?</span>
+          </label>
+          <textarea name="metodologia" class="textarea-large" placeholder="Ex: Realizamos um comparativo com 5 imóveis similares na região considerando área, dormitórios, infraestrutura, idade e condição. As amostras são coletadas nos principais portais e cruzadas com nosso histórico de vendas..."></textarea>
+        </div>
+        <div class="field">
+          <label>Variáveis consideradas na avaliação</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="area"><span>Área privativa (m²)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="dormitorios"><span>Nº de dormitórios</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="suites"><span>Suítes</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="vagas"><span>Vagas de garagem</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="infraestrutura"><span>Infraestrutura / lazer</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="idade"><span>Idade de construção</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="conservacao"><span>Estado de conservação</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="posicao_solar"><span>Posição solar</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="demanda_regiao"><span>Demanda da região</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="variaveis[]" value="portaria"><span>Portaria / segurança</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label>A GDS utiliza algum sistema/plataforma de avaliação?</label>
+          <input type="text" name="sistema_avaliacao" placeholder="Ex: BrokerApp, Pythal, sistema próprio, planilha interna...">
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 7 — CREDENCIAIS & PROVAS SOCIAIS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div>
+          <div class="section-title">Credenciais & Prova Social</div>
+          <div class="section-subtitle">Números e conquistas que reforçam a credibilidade da GDS</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field cols-2">
+          <label>Números que a GDS pode destacar na apresentação
+            <span class="hint">Preencha apenas os que você tiver com segurança</span>
+          </label>
+          <div class="field-group cols-2" style="margin-top:4px">
+            <div class="field">
+              <label>Anos de mercado</label>
+              <input type="number" name="anos_mercado" placeholder="Ex: 15">
+            </div>
+            <div class="field">
+              <label>Imóveis vendidos / locados (histórico)</label>
+              <input type="text" name="imoveis_historico" placeholder="Ex: +500">
+            </div>
+            <div class="field">
+              <label>Nº de corretores na equipe</label>
+              <input type="number" name="num_corretores" placeholder="Ex: 12">
+            </div>
+            <div class="field">
+              <label>Nº de clientes atendidos por ano</label>
+              <input type="text" name="clientes_ano" placeholder="Ex: +200">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>A GDS possui prêmios, certificações ou reconhecimentos?</label>
+          <textarea name="premios" placeholder="Ex: Certificação COFECI, prêmio regional do CRECI, reconhecimento de melhor imobiliária do bairro..."></textarea>
+        </div>
+        <div class="field">
+          <label>Tem depoimentos de clientes que podem ser usados?
+            <span class="hint">Opcional — insira até 2 depoimentos reais que reforcem a credibilidade</span>
+          </label>
+          <textarea name="depoimentos" class="textarea-large" placeholder='Ex: "A GDS foi fundamental para conseguirmos o valor justo pelo nosso imóvel. Processo rápido e transparente." — João e Maria, São Paulo'></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 8 — TOM E APRESENTAÇÃO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <div>
+          <div class="section-title">Tom, Visual & Personalização</div>
+          <div class="section-subtitle">Diretrizes para o estilo da apresentação final</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field">
+          <label>Tom de voz desejado para a apresentação <span class="obrig">*</span></label>
+          <div class="radio-cards">
+            <div class="radio-card"><input type="radio" name="tom" id="t1" value="profissional_formal"><label for="t1"><span class="icon">👔</span>Profissional e formal</label></div>
+            <div class="radio-card"><input type="radio" name="tom" id="t2" value="consultivo_próximo"><label for="t2"><span class="icon">🤝</span>Consultivo e próximo</label></div>
+            <div class="radio-card"><input type="radio" name="tom" id="t3" value="moderno_dinamico"><label for="t3"><span class="icon">🚀</span>Moderno e dinâmico</label></div>
+            <div class="radio-card"><input type="radio" name="tom" id="t4" value="confiante_direto"><label for="t4"><span class="icon">🎯</span>Confiante e direto</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Qual a cor verde principal da identidade GDS?
+            <span class="hint">Informe o código hex se disponível, ou descreva o tom</span>
+          </label>
+          <div class="field-group cols-2">
+            <input type="text" name="cor_principal" placeholder="Ex: #2d7a4f ou verde escuro tipo floresta">
+            <input type="text" name="cor_secundaria" placeholder="Cor secundária / destaque (se houver)">
+          </div>
+        </div>
+        <div class="field">
+          <label>URL do logotipo da GDS (link direto para imagem)</label>
+          <input type="url" name="logo_url" placeholder="Ex: https://www.gdsimoveis.com.br/logo.png">
+        </div>
+        <div class="field">
+          <label>Existe alguma mensagem específica que a GDS quer transmitir ao proprietário no início da apresentação?
+            <span class="hint">Uma abertura personalizada, promessa ou convite</span>
+          </label>
+          <textarea name="mensagem_abertura" class="textarea-large" placeholder="Ex: &quot;Olá, [nome do proprietário]. Realizei um estudo completo do mercado para posicionar seu imóvel com a estratégia certa e garantir a venda no menor tempo pelo maior valor possível...&quot;"></textarea>
+        </div>
+        <div class="field">
+          <label>Há alguma informação adicional importante sobre a GDS que não foi perguntada?</label>
+          <textarea name="info_adicional" class="textarea-large" placeholder="Espaço livre para complementar com qualquer detalhe relevante sobre a empresa, cultura, processos ou diferenciais..."></textarea>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>📌 Lembrete:</strong> Os dados do cliente (proprietário), do imóvel específico e do corretor responsável <strong>não são necessários aqui</strong> — eles serão preenchidos automaticamente pelo sistema no momento da geração de cada apresentação individual.
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-section">
+      <h3>Pronto para gerar a apresentação?</h3>
+      <p>Ao clicar em gerar, todas as respostas serão compiladas em um bloco de dados estruturado pronto para alimentar a criação do documento HTML da GDS Imóveis.</p>
+      <button type="submit" class="btn-submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Gerar dados da apresentação
+      </button>
+    </div>
+
+  </form>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+    <h3>✅ Dados compilados com sucesso</h3>
+    <p>Copie o bloco abaixo e use-o como briefing para gerar o documento HTML da apresentação comercial GDS Imóveis.</p>
+    <pre id="resultadoTexto"></pre>
+    <button class="btn-copy" onclick="copiarResultado()">
+      📋 Copiar dados
+    </button>
+  </div>
+
+</div>
+
+<script>
+// PROGRESS
+function atualizarProgresso() {
+  const campos = document.querySelectorAll('input[required], textarea[required], select[required]');
+  let preenchidos = 0;
+  
+  const allInputs = document.querySelectorAll('input:not([type=radio]):not([type=checkbox]), textarea, select');
+  const checkGroups = ['nicho[]','portais[]','redes[]','acoes[]','servicos[]','variaveis[]'];
+  
+  let total = allInputs.length;
+  let filled = 0;
+  
+  allInputs.forEach(inp => {
+    if (inp.value.trim()) filled++;
+  });
+  
+  const pct = Math.round((filled / Math.max(total, 1)) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = pct + '% preenchido';
+}
+
+document.querySelectorAll('input, textarea, select').forEach(el => {
+  el.addEventListener('input', atualizarProgresso);
+  el.addEventListener('change', atualizarProgresso);
+});
+
+// FORM SUBMIT
+document.getElementById('formGDS').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const fd = new FormData(this);
+  const dados = {};
+  
+  for (let [key, val] of fd.entries()) {
+    if (key.endsWith('[]')) {
+      const k = key.slice(0, -2);
+      if (!dados[k]) dados[k] = [];
+      dados[k].push(val);
+    } else {
+      dados[key] = val;
+    }
+  }
+  
+  // Montar texto estruturado
+  let texto = `=== BRIEFING INSTITUCIONAL — GDS IMÓVEIS ===
+Gerado em: ${new Date().toLocaleString('pt-BR')}
+
+--- IDENTIDADE ---
+Empresa: ${dados.nome_empresa || ''}
+Razão Social: ${dados.razao_social || ''}
+CRECI: ${dados.creci || ''}
+Fundação: ${dados.ano_fundacao || ''}
+Endereço: ${dados.endereco || ''}
+Telefone/WhatsApp: ${dados.telefone || ''}
+E-mail: ${dados.email || ''}
+Site: ${dados.site || ''}
+
+--- POSICIONAMENTO ---
+Tagline: ${dados.tagline || ''}
+Diferenciais: ${dados.diferenciais || ''}
+Dor do proprietário resolvida: ${dados.dor_proprietario || ''}
+Nicho de atuação: ${(dados.nicho || []).join(', ')}
+
+--- MERCADO ---
+Bairros de atuação: ${dados.bairros_atuacao || ''}
+Carteira de imóveis: ${dados.carteira || ''}
+Tempo médio de venda: ${dados.tempo_venda || ''}
+
+--- MARKETING ---
+Portais: ${(dados.portais || []).join(', ')}
+Redes sociais: ${(dados.redes || []).join(', ')}
+Ações de marketing: ${(dados.acoes || []).join(', ')}
+Feedback ao proprietário: ${dados.feedback_proprietario || ''}
+
+--- SERVIÇOS ---
+Financiamento: ${dados.financiamento || ''}
+Bancos parceiros: ${dados.bancos_parceiros || ''}
+Outros serviços: ${(dados.servicos || []).join(', ')}
+
+--- METODOLOGIA DE AVALIAÇÃO ---
+Descrição: ${dados.metodologia || ''}
+Variáveis: ${(dados.variaveis || []).join(', ')}
+Sistema usado: ${dados.sistema_avaliacao || ''}
+
+--- CREDENCIAIS ---
+Anos de mercado: ${dados.anos_mercado || ''}
+Histórico de imóveis: ${dados.imoveis_historico || ''}
+Nº de corretores: ${dados.num_corretores || ''}
+Clientes por ano: ${dados.clientes_ano || ''}
+Prêmios/certificações: ${dados.premios || ''}
+Depoimentos: ${dados.depoimentos || ''}
+
+--- IDENTIDADE VISUAL ---
+Tom desejado: ${dados.tom || ''}
+Cor principal: ${dados.cor_principal || ''}
+Cor secundária: ${dados.cor_secundaria || ''}
+Logo URL: ${dados.logo_url || ''}
+Mensagem de abertura: ${dados.mensagem_abertura || ''}
+
+--- INFORMAÇÕES ADICIONAIS ---
+${dados.info_adicional || 'Nenhuma'}
+`;
+
+  document.getElementById('resultadoTexto').textContent = texto;
+  const el = document.getElementById('resultado');
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+function copiarResultado() {
+  const texto = document.getElementById('resultadoTexto').textContent;
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '✅ Copiado!';
+    setTimeout(() => { btn.textContent = '📋 Copiar dados'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
