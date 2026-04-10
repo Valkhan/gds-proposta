@@ -35,6 +35,7 @@
 
 body {
   font-family: var(--ff-body);
+  font-size: 17px;
   color: var(--ink);
   background:
     radial-gradient(1000px 640px at 100% -20%, rgba(45,170,82,0.18), transparent 62%),
@@ -81,7 +82,7 @@ body {
 .hero h1 {
   margin-top: 10px;
   font-family: var(--ff-title);
-  font-size: clamp(24px, 4vw, 34px);
+  font-size: clamp(28px, 4.4vw, 40px);
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
@@ -89,6 +90,7 @@ body {
 .hero p {
   margin-top: 8px;
   max-width: 760px;
+  font-size: 18px;
   color: rgba(255,255,255,0.82);
   line-height: 1.65;
 }
@@ -128,7 +130,7 @@ body {
   flex-shrink: 0;
 }
 
-.sec-title { font-family: var(--ff-title); font-size: 17px; color: var(--g800); }
+.sec-title { font-family: var(--ff-title); font-size: 21px; color: var(--g800); }
 
 .fields {
   display: grid;
@@ -144,7 +146,7 @@ body {
 
 label {
   display: block;
-  font-size: 12px; font-weight: 700;
+  font-size: 14px; font-weight: 700;
   color: var(--g800);
   margin-bottom: 5px;
 }
@@ -154,9 +156,9 @@ input, select, textarea {
   border: 1px solid #cfe3d8;
   background: #fbfefc;
   border-radius: 10px;
-  padding: 10px 11px;
+  padding: 12px 13px;
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ink);
   outline: none;
   transition: border-color .2s ease, box-shadow .2s ease;
@@ -176,7 +178,7 @@ input[readonly] {
   border-color: #d6e9de;
 }
 
-.hint { margin-top: 3px; font-size: 11px; color: #688474; }
+.hint { margin-top: 4px; font-size: 13px; color: #688474; }
 
 /* CEP spinner */
 .cep-row { position: relative; }
@@ -199,14 +201,14 @@ input[readonly] {
 table.samples-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 15px;
   min-width: 780px;
 }
 
 table.samples-table thead tr { background: var(--g050); }
 
 table.samples-table th {
-  font-size: 11px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   color: var(--g800); text-align: left;
   padding: 8px 10px;
   border-bottom: 2px solid var(--g100);
@@ -224,7 +226,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
 .sample-platform-badge {
   display: inline-block;
-  font-size: 10px; font-weight: 700;
+  font-size: 12px; font-weight: 700;
   padding: 2px 7px;
   border-radius: 999px;
   background: var(--g100); color: var(--g800);
@@ -233,7 +235,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
 .btn-table-edit, .btn-table-remove {
   border: none; border-radius: 7px;
-  padding: 5px 8px; font-size: 11px; font-weight: 700;
+  padding: 7px 10px; font-size: 13px; font-weight: 700;
   cursor: pointer; transition: opacity .15s;
 }
 
@@ -251,7 +253,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
 .empty-samples {
   text-align: center; color: var(--muted);
-  font-size: 13px; padding: 24px 0;
+  font-size: 15px; padding: 24px 0;
 }
 
 /* Modal */
@@ -283,7 +285,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   margin-bottom: 16px;
 }
 
-.modal-title { font-family: var(--ff-title); font-size: 17px; color: var(--g800); }
+.modal-title { font-family: var(--ff-title); font-size: 21px; color: var(--g800); }
 
 .modal-close {
   border: none; background: var(--g050);
@@ -320,11 +322,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   padding: 10px 12px;
 }
 .read-chip .rc-label {
-  font-size: 11px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   color: var(--muted); margin-bottom: 2px;
 }
 .read-chip .rc-value {
-  font-size: 15px; font-weight: 700;
+  font-size: 18px; font-weight: 700;
   color: var(--g800); font-family: var(--ff-title);
 }
 
@@ -333,8 +335,8 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
 .btn {
   border: none; border-radius: 999px;
-  padding: 10px 18px;
-  font-size: 12px; font-weight: 800;
+  padding: 12px 20px;
+  font-size: 14px; font-weight: 800;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
 }
@@ -572,7 +574,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
             </div>
           </div>
         </section>
-
+        <button class="btn btn-main" style="border-top: 2rem;">Gerar Proposta</button>
       </form>
     </main>
   </div>
