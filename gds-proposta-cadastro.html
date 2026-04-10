@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro da Proposta | GDS Imoveis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g900: #0f3a21;
+  --g800: #145228;
+  --g700: #1b6f35;
+  --g600: #228940;
+  --g500: #2daa52;
+  --g300: #84d49d;
+  --g200: #b6e8c5;
+  --g100: #dff3e7;
+  --g050: #eefaf2;
+  --ink: #13231a;
+  --muted: #5c7869;
+  --white: #ffffff;
+  --accent: #f2b84b;
+  --radius-xl: 22px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-sm: 0 3px 14px rgba(16, 44, 28, 0.08);
+  --shadow-md: 0 10px 30px rgba(16, 44, 28, 0.12);
+  --ff-body: 'Nunito Sans', system-ui, sans-serif;
+  --ff-title: 'Sora', 'Nunito Sans', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-body);
+  color: var(--ink);
+  background:
+    radial-gradient(1000px 640px at 100% -20%, rgba(45,170,82,0.18), transparent 62%),
+    radial-gradient(900px 580px at -10% -12%, rgba(242,184,75,0.2), transparent 62%),
+    linear-gradient(150deg, #d7eadf 0%, #f2fbf6 48%, #dbeee3 100%);
+  min-height: 100vh;
+  padding: 28px 14px 50px;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero {
+  background: linear-gradient(145deg, var(--g800), var(--g600));
+  color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 26px 28px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  right: -80px;
+  top: -120px;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 68%);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.hero h1 {
+  margin-top: 10px;
+  font-family: var(--ff-title);
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  margin-top: 8px;
+  max-width: 760px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.65;
+}
+
+.layout {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+}
+
+.form-shell {
+  background: var(--white);
+  border: 1px solid rgba(27,111,53,0.12);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+.aside {
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(27,111,53,0.14);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+  height: fit-content;
+  position: sticky;
+  top: 16px;
+}
+
+.aside h2 {
+  font-family: var(--ff-title);
+  font-size: 16px;
+  color: var(--g800);
+  margin-bottom: 8px;
+}
+
+.aside p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.step-list {
+  margin-top: 14px;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.step-list li {
+  font-size: 12px;
+  color: var(--g800);
+  background: var(--g050);
+  border: 1px solid var(--g100);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-weight: 700;
+}
+
+.section {
+  border: 1px solid var(--g100);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  background: linear-gradient(180deg, #ffffff, #fcfffd);
+}
+
+.section + .section {
+  margin-top: 14px;
+}
+
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sec-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(145deg, var(--g700), var(--g500));
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec-title {
+  font-family: var(--ff-title);
+  font-size: 17px;
+  color: var(--g800);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.field {
+  grid-column: span 12;
+}
+
+.field.col-6 { grid-column: span 6; }
+.field.col-4 { grid-column: span 4; }
+.field.col-3 { grid-column: span 3; }
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--g800);
+  margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cfe3d8;
+  background: #fbfefc;
+  border-radius: 10px;
+  padding: 10px 11px;
+  font-family: var(--ff-body);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--g500);
+  box-shadow: 0 0 0 4px rgba(45,170,82,0.15);
+}
+
+.hint {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #688474;
+}
+
+.amp-samples {
+  display: grid;
+  gap: 10px;
+}
+
+.sample-card {
+  border: 1px solid var(--g100);
+  border-radius: 12px;
+  background: var(--g050);
+  padding: 12px;
+}
+
+.sample-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.sample-head h4 {
+  font-size: 13px;
+  color: var(--g800);
+  font-family: var(--ff-title);
+}
+
+.sample-remove {
+  border: 1px solid #dcb8b8;
+  color: #8e3333;
+  background: #fff4f4;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.row-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-main {
+  background: linear-gradient(145deg, var(--g700), var(--g500));
+  color: var(--white);
+  box-shadow: 0 10px 20px rgba(27,111,53,0.2);
+}
+
+.btn-soft {
+  background: var(--g050);
+  color: var(--g800);
+  border: 1px solid var(--g200);
+}
+
+.footer-box {
+  margin-top: 14px;
+  border: 1px dashed rgba(27,111,53,0.35);
+  border-radius: 12px;
+  padding: 12px;
+  background: #f9fdfb;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .aside { position: static; }
+}
+
+@media (max-width: 760px) {
+  .form-shell { padding: 14px; }
+  .section { padding: 12px; }
+  .field.col-6,
+  .field.col-4,
+  .field.col-3 { grid-column: span 12; }
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="badge">CADASTRO DE PROPOSTA</div>
+      <h1>Painel de preenchimento da proposta comercial</h1>
+      <p>Preencha os dados principais abaixo. Esta tela foi estruturada com base no modelo atual da proposta e ja esta pronta para receber informacoes de cada novo cliente.</p>
+    </header>
+
+    <div class="layout">
+      <main class="form-shell">
+        <form id="cadastro-proposta-form">
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">01</div>
+              <h2 class="sec-title">Empresa</h2>
+            </div>
+            <div class="fields">
+              <div class="field col-6">
+                <label for="empresa_nome">Nome fantasia</label>
+                <input id="empresa_nome" name="empresa.nome" type="text" placeholder="GDS Imoveis" required>
+              </div>
+              <div class="field col-6">
+                <label for="empresa_razao">Razao social</label>
+                <input id="empresa_razao" name="empresa.razaosocial" type="text" placeholder="Guedes Consultoria Imobiliaria LTDA">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_creci">CRECI da empresa</label>
+                <input id="empresa_creci" name="empresa.creci" type="text" placeholder="20451-J-SP">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_telefone">Telefone</label>
+                <input id="empresa_telefone" name="empresa.telefone" type="text" placeholder="(11) 99999-9999">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_whatsapp">WhatsApp (somente numeros)</label>
+                <input id="empresa_whatsapp" name="empresa.whatsapp" type="text" placeholder="5511999999999">
+              </div>
+              <div class="field col-6">
+                <label for="empresa_email">E-mail</label>
+                <input id="empresa_email" name="empresa.email" type="email" placeholder="contato@empresa.com.br">
+              </div>
+              <div class="field col-6">
+                <label for="empresa_site">Site</label>
+                <input id="empresa_site" name="empresa.site" type="text" placeholder="www.empresa.com.br">
+              </div>
+              <div class="field">
+                <label for="empresa_endereco">Endereco</label>
+                <input id="empresa_endereco" name="empresa.endereco" type="text" placeholder="Avenida, numero, bairro, cidade - UF">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_anos">Anos de mercado</label>
+                <input id="empresa_anos" name="empresa.anos" type="number" min="0" placeholder="16">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_vendidos">Imoveis vendidos</label>
+                <input id="empresa_vendidos" name="empresa.imoveis_vendidos" type="text" placeholder="+800">
+              </div>
+              <div class="field col-4">
+                <label for="empresa_corretores">Numero de consultores</label>
+                <input id="empresa_corretores" name="empresa.corretores" type="number" min="0" placeholder="14">
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">02</div>
+              <h2 class="sec-title">Consultor e Cliente</h2>
+            </div>
+            <div class="fields">
+              <div class="field col-6">
+                <label for="corretor_nome">Nome do consultor</label>
+                <input id="corretor_nome" name="corretor.nome" type="text" required>
+              </div>
+              <div class="field col-6">
+                <label for="corretor_titulo">Cargo / titulo</label>
+                <input id="corretor_titulo" name="corretor.titulo" type="text" placeholder="Consultora Imobiliaria">
+              </div>
+              <div class="field col-4">
+                <label for="corretor_creci">CRECI do consultor</label>
+                <input id="corretor_creci" name="corretor.creci" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="corretor_telefone">Telefone do consultor</label>
+                <input id="corretor_telefone" name="corretor.telefone" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="corretor_email">E-mail do consultor</label>
+                <input id="corretor_email" name="corretor.email" type="email">
+              </div>
+              <div class="field col-6">
+                <label for="corretor_iniciais">Iniciais</label>
+                <input id="corretor_iniciais" name="corretor.iniciais" type="text" maxlength="3" placeholder="SG">
+              </div>
+              <div class="field col-6">
+                <label for="corretor_foto">URL da foto do consultor</label>
+                <input id="corretor_foto" name="corretor.foto" type="url" placeholder="https://...">
+              </div>
+              <div class="field">
+                <label for="corretor_bio">Bio do consultor</label>
+                <textarea id="corretor_bio" name="corretor.bio" placeholder="Resumo profissional para apresentar na proposta"></textarea>
+              </div>
+              <div class="field">
+                <label for="cliente_nome">Nome do cliente proprietario</label>
+                <input id="cliente_nome" name="cliente.nome" type="text" required>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">03</div>
+              <h2 class="sec-title">Dados do Imovel</h2>
+            </div>
+            <div class="fields">
+              <div class="field col-4">
+                <label for="imovel_tipo">Tipo</label>
+                <input id="imovel_tipo" name="imovel.tipo" type="text" placeholder="Casa, Apartamento...">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_area">Area util (m2)</label>
+                <input id="imovel_area" name="imovel.area" type="text" placeholder="75">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_ano">Ano de construcao</label>
+                <input id="imovel_ano" name="imovel.ano_construcao" type="number" min="1800" max="2100">
+              </div>
+              <div class="field col-8">
+                <label for="imovel_endereco">Endereco</label>
+                <input id="imovel_endereco" name="imovel.endereco" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_bairro">Bairro</label>
+                <input id="imovel_bairro" name="imovel.bairro" type="text">
+              </div>
+              <div class="field col-6">
+                <label for="imovel_cidade">Cidade / UF</label>
+                <input id="imovel_cidade" name="imovel.cidade" type="text" placeholder="Sao Paulo - SP">
+              </div>
+              <div class="field col-6">
+                <label for="imovel_foto">URL da foto principal do imovel</label>
+                <input id="imovel_foto" name="imovel.foto" type="url" placeholder="https://...">
+              </div>
+              <div class="field col-3">
+                <label for="imovel_dormitorios">Dormitorios</label>
+                <input id="imovel_dormitorios" name="imovel.dormitorios" type="number" min="0">
+              </div>
+              <div class="field col-3">
+                <label for="imovel_suites">Suites</label>
+                <input id="imovel_suites" name="imovel.suites" type="number" min="0">
+              </div>
+              <div class="field col-3">
+                <label for="imovel_banheiros">Banheiros</label>
+                <input id="imovel_banheiros" name="imovel.banheiros" type="number" min="0">
+              </div>
+              <div class="field col-3">
+                <label for="imovel_vagas">Vagas</label>
+                <input id="imovel_vagas" name="imovel.vagas" type="number" min="0">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_portaria">Portaria</label>
+                <input id="imovel_portaria" name="imovel.portaria" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_infraestrutura">Infraestrutura</label>
+                <input id="imovel_infraestrutura" name="imovel.infraestrutura" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_posicao_solar">Posicao solar</label>
+                <input id="imovel_posicao_solar" name="imovel.posicao_solar" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_estado">Estado de conservacao</label>
+                <input id="imovel_estado" name="imovel.estado" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_mobiliado">Mobiliado</label>
+                <input id="imovel_mobiliado" name="imovel.mobiliado" type="text">
+              </div>
+              <div class="field col-4">
+                <label for="imovel_demanda">Demanda da regiao</label>
+                <input id="imovel_demanda" name="imovel.demanda_regiao" type="text">
+              </div>
+              <div class="field">
+                <label for="imovel_observacoes">Observacoes</label>
+                <textarea id="imovel_observacoes" name="imovel.observacoes" placeholder="Pontos relevantes para destacar na proposta"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">04</div>
+              <h2 class="sec-title">Avaliacao e Precificacao</h2>
+            </div>
+            <div class="fields">
+              <div class="field col-4">
+                <label for="avaliacao_valor_sugerido">Valor sugerido</label>
+                <input id="avaliacao_valor_sugerido" name="avaliacao.valor_sugerido" type="text" placeholder="R$ 371.169,84">
+              </div>
+              <div class="field col-4">
+                <label for="avaliacao_valor_min">Faixa minima</label>
+                <input id="avaliacao_valor_min" name="avaliacao.valor_min" type="text" placeholder="R$ 355.000">
+              </div>
+              <div class="field col-4">
+                <label for="avaliacao_valor_max">Faixa maxima</label>
+                <input id="avaliacao_valor_max" name="avaliacao.valor_max" type="text" placeholder="R$ 390.000">
+              </div>
+              <div class="field col-4">
+                <label for="avaliacao_valor_sqm">Valor por m2</label>
+                <input id="avaliacao_valor_sqm" name="avaliacao.valor_sqm" type="text" placeholder="R$ 6.873,52/m2">
+              </div>
+              <div class="field col-4">
+                <label for="avaliacao_media_amostras">Media das amostras</label>
+                <input id="avaliacao_media_amostras" name="avaliacao.media_amostras" type="text" placeholder="R$ 357.000">
+              </div>
+              <div class="field col-4">
+                <label for="avaliacao_posicao">Posicionamento</label>
+                <input id="avaliacao_posicao" name="avaliacao.posicao" type="text" placeholder="Destaque relativo">
+              </div>
+
+              <div class="field col-6">
+                <label for="op_mercado_label">Opcao de mercado - label</label>
+                <input id="op_mercado_label" name="avaliacao.opcao_mercado.label" type="text" placeholder="Ajuste de Preco de Mercado">
+              </div>
+              <div class="field col-3">
+                <label for="op_mercado_valor">Opcao de mercado - valor</label>
+                <input id="op_mercado_valor" name="avaliacao.opcao_mercado.valor" type="text">
+              </div>
+              <div class="field col-3">
+                <label for="op_mercado_sqm">Opcao de mercado - m2</label>
+                <input id="op_mercado_sqm" name="avaliacao.opcao_mercado.sqm" type="text">
+              </div>
+              <div class="field col-6">
+                <label for="op_mercado_tag">Opcao de mercado - tag</label>
+                <input id="op_mercado_tag" name="avaliacao.opcao_mercado.tag" type="text" placeholder="Destaque relativo">
+              </div>
+
+              <div class="field col-6">
+                <label for="op_competitiva_label">Opcao competitiva - label</label>
+                <input id="op_competitiva_label" name="avaliacao.opcao_competitiva.label" type="text" placeholder="Ajuste de Preco Competitivo">
+              </div>
+              <div class="field col-3">
+                <label for="op_competitiva_valor">Opcao competitiva - valor</label>
+                <input id="op_competitiva_valor" name="avaliacao.opcao_competitiva.valor" type="text">
+              </div>
+              <div class="field col-3">
+                <label for="op_competitiva_sqm">Opcao competitiva - m2</label>
+                <input id="op_competitiva_sqm" name="avaliacao.opcao_competitiva.sqm" type="text">
+              </div>
+              <div class="field col-6">
+                <label for="op_competitiva_tag">Opcao competitiva - tag</label>
+                <input id="op_competitiva_tag" name="avaliacao.opcao_competitiva.tag" type="text" placeholder="Grande destaque">
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">05</div>
+              <h2 class="sec-title">Amostras de Comparacao</h2>
+            </div>
+            <p class="hint">Cadastre as amostras comparativas do mercado. O consultor pode adicionar quantas quiser.</p>
+
+            <div id="amostras-container" class="amp-samples"></div>
+
+            <div class="row-actions">
+              <button class="btn btn-main" type="button" id="add-amostra">Adicionar amostra</button>
+              <button class="btn btn-soft" type="button" id="add-5-amostras">Adicionar 5 amostras</button>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sec-header">
+              <div class="sec-number">06</div>
+              <h2 class="sec-title">Observacoes Finais</h2>
+            </div>
+            <div class="fields">
+              <div class="field">
+                <label for="resumo_exec">Resumo estrategico da proposta</label>
+                <textarea id="resumo_exec" name="resumo_estrategico" placeholder="Resumo curto para guiar o tom da proposta final"></textarea>
+              </div>
+            </div>
+            <div class="footer-box">
+              Esta tela e somente de cadastro. No proximo passo, podemos conectar este formulario para preencher automaticamente a proposta visual.
+            </div>
+          </section>
+        </form>
+      </main>
+
+      <aside class="aside">
+        <h2>Campos principais mapeados</h2>
+        <p>Este cadastro cobre os blocos essenciais da proposta atual: dados institucionais, consultor, cliente, imovel, avaliacao e amostras.</p>
+        <ul class="step-list">
+          <li>Empresa</li>
+          <li>Consultor e Cliente</li>
+          <li>Imovel</li>
+          <li>Avaliacao</li>
+          <li>Amostras</li>
+          <li>Resumo final</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const amostrasContainer = document.getElementById('amostras-container');
+  const addAmostraBtn = document.getElementById('add-amostra');
+  const add5AmostrasBtn = document.getElementById('add-5-amostras');
+
+  function normalizeSpaces(value) {
+    return (value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function toTitleCase(value) {
+    return normalizeSpaces(value)
+      .toLowerCase()
+      .replace(/(^|\s)\S/g, function (char) { return char.toUpperCase(); });
+  }
+
+  function parseCurrencyToNumber(value) {
+    if (!value) return NaN;
+    const normalized = String(value)
+      .replace(/\./g, '')
+      .replace(',', '.')
+      .replace(/[^\d.\-]/g, '');
+    return Number(normalized);
+  }
+
+  function formatCurrency(value) {
+    if (!Number.isFinite(value)) return '';
+    return 'R$ ' + value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function formatCurrencyPerSqm(value) {
+    if (!Number.isFinite(value)) return '';
+    return 'R$ ' + value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + '/m2';
+  }
+
+  function parseFromUrl(rawUrl) {
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return {};
+    }
+
+    const out = {};
+    const pathname = decodeURIComponent(url.pathname || '');
+    const slug = pathname.split('/').filter(Boolean).find(function (segment) {
+      return segment.includes('-id-');
+    }) || '';
+    const lowerSlug = slug.toLowerCase();
+
+    const bairroMatch = lowerSlug.match(/-quartos?-([a-z0-9-]+?)-bairros-/i);
+    if (bairroMatch && bairroMatch[1]) out.bairro = toTitleCase(bairroMatch[1].replace(/-/g, ' '));
+
+    const areaMatch = lowerSlug.match(/-(\d{2,4})m2-/i);
+    if (areaMatch) out.area = areaMatch[1] + 'm2';
+
+    const quartosMatch = lowerSlug.match(/-(\d+)-quartos?-/i);
+    if (quartosMatch) out.dormitorios = quartosMatch[1];
+
+    if (/-com-garagem-/.test(lowerSlug)) out.vagas = out.vagas || '1';
+
+    const priceMatch = slug.match(/-(?:venda|aluguel)-RS([\d.]+)/i);
+    if (priceMatch && priceMatch[1]) {
+      out.preco = 'R$ ' + priceMatch[1].replace(/\./g, '.');
+      const areaNum = Number((out.area || '').replace(/[^\d]/g, ''));
+      const priceNum = Number((priceMatch[1] || '').replace(/\./g, ''));
+      if (areaNum > 0 && priceNum > 0) {
+        out.preco_sqm = formatCurrencyPerSqm(priceNum / areaNum);
+      }
+    }
+
+    return out;
+  }
+
+  function parseOlxFromUrl(rawUrl) {
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return {};
+    }
+
+    const out = {};
+    const pathname = decodeURIComponent(url.pathname || '');
+    const rawSlug = pathname.split('/').filter(Boolean).pop() || '';
+    const slug = rawSlug
+      .replace(/-\d{8,}$/i, '')
+      .replace(/\?[^#]*$/, '')
+      .toLowerCase();
+
+    const tokens = slug.split('-').filter(Boolean);
+    if (!tokens.length) return out;
+
+    function readLocationTokens(startIndex) {
+      const stopWords = {
+        venda: true,
+        aluguel: true,
+        quartos: true,
+        quarto: true,
+        dormitorios: true,
+        dormitorio: true,
+        dorms: true,
+        dorm: true,
+        suite: true,
+        suites: true,
+        vagas: true,
+        vaga: true,
+        casa: true,
+        apartamento: true,
+        sobrado: true,
+        premium: true,
+        acabamento: true,
+        com: true,
+        para: true,
+        sp: true,
+        rj: true,
+        mg: true,
+        pr: true,
+        sc: true
+      };
+
+      const locationTokens = [];
+      for (let i = startIndex; i < tokens.length; i += 1) {
+        const tk = tokens[i];
+        if (!tk || /^\d+$/.test(tk) || stopWords[tk]) break;
+        locationTokens.push(tk);
+      }
+      return locationTokens;
+    }
+
+    const dormitoriosMatch = slug.match(/(?:^|-)(\d+)-(?:dorms?|dormitorios?|quartos?)(?:-|$)|(?:^|-)(?:dorms?|dormitorios?|quartos?)-(\d+)(?:-|$)/i);
+    if (dormitoriosMatch) out.dormitorios = dormitoriosMatch[1] || dormitoriosMatch[2];
+
+    const suitesMatch = slug.match(/(?:^|-)(\d+)-suites?(?:-|$)|(?:^|-)(?:suites?)-(\d+)(?:-|$)/i);
+    if (suitesMatch) {
+      out.suites = suitesMatch[1] || suitesMatch[2];
+    } else if (/(?:^|-)suite(?:-|$)/i.test(slug)) {
+      out.suites = '1';
+    }
+
+    const vagasMatch = slug.match(/(?:^|-)(\d+)-vagas?(?:-|$)|(?:^|-)(?:vagas?)-(\d+)(?:-|$)/i);
+    if (vagasMatch) out.vagas = vagasMatch[1] || vagasMatch[2];
+
+    const areaMatch = slug.match(/(?:^|-)(\d{2,4})-(?:m2|m)(?:-|$)|(?:^|-)(\d{2,4})(?:m2|m)(?:-|$)/i);
+    if (areaMatch) out.area = (areaMatch[1] || areaMatch[2]) + 'm2';
+
+    const markerNo = tokens.indexOf('no');
+    if (markerNo >= 0 && tokens[markerNo + 1]) {
+      const bairroTokens = readLocationTokens(markerNo + 1);
+      if (bairroTokens.length) out.bairro = toTitleCase(bairroTokens.join(' '));
+    }
+
+    const markerNa = tokens.indexOf('na');
+    if (!out.bairro && markerNa >= 0 && tokens[markerNa + 1]) {
+      const bairroTokens = readLocationTokens(markerNa + 1);
+      if (bairroTokens.length) out.bairro = toTitleCase(bairroTokens.join(' '));
+    }
+
+    const markerEm = tokens.indexOf('em');
+    if (!out.bairro && markerEm >= 0 && tokens[markerEm + 1]) {
+      const bairroTokens = readLocationTokens(markerEm + 1);
+      if (bairroTokens.length) out.bairro = toTitleCase(bairroTokens.join(' '));
+    }
+
+    const markerA = tokens.indexOf('a');
+    if (!out.bairro && markerA >= 0 && tokens[markerA + 1]) {
+      const bairroTokens = readLocationTokens(markerA + 1);
+      if (bairroTokens.length) out.bairro = toTitleCase(bairroTokens.join(' '));
+    }
+
+    if (!out.bairro && tokens.length >= 2 && tokens[0] === 'vende' && tokens[1] === 'se') {
+      const marker = tokens.indexOf('em');
+      if (marker >= 0) {
+        const bairroTokens = readLocationTokens(marker + 1);
+        if (bairroTokens.length) out.bairro = toTitleCase(bairroTokens.join(' '));
+      }
+    }
+
+    return out;
+  }
+
+  function parseZapFromUrl(rawUrl) {
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return {};
+    }
+
+    const out = {};
+    const pathname = decodeURIComponent(url.pathname || '');
+    const slug = pathname.split('/').filter(Boolean).find(function (segment) {
+      return segment.includes('-id-');
+    }) || '';
+    const lowerSlug = slug.toLowerCase();
+
+    const bairroMatch = lowerSlug.match(/(?:com-[a-z0-9-]+-)?([a-z0-9-]+)-([a-z0-9-]+)-sp-\d{2,4}m2-id-/i);
+    if (bairroMatch && bairroMatch[1]) {
+      out.bairro = toTitleCase(bairroMatch[1].replace(/-/g, ' '));
+    }
+
+    const areaMatch = lowerSlug.match(/-(\d{2,4})m2-id-/i);
+    if (areaMatch) out.area = areaMatch[1] + 'm2';
+
+    const quartosMatch = lowerSlug.match(/-(\d+)-quartos?-/i);
+    if (quartosMatch) out.dormitorios = quartosMatch[1];
+
+    const banheirosMatch = lowerSlug.match(/-(\d+)-banheiros?-/i);
+    if (banheirosMatch) out.banheiros = banheirosMatch[1];
+
+    const vagasMatch = lowerSlug.match(/-(\d+)-vagas?-/i);
+    if (vagasMatch) out.vagas = vagasMatch[1];
+
+    const priceMatch = slug.match(/-(?:venda|aluguel)-R\$?([\d.]+)/i);
+    if (priceMatch && priceMatch[1]) {
+      const priceNum = Number((priceMatch[1] || '').replace(/\./g, ''));
+      if (priceNum > 0) {
+        out.preco = formatCurrency(priceNum);
+      }
+    }
+
+    return out;
+  }
+
+  function parseChavesNaMaoFromUrl(rawUrl) {
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch (_error) {
+      return {};
+    }
+
+    const out = {};
+    const pathname = decodeURIComponent(url.pathname || '');
+    const pathParts = pathname.split('/').filter(Boolean);
+    const imovelIndex = pathParts.indexOf('imovel');
+    const slug = imovelIndex >= 0 && pathParts[imovelIndex + 1]
+      ? pathParts[imovelIndex + 1]
+      : (pathParts.find(function (segment) {
+        return /(?:quartos?|salas?|m2|rs\d+)/i.test(segment);
+      }) || '');
+    const lowerSlug = slug.toLowerCase();
+    const tokens = lowerSlug.split('-').filter(Boolean);
+    if (!tokens.length) return out;
+
+    const dormitoriosMatch = lowerSlug.match(/-(\d+)-quartos?-/i);
+    if (dormitoriosMatch) out.dormitorios = dormitoriosMatch[1];
+
+    const salasMatch = lowerSlug.match(/-(\d+)-salas?-/i);
+    if (salasMatch) out.suites = salasMatch[1];
+
+    if (/-com-garagem-/.test(lowerSlug)) out.vagas = '1';
+    const vagasMatch = lowerSlug.match(/-(\d+)-vagas?-/i);
+    if (vagasMatch) out.vagas = vagasMatch[1];
+
+    const areaMatch = lowerSlug.match(/-(\d{2,4})m2(?:-|$)/i);
+    if (areaMatch) out.area = areaMatch[1] + 'm2';
+
+    const priceMatch = lowerSlug.match(/-rs([\d.]+)(?:-|$)/i);
+    if (priceMatch && priceMatch[1]) {
+      const priceNum = Number(priceMatch[1].replace(/\./g, ''));
+      if (priceNum > 0) out.preco = formatCurrency(priceNum);
+    }
+
+    const ufIndex = tokens.findIndex(function (tk) {
+      return /^(sp|rj|mg|pr|sc|rs|ba|go|df|es|mt|ms|ce|pe|pb|rn|al|se|ma|pi|pa|am|ap|ro|rr|ac|to)$/i.test(tk);
+    });
+
+    if (ufIndex >= 0) {
+      const stopWords = {
+        para: true,
+        alugar: true,
+        venda: true,
+        com: true,
+        garagem: true,
+        quartos: true,
+        quarto: true,
+        salas: true,
+        sala: true
+      };
+
+      const locationTokens = [];
+      for (let i = ufIndex + 1; i < tokens.length; i += 1) {
+        const tk = tokens[i];
+        if (!tk || stopWords[tk] || /^rs\d+$/i.test(tk) || /^id$/i.test(tk)) break;
+        if (/^\d+m2$/i.test(tk)) break;
+        locationTokens.push(tk);
+      }
+
+      if (locationTokens.length) {
+        out.bairro = toTitleCase(locationTokens.join(' '));
+      }
+    }
+
+    if (!out.bairro) {
+      const bairroRegex = lowerSlug.match(/-(?:sp|rj|mg|pr|sc|rs|ba|go|df|es|mt|ms|ce|pe|pb|rn|al|se|ma|pi|pa|am|ap|ro|rr|ac|to)-(.+?)(?:-\d+m2|-rs\d+|$)/i);
+      if (bairroRegex && bairroRegex[1]) {
+        out.bairro = toTitleCase(bairroRegex[1].replace(/-/g, ' '));
+      }
+    }
+
+    return out;
+  }
+
+  function applySampleData(card, data) {
+    const map = {
+      bairro: '[name$=".bairro"]',
+      endereco: '[name$=".endereco"]',
+      area: '[name$=".area"]',
+      dormitorios: '[name$=".dormitorios"]',
+      suites: '[name$=".suites"]',
+      banheiros: '[name$=".banheiros"]',
+      vagas: '[name$=".vagas"]',
+      preco: '[name$=".preco"]',
+      preco_sqm: '[name$=".preco_sqm"]'
+    };
+
+    Object.keys(map).forEach(function (key) {
+      if (!data[key]) return;
+      const input = card.querySelector(map[key]);
+      if (input) input.value = String(data[key]);
+    });
+
+    const precoInput = card.querySelector('[name$=".preco"]');
+    const areaInput = card.querySelector('[name$=".area"]');
+    const precoSqmInput = card.querySelector('[name$=".preco_sqm"]');
+    if (precoInput && areaInput && precoSqmInput && !precoSqmInput.value) {
+      const precoNum = parseCurrencyToNumber(precoInput.value);
+      const areaNum = Number((areaInput.value || '').replace(/[^\d.,]/g, '').replace(',', '.'));
+      if (Number.isFinite(precoNum) && areaNum > 0) {
+        precoSqmInput.value = formatCurrencyPerSqm(precoNum / areaNum);
+      }
+    }
+  }
+
+  function clearSampleFields(card, options) {
+    const opts = options || {};
+    const keepPlatform = Boolean(opts.keepPlatform);
+    const keepLink = Boolean(opts.keepLink);
+    const fields = card.querySelectorAll('input, textarea, select');
+    fields.forEach(function (field) {
+      if (keepPlatform && field.matches('[name$=".plataforma"]')) return;
+      if (keepLink && field.matches('[name$=".link"]')) return;
+      if (field.type === 'checkbox' || field.type === 'radio') {
+        field.checked = false;
+      } else {
+        field.value = '';
+      }
+    });
+  }
+
+  function autoFillSampleFromLink(linkInput) {
+    const card = linkInput.closest('.sample-card');
+    if (!card) return;
+
+    const platformInput = card.querySelector('[name$=".plataforma"]');
+    const selectedPlatform = platformInput ? normalizeSpaces(platformInput.value).toLowerCase() : '';
+    if (!selectedPlatform) {
+      alert('Selecione a plataforma antes de inserir o link.');
+      linkInput.value = '';
+      linkInput.focus();
+      return;
+    }
+
+    if (selectedPlatform !== 'vivareal' && selectedPlatform !== 'olx' && selectedPlatform !== 'zapimoveis' && selectedPlatform !== 'chavesnamao') {
+      return;
+    }
+
+    const url = normalizeSpaces(linkInput.value);
+    if (!url || url.length < 10) return;
+
+    if (card.dataset.loading === '1') return;
+    card.dataset.loading = '1';
+
+    const oldLabel = linkInput.placeholder;
+    linkInput.placeholder = 'Extraindo dados do link...';
+
+    clearSampleFields(card, { keepPlatform: true, keepLink: true });
+    linkInput.value = url;
+
+    let extracted = {};
+    const isOlxUrl = /(^|\.)olx\.com\.br$/i.test((new URL(url)).hostname || '');
+    const isVivaRealUrl = /(^|\.)vivareal\.com\.br$/i.test((new URL(url)).hostname || '');
+    const isZapUrl = /(^|\.)zapimoveis\.com\.br$/i.test((new URL(url)).hostname || '');
+    const isChavesUrl = /(^|\.)chavesnamao\.com\.br$/i.test((new URL(url)).hostname || '');
+
+    if (selectedPlatform === 'olx' || isOlxUrl) {
+      extracted = parseOlxFromUrl(url);
+    }
+    if (selectedPlatform === 'vivareal' || isVivaRealUrl) {
+      extracted = parseFromUrl(url);
+    }
+    if (selectedPlatform === 'zapimoveis' || isZapUrl) {
+      extracted = parseZapFromUrl(url);
+    }
+    if (selectedPlatform === 'chavesnamao' || isChavesUrl) {
+      extracted = parseChavesNaMaoFromUrl(url);
+    }
+
+    applySampleData(card, extracted);
+
+    card.dataset.loading = '0';
+    linkInput.placeholder = oldLabel;
+  }
+
+  function createSampleField(index) {
+    const card = document.createElement('article');
+    card.className = 'sample-card';
+    card.innerHTML =
+      '<div class="sample-head">' +
+        '<h4>Amostra ' + (index + 1) + '</h4>' +
+        '<button type="button" class="sample-remove">Remover</button>' +
+      '</div>' +
+      '<div class="fields">' +
+        '<div class="field"><label>Plataforma</label><select name="amostras[' + index + '].plataforma" data-role="sample-platform"><option value="">Selecione...</option><option value="vivareal">VivaReal</option><option value="olx">OLX</option><option value="zapimoveis">Zap Imoveis</option><option value="chavesnamao">Chaves na Mao</option></select></div>' +
+        '<div class="field"><label>Link do anuncio</label><input name="amostras[' + index + '].link" type="url" placeholder="https://..." data-role="sample-link"></div>' +
+        '<div class="field col-4"><label>Bairro</label><input name="amostras[' + index + '].bairro" type="text"></div>' +
+        '<div class="field col-8"><label>Endereco</label><input name="amostras[' + index + '].endereco" type="text"></div>' +
+        '<div class="field col-3"><label>Area</label><input name="amostras[' + index + '].area" type="text" placeholder="75m2"></div>' +
+        '<div class="field col-2"><label>Dorm.</label><input name="amostras[' + index + '].dormitorios" type="number" min="0"></div>' +
+        '<div class="field col-2"><label>Suites</label><input name="amostras[' + index + '].suites" type="number" min="0"></div>' +
+        '<div class="field col-2"><label>Banheiros</label><input name="amostras[' + index + '].banheiros" type="number" min="0"></div>' +
+        '<div class="field col-3"><label>Vagas</label><input name="amostras[' + index + '].vagas" type="number" min="0"></div>' +
+        '<div class="field col-4"><label>Preco</label><input name="amostras[' + index + '].preco" type="text" placeholder="R$ 410.000"></div>' +
+        '<div class="field col-4"><label>Preco por m2</label><input name="amostras[' + index + '].preco_sqm" type="text" placeholder="R$ 3.534/m2"></div>' +
+      '</div>';
+
+    const removeBtn = card.querySelector('.sample-remove');
+    removeBtn.addEventListener('click', function () {
+      card.remove();
+      refreshSampleTitles();
+    });
+
+    const platformInput = card.querySelector('[data-role="sample-platform"]');
+    const linkInput = card.querySelector('[data-role="sample-link"]');
+    if (platformInput) {
+      platformInput.dataset.prevValue = '';
+      platformInput.addEventListener('change', function () {
+        const previousValue = platformInput.dataset.prevValue || '';
+        const currentValue = platformInput.value || '';
+        if (previousValue && currentValue && previousValue !== currentValue) {
+          clearSampleFields(card, { keepPlatform: true });
+        }
+        platformInput.dataset.prevValue = currentValue;
+      });
+    }
+
+    if (linkInput) {
+      linkInput.addEventListener('change', function () {
+        autoFillSampleFromLink(linkInput);
+      });
+    }
+
+    return card;
+  }
+
+  function refreshSampleTitles() {
+    const cards = amostrasContainer.querySelectorAll('.sample-card');
+    cards.forEach(function (card, idx) {
+      const title = card.querySelector('h4');
+      if (title) title.textContent = 'Amostra ' + (idx + 1);
+
+      const fields = card.querySelectorAll('input, select');
+      fields.forEach(function (field) {
+        field.name = field.name.replace(/amostras\[\d+\]/, 'amostras[' + idx + ']');
+      });
+    });
+  }
+
+  function addSample() {
+    const index = amostrasContainer.querySelectorAll('.sample-card').length;
+    const sampleCard = createSampleField(index);
+    amostrasContainer.appendChild(sampleCard);
+  }
+
+  addAmostraBtn.addEventListener('click', addSample);
+
+  add5AmostrasBtn.addEventListener('click', function () {
+    for (let i = 0; i < 5; i += 1) addSample();
+  });
+
+  for (let i = 0; i < 3; i += 1) addSample();
+})();
+</script>
+</body>
+</html>
