@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro da Proposta | GDS Imoveis</title>
+<title>Cadastro da Proposta | GDS Imóveis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -313,7 +313,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   justify-content: flex-end;
 }
 
-/* Chips somente leitura - Avaliacao */
+/* Chips somente leitura - Avaliação */
 .read-chip {
   display: flex; flex-direction: column;
   background: var(--g050);
@@ -330,7 +330,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   color: var(--g800); font-family: var(--ff-title);
 }
 
-/* Botoes */
+/* Botões */
 .row-actions { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
 
 .btn {
@@ -368,29 +368,29 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
     <header class="hero">
       <div class="badge">CADASTRO DE PROPOSTA</div>
       <h1>Painel de preenchimento da proposta comercial</h1>
-      <p>Preencha os dados do cliente, imovel, avaliacao e amostras comparativas. A precificacao e calculada automaticamente com base nas amostras.</p>
+      <p>Preencha os dados do cliente, imóvel, avaliação e amostras comparativas. A precificação é calculada automaticamente com base nas amostras.</p>
     </header>
 
     <main class="form-shell">
       <form id="cadastro-proposta-form">
 
-        <!-- 01 - Cliente e Imovel -->
+        <!-- 01 - Cliente e Imóvel -->
         <section class="section">
           <div class="sec-header">
             <div class="sec-number">01</div>
-            <h2 class="sec-title">Cliente e Imovel</h2>
+            <h2 class="sec-title">Cliente e Imóvel</h2>
           </div>
           <div class="fields">
             <div class="field col-6">
-              <label for="cliente_nome">Nome do cliente proprietario</label>
+              <label for="cliente_nome">Nome do cliente proprietário</label>
               <input id="cliente_nome" name="cliente.nome" type="text" required>
             </div>
             <div class="field col-3">
-              <label for="imovel_tipo">Tipo do imovel</label>
+              <label for="imovel_tipo">Tipo do imóvel</label>
               <input id="imovel_tipo" name="imovel.tipo" type="text" placeholder="Casa, Apartamento...">
             </div>
             <div class="field col-3">
-              <label for="imovel_ano">Ano de construcao</label>
+              <label for="imovel_ano">Ano de construção</label>
               <input id="imovel_ano" name="imovel.ano_construcao" type="number" min="1800" max="2100">
             </div>
 
@@ -400,14 +400,14 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
                 <input id="imovel_cep" name="imovel.cep" type="text" placeholder="00000-000" maxlength="9" autocomplete="postal-code">
                 <span class="cep-spin"></span>
               </div>
-              <p class="hint">Digite o CEP para preencher o endereco automaticamente.</p>
+              <p class="hint">Digite o CEP para preencher o endereço automaticamente.</p>
             </div>
             <div class="field col-6">
               <label for="imovel_logradouro">Logradouro</label>
               <input id="imovel_logradouro" name="imovel.logradouro" type="text">
             </div>
             <div class="field col-3">
-              <label for="imovel_numero">Numero / Apto</label>
+              <label for="imovel_numero">Número / Apto</label>
               <input id="imovel_numero" name="imovel.numero" type="text">
             </div>
             <div class="field col-4">
@@ -428,7 +428,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
             </div>
 
             <div class="field col-4">
-              <label for="imovel_area">Area util (m2)</label>
+              <label for="imovel_area">Área útil (m²)</label>
               <input id="imovel_area" name="imovel.area" type="text" placeholder="75">
             </div>
             <div class="field col-4">
@@ -437,11 +437,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
             </div>
 
             <div class="field col-3">
-              <label for="imovel_dormitorios">Dormitorios</label>
+              <label for="imovel_dormitorios">Dormitórios</label>
               <input id="imovel_dormitorios" name="imovel.dormitorios" type="number" min="0">
             </div>
             <div class="field col-3">
-              <label for="imovel_suites">Suites</label>
+              <label for="imovel_suites">Suítes</label>
               <input id="imovel_suites" name="imovel.suites" type="number" min="0">
             </div>
             <div class="field col-3">
@@ -462,11 +462,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
               <input id="imovel_infraestrutura" name="imovel.infraestrutura" type="text">
             </div>
             <div class="field col-4">
-              <label for="imovel_posicao_solar">Posicao solar</label>
+              <label for="imovel_posicao_solar">Posição solar</label>
               <input id="imovel_posicao_solar" name="imovel.posicao_solar" type="text">
             </div>
             <div class="field col-4">
-              <label for="imovel_estado">Estado de conservacao</label>
+              <label for="imovel_estado">Estado de conservação</label>
               <input id="imovel_estado" name="imovel.estado" type="text">
             </div>
             <div class="field col-4">
@@ -474,41 +474,40 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
               <input id="imovel_mobiliado" name="imovel.mobiliado" type="text">
             </div>
             <div class="field col-4">
-              <label for="imovel_demanda">Demanda da regiao</label>
+              <label for="imovel_demanda">Demanda da região</label>
               <input id="imovel_demanda" name="imovel.demanda_regiao" type="text">
             </div>
             <div class="field">
-              <label for="imovel_observacoes">Observacoes do imovel</label>
+              <label for="imovel_observacoes">Observações do imóvel</label>
               <textarea id="imovel_observacoes" name="imovel.observacoes" placeholder="Pontos relevantes para destacar na proposta"></textarea>
             </div>
           </div>
         </section>
 
-        <!-- 02 - Amostras de Comparacao -->
+        <!-- 02 - Amostras de Comparação -->
         <section class="section">
           <div class="sec-header">
             <div class="sec-number">02</div>
-            <h2 class="sec-title">Amostras de Comparacao</h2>
+            <h2 class="sec-title">Amostras de Comparação</h2>
           </div>
-          <p class="hint">Cole o link de cada anuncio e o sistema extraira os dados disponiveis. Campos nao preenchidos automaticamente serao solicitados na janela.</p>
+          <p class="hint">Cole o link de cada anúncio e o sistema extrairá os dados disponíveis. Campos não preenchidos automaticamente serão solicitados na janela.</p>
 
           <div class="samples-table-wrap">
             <table class="samples-table" id="samples-table">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Plataforma</th>
-                  <th>Endereco / Bairro</th>
-                  <th>Area</th>
+                  <th>Endereço / Bairro</th>
+                  <th>Área</th>
                   <th>D/S/B/V</th>
-                  <th>Preco</th>
-                  <th>R$/m2</th>
+                  <th>Preço</th>
+                  <th>R$/m²</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody id="samples-tbody"></tbody>
             </table>
-            <p class="empty-samples" id="empty-samples">Nenhuma amostra adicionada ainda. Clique em "Adicionar amostra" para comecar.</p>
+            <p class="empty-samples" id="empty-samples">Nenhuma amostra adicionada ainda. Clique em "Adicionar amostra" para começar.</p>
           </div>
 
           <div class="row-actions">
@@ -516,29 +515,29 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
           </div>
         </section>
 
-        <!-- 03 - Avaliacao e Precificacao (somente leitura) -->
+        <!-- 03 - Avaliação e Precificação (somente leitura) -->
         <section class="section">
           <div class="sec-header">
             <div class="sec-number">03</div>
-            <h2 class="sec-title">Avaliacao e Precificacao</h2>
+            <h2 class="sec-title">Avaliação e Precificação</h2>
           </div>
-          <p class="hint">Valores calculados automaticamente com base nas amostras cadastradas. Preencha a area util do imovel para obter o valor por m2.</p>
+          <p class="hint">Valores calculados automaticamente com base nas amostras cadastradas. Preencha a área útil do imóvel para obter o valor por m².</p>
           <div class="fields" style="margin-top:12px;">
             <div class="field col-4">
               <div class="read-chip">
-                <span class="rc-label">Media das amostras</span>
+                <span class="rc-label">Média das amostras</span>
                 <span class="rc-value" id="rc-media">-</span>
               </div>
             </div>
             <div class="field col-4">
               <div class="read-chip">
-                <span class="rc-label">Faixa minima</span>
+                <span class="rc-label">Faixa mínima</span>
                 <span class="rc-value" id="rc-min">-</span>
               </div>
             </div>
             <div class="field col-4">
               <div class="read-chip">
-                <span class="rc-label">Faixa maxima</span>
+                <span class="rc-label">Faixa máxima</span>
                 <span class="rc-value" id="rc-max">-</span>
               </div>
             </div>
@@ -550,7 +549,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
             </div>
             <div class="field col-4">
               <div class="read-chip">
-                <span class="rc-label">Valor medio por m2</span>
+                <span class="rc-label">Valor médio por m²</span>
                 <span class="rc-value" id="rc-sqm">-</span>
               </div>
             </div>
@@ -562,13 +561,13 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
             </div>
             <div class="field col-6">
               <div class="read-chip">
-                <span class="rc-label">Opcao mercado (media)</span>
+                <span class="rc-label">Opção mercado (média)</span>
                 <span class="rc-value" id="rc-op-mercado">-</span>
               </div>
             </div>
             <div class="field col-6">
               <div class="read-chip">
-                <span class="rc-label">Opcao competitiva (-5%)</span>
+                <span class="rc-label">Opção competitiva (-5%)</span>
                 <span class="rc-value" id="rc-op-competitiva">-</span>
               </div>
             </div>
@@ -587,19 +586,8 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
         <button class="modal-close" id="modal-close" type="button" aria-label="Fechar">&#x2715;</button>
       </div>
       <div class="modal-fields">
-        <div class="field col-6">
-          <label for="m-plataforma">Plataforma</label>
-          <select id="m-plataforma">
-            <option value="">Selecione...</option>
-            <option value="vivareal">VivaReal</option>
-            <option value="olx">OLX</option>
-            <option value="zapimoveis">Zap Imoveis</option>
-            <option value="chavesnamao">Chaves na Mao</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-        <div class="field col-6">
-          <label for="m-link">Link do anuncio</label>
+        <div class="field col-12">
+          <label for="m-link">Link do anúncio</label>
           <input id="m-link" type="url" placeholder="https://...">
         </div>
         <div class="field col-4">
@@ -607,11 +595,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
           <input id="m-bairro" type="text">
         </div>
         <div class="field col-8">
-          <label for="m-endereco">Endereco</label>
-          <input id="m-endereco" type="text" placeholder="Rua, numero (opcional)">
+          <label for="m-endereco">Endereço</label>
+          <input id="m-endereco" type="text" placeholder="Rua, número (opcional)">
         </div>
         <div class="field col-3">
-          <label for="m-area">Area (m2)</label>
+          <label for="m-area">Área (m²)</label>
           <input id="m-area" type="text" placeholder="75">
         </div>
         <div class="field col-3">
@@ -619,7 +607,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
           <input id="m-dormitorios" type="number" min="0">
         </div>
         <div class="field col-3">
-          <label for="m-suites">Suites</label>
+          <label for="m-suites">Suítes</label>
           <input id="m-suites" type="number" min="0">
         </div>
         <div class="field col-3">
@@ -631,12 +619,12 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
           <input id="m-vagas" type="number" min="0">
         </div>
         <div class="field col-4">
-          <label for="m-preco">Preco <span style="color:#c0392b">*</span></label>
+          <label for="m-preco">Preço <span style="color:#c0392b">*</span></label>
           <input id="m-preco" type="text" placeholder="R$ 410.000">
         </div>
         <div class="field col-5">
-          <label for="m-preco-sqm">Preco por m2 (calculado)</label>
-          <input id="m-preco-sqm" type="text" readonly placeholder="Automatico">
+          <label for="m-preco-sqm">Preço por m² (calculado)</label>
+          <input id="m-preco-sqm" type="text" readonly placeholder="Automático">
         </div>
       </div>
       <div class="modal-footer">
@@ -651,7 +639,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   'use strict';
 
   /* ----------------------------------------------------------------
-     Utilitarios
+    Utilitários
   ---------------------------------------------------------------- */
 
   function normalizeSpaces(v) { return (v || '').replace(/\s+/g, ' ').trim(); }
@@ -672,7 +660,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
   function formatSqm(v) {
     if (!Number.isFinite(v)) return '';
-    return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '/m2';
+    return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '/m²';
   }
 
   function areaToNum(s) {
@@ -831,9 +819,8 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
       var tr = document.createElement('tr');
       tr.innerHTML =
         '<td>'+(idx+1)+'</td>'+
-        '<td><span class="sample-platform-badge">'+(item.plataforma||'-')+'</span></td>'+
         '<td>'+endStr+'</td>'+
-        '<td>'+(item.area ? item.area+'m2' : '-')+'</td>'+
+        '<td>'+(item.area ? item.area+'m²' : '-')+'</td>'+
         '<td>'+[item.dormitorios,item.suites,item.banheiros,item.vagas].map(function(v){return v||'-';}).join('/')+'</td>'+
         '<td>'+(item.preco||'-')+'</td>'+
         '<td>'+sqmStr+'</td>'+
@@ -855,7 +842,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   });
 
   /* ----------------------------------------------------------------
-     Precificacao
+    Precificação
   ---------------------------------------------------------------- */
 
   function updatePricing() {
@@ -873,7 +860,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
     var max = Math.max.apply(null,prices);
     var areaN = areaToNum(document.getElementById('imovel_area').value);
     var sqm   = (Number.isFinite(areaN)&&areaN>0) ? avg/areaN : NaN;
-    var pos   = avg>=avg*1.05?'Acima da media':avg<=avg*0.95?'Abaixo da media':'Na media';
+    var pos   = avg>=avg*1.05?'Acima da média':avg<=avg*0.95?'Abaixo da média':'Na média';
 
     document.getElementById('rc-media').textContent           = formatCurrency(avg);
     document.getElementById('rc-min').textContent             = formatCurrency(min);
@@ -893,7 +880,6 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
   var modalOverlay  = document.getElementById('modal-overlay');
   var modalTitleEl  = document.getElementById('modal-title-txt');
-  var mPlataforma   = document.getElementById('m-plataforma');
   var mLink         = document.getElementById('m-link');
   var mBairro       = document.getElementById('m-bairro');
   var mEndereco     = document.getElementById('m-endereco');
@@ -913,7 +899,6 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
     clearModalFields();
     if (editingIdx !== null) {
       var d = samplesData[editingIdx];
-      mPlataforma.value = d.plataforma||'';
       mLink.value       = d.link||'';
       mBairro.value     = d.bairro||'';
       mEndereco.value   = d.endereco||'';
@@ -926,11 +911,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
       recalcSqm();
     }
     modalOverlay.classList.add('open');
-    setTimeout(function(){ (mPlataforma.value?mLink:mPlataforma).focus(); },50);
+    setTimeout(function(){ mLink.focus(); },50);
   }
 
   function clearModalFields() {
-    [mPlataforma,mLink,mBairro,mEndereco,mArea,mDorm,mSuites,mBanh,mVagas,mPreco,mPrecoSqm].forEach(function(el){ el.value=''; });
+    [mLink,mBairro,mEndereco,mArea,mDorm,mSuites,mBanh,mVagas,mPreco,mPrecoSqm].forEach(function(el){ el.value=''; });
   }
 
   function closeModal() {
@@ -943,11 +928,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   modalOverlay.addEventListener('click', function(e){ if(e.target===modalOverlay) closeModal(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
 
-  // Auto-extracao ao mudar link
+  // Auto-extração ao mudar link
   mLink.addEventListener('change', function () {
     var link = normalizeSpaces(mLink.value);
     if (!link || link.length < 10) return;
-    var ex = extractFromLink(link, mPlataforma.value);
+    var ex = extractFromLink(link);
     if (ex.bairro     && !mBairro.value)  mBairro.value     = ex.bairro;
     if (ex.area       && !mArea.value)    mArea.value       = ex.area;
     if (ex.dormitorios&& !mDorm.value)    mDorm.value       = ex.dormitorios;
@@ -969,13 +954,11 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
   document.getElementById('modal-confirm').addEventListener('click', function () {
     var missing = [];
-    if (!mPlataforma.value) missing.push('Plataforma');
     if (!mBairro.value)     missing.push('Bairro');
-    if (!mPreco.value)      missing.push('Preco');
-    if (missing.length) { alert('Preencha os campos obrigatorios: '+missing.join(', ')+'.'); return; }
+    if (!mPreco.value)      missing.push('Preço');
+    if (missing.length) { alert('Preencha os campos obrigatórios: '+missing.join(', ')+'.'); return; }
 
     var item = {
-      plataforma:  mPlataforma.value,
       link:        mLink.value,
       bairro:      mBairro.value,
       endereco:    mEndereco.value,
@@ -996,7 +979,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   });
 
   /* ----------------------------------------------------------------
-     Botao adicionar
+    Botão adicionar
   ---------------------------------------------------------------- */
 
   document.getElementById('add-amostra').addEventListener('click', function () {

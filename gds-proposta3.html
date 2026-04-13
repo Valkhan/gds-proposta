@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDS Imóveis - Proposta Comercial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --g900: #0a3318;
+    --g800: #145228;
+    --g700: #1b6f35;
+    --g600: #228940;
+    --g500: #2daa52;
+    --g400: #52bf70;
+    --g300: #84d49d;
+    --g200: #b6e8c5;
+    --g100: #d6f2e1;
+    --g050: #edfaf3;
+    --g000: #f6fcf9;
+    --text-dark: #10261b;
+    --text-mid: #365647;
+    --text-soft: #627b6f;
+    --white: #ffffff;
+    --line: #d7eadf;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background:
+      radial-gradient(1200px 700px at -8% -12%, rgba(242, 184, 75, 0.18), transparent 60%),
+      radial-gradient(1000px 620px at 108% 6%, rgba(45, 170, 82, 0.16), transparent 58%),
+      linear-gradient(148deg, #d2e7d8 0%, #effaf4 48%, #d7ecdf 100%);
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  .hero {
+    background: linear-gradient(145deg, var(--g900), var(--g700));
+    min-height: 440px;
+    padding: 30px 0 58px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bars {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    padding: 0;
+    opacity: 0.34;
+    pointer-events: none;
+  }
+
+  .hero-bars span {
+    flex: 1 0 0;
+    border-radius: 0;
+    background:
+      repeating-linear-gradient(
+        to right,
+        rgba(246, 252, 249, 0.2) 0 3px,
+        transparent 3px 11px
+      ),
+      linear-gradient(180deg, rgba(132, 212, 157, 0.78) 0%, rgba(56, 131, 82, 0.82) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset -1px 0 0 rgba(11, 42, 24, 0.22);
+    position: relative;
+    animation: barPulse 4.2s ease-in-out infinite alternate;
+  }
+
+  .hero-bars span::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(231, 248, 238, 0.28);
+  }
+
+  @keyframes barPulse {
+    from { opacity: 0.45; }
+    to { opacity: 1; }
+  }
+
+  .hero-top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    min-height: 44px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .brand-badge img {
+    width: 128px;
+    height: auto;
+    max-height: 52px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .brand-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .hero-chip {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+  }
+
+  .hero h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span { color: var(--g300); }
+
+  .hero-sub {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 760px;
+  }
+
+  .hero-consultant {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    padding: 10px 14px;
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-consultant-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(214, 242, 225, 0.9);
+    color: var(--g900);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .hero-consultant-kicker {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.68);
+    margin-bottom: 2px;
+  }
+
+  .hero-consultant-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    line-height: 1.1;
+    color: var(--white);
+    font-weight: 800;
+  }
+
+  .hero-consultant-role {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.82);
+    margin-top: 2px;
+  }
+
+  .hero-meta {
+    margin-top: 24px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .meta-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .hero-actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 999px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.16s, box-shadow 0.16s;
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn-primary {
+    background: var(--white);
+    color: var(--g800);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255, 255, 255, 0.42);
+  }
+
+  .section-cta-center {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .section-cta-center .btn {
+    background: linear-gradient(145deg, var(--g700), var(--g600));
+    color: var(--white);
+    box-shadow: 0 12px 24px rgba(16, 44, 28, 0.24);
+  }
+
+  .section-cta-center .btn:hover {
+    box-shadow: 0 14px 28px rgba(16, 44, 28, 0.3);
+  }
+
+  .section { padding: 74px 0; }
+
+  .section-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.18;
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    max-width: 760px;
+    color: var(--text-soft);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .property-section {
+    background:
+      radial-gradient(900px 320px at 8% 0%, rgba(45, 170, 82, 0.14), transparent 65%),
+      linear-gradient(180deg, #f2fbf6 0%, #eaf6ef 100%);
+    border-top: 1px solid rgba(20, 82, 40, 0.1);
+    border-bottom: 1px solid rgba(20, 82, 40, 0.1);
+  }
+
+  .property-card {
+    margin-top: 24px;
+    background: linear-gradient(175deg, #ffffff 0%, #f6fcf9 100%);
+    border: 1px solid #cfe3d7;
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 0 14px 30px rgba(16, 44, 28, 0.1);
+  }
+
+  .property-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .property-type {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 800;
+    color: var(--g700);
+    background: var(--g100);
+    border: 1px solid #cde6d7;
+    border-radius: 999px;
+    padding: 5px 10px;
+    margin-bottom: 8px;
+  }
+
+  .property-address {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.2;
+    color: var(--text-dark);
+  }
+
+  .property-region {
+    margin-top: 6px;
+    color: var(--text-mid);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .property-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .property-panel {
+    background: linear-gradient(165deg, #f2faf6 0%, #e4f2ea 100%);
+    border: 1px solid #c7dfd2;
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .property-panel h4 {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--g800);
+    margin-bottom: 10px;
+  }
+
+  .property-main-chips,
+  .property-attrs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .property-kv {
+    border: 1px solid #cee2d6;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+    padding: 9px 10px;
+  }
+
+  .property-kv-label {
+    font-size: 10px;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+  }
+
+  .property-kv-value {
+    font-size: 13px;
+    color: var(--text-dark);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .property-summary {
+    background: linear-gradient(150deg, var(--g900), var(--g600));
+    color: var(--white);
+    border-radius: 14px;
+    padding: 12px 14px;
+    min-width: 220px;
+    max-width: 320px;
+  }
+
+  .property-summary-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+  }
+
+  .property-summary-value {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .property-chips {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .property-chip {
+    background: var(--white);
+    border: 1px solid #cfe5d8;
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-mid);
+  }
+
+  .property-note {
+    margin-top: 16px;
+    border-left: 3px solid var(--g600);
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid #d4e7dc;
+    border-left-width: 3px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .property-note-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+
+  .legacy-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 12px 28px rgba(17, 50, 30, 0.08);
+  }
+
+  .price-speed-section {
+    background: var(--white);
+  }
+
+  .legacy-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .legacy-speed-table {
+    margin-top: 14px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #c7ddcf;
+  }
+
+  .legacy-speed-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .legacy-speed-row div { padding: 11px 14px; }
+  .legacy-speed-row div:last-child { text-align: right; }
+  .legacy-speed-1 { background: #145228; }
+  .legacy-speed-2 { background: #2a6e45; }
+  .legacy-speed-3 { background: #3d8a5a; }
+  .legacy-speed-4 { background: #5ba876; }
+
+  .legacy-checklist {
+    background: linear-gradient(160deg, #f2faf6 0%, #e8f4ed 100%);
+    border: 1px solid #cfe2d7;
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .legacy-checklist ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    display: grid;
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    color: var(--text-mid);
+    font-size: 13px;
+  }
+
+  .legacy-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.45;
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid #d3e7db;
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+
+  .legacy-checklist li i {
+    width: 18px;
+    color: var(--g700);
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .legacy-method {
+    background: linear-gradient(150deg, var(--g900), var(--g700));
+    color: var(--white);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 24px;
+  }
+
+  .legacy-method p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .legacy-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .legacy-step {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--white);
+    padding: 14px;
+    position: relative;
+  }
+
+  .legacy-step-info {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #c9dfd1;
+    background: #f5fbf7;
+    color: var(--g700);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .legacy-step-side-icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(34, 137, 64, 0.18);
+    pointer-events: none;
+    margin-bottom: 18px;
+  }
+
+  .legacy-step-side-icon i {
+    font-size: 64px;
+    line-height: 1;
+  }
+
+  .legacy-step-n {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(155deg, var(--g700), var(--g500));
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .legacy-step-card {
+    max-width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .legacy-step-card h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+
+  .legacy-step-card p {
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.7;
+    margin-top: 0;
+  }
+
+  .legacy-step-content-list,
+  .legacy-step-content-desc {
+    flex: 1;
+  }
+
+  .legacy-step-content-desc {
+    display: none;
+  }
+
+  .legacy-step.show-desc .legacy-step-content-list {
+    display: none;
+  }
+
+  .legacy-step.show-desc .legacy-step-content-desc {
+    display: block;
+  }
+
+  .legacy-step-card ul {
+    list-style: none;
+    margin-left: 0;
+    color: var(--text-mid);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .legacy-step-card li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legacy-step-card li i {
+    width: 16px;
+    color: var(--g700);
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .legacy-table-wrap {
+    margin-top: 16px;
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid #d3e5da;
+    background: var(--white);
+  }
+
+  .legacy-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+  }
+
+  .legacy-table th {
+    background: var(--g800);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .legacy-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #edf5f0;
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  .legacy-table tr:last-child td { border-bottom: none; }
+
+  .compare-table-section {
+    background:
+      linear-gradient(rgba(52, 120, 79, 0.78), rgba(35, 98, 64, 0.84)),
+      url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+    border-top: 1px solid #d2e5d9;
+    border-bottom: 1px solid #d2e5d9;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .compare-table-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(20, 82, 40, 0.1) 0.8px, transparent 0.8px);
+    background-size: 14px 14px;
+    opacity: 0.16;
+    pointer-events: none;
+  }
+
+  .compare-table-section .wrap {
+    position: relative;
+    z-index: 1;
+  }
+
+  .compare-table-section .section-title,
+  .compare-table-section .section-sub {
+    color: var(--white);
+  }
+
+  .compare-table-section .section-sub {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .legacy-table-attr {
+    font-weight: 700;
+    color: var(--text-dark);
+    background: #f4fbf7;
+    white-space: nowrap;
+  }
+
+  .legacy-mini-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .legacy-mini-box.partners-card {
+    grid-column: 1 / -1;
+    max-width: 760px;
+    width: 100%;
+    justify-self: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(155deg, #0d4a2a 0%, #17603a 52%, #1f7a48 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 18px 36px rgba(12, 56, 33, 0.24);
+  }
+
+  .legacy-mini-box.partners-card::before {
+    content: '';
+    position: absolute;
+    inset: -20% auto auto -8%;
+    width: 280px;
+    height: 280px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.18' stroke-width='2'%3E%3Ccircle cx='110' cy='110' r='40'/%3E%3Ccircle cx='110' cy='110' r='72'/%3E%3Ccircle cx='110' cy='110' r='102'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+    pointer-events: none;
+  }
+
+  .legacy-mini-box.partners-card::after {
+    content: '';
+    position: absolute;
+    right: -24px;
+    bottom: -18px;
+    width: 240px;
+    height: 180px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 180'%3E%3Cpath d='M8 148 C48 88, 92 72, 138 106 C170 130, 204 128, 232 96' fill='none' stroke='%23b6e8c5' stroke-opacity='.42' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M6 166 C48 122, 96 112, 136 132 C166 146, 200 144, 234 116' fill='none' stroke='%23ffffff' stroke-opacity='.26' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain;
+    pointer-events: none;
+  }
+
+  .legacy-mini-box.partners-card h3,
+  .legacy-mini-box.partners-card p {
+    position: relative;
+    z-index: 1;
+  }
+
+  .legacy-mini-box.partners-card h3 {
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .legacy-mini-box.partners-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.85;
+  }
+
+  .legacy-mini-box {
+    background: var(--white);
+    border: 1px solid #d2e6db;
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .legacy-portal-grid {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .legacy-portal-grid .legacy-portal {
+    grid-column: span 2;
+  }
+
+  .legacy-portal-grid .legacy-portal:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .legacy-portal-grid .legacy-portal:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  .legacy-portal {
+    background: #f6fcf9;
+    border: 1px solid #d5e8de;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-mid);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+  }
+
+  .legacy-portal i {
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .legacy-portal-logo {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .legacy-portal-logo img {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .result-card {
+    margin-top: 8px;
+    background: linear-gradient(160deg, #f6fcf9 0%, #edf7f1 100%);
+    border: 1px solid #d2e6db;
+    border-radius: 20px;
+    padding: 20px;
+  }
+
+  .result-range {
+    margin-top: 16px;
+  }
+
+  .result-range-scale {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-soft);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .result-range-track {
+    position: relative;
+    height: 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #9edcb2 0%, #2daa52 52%, #0f522c 100%);
+    box-shadow: inset 0 0 0 1px rgba(16, 44, 28, 0.12);
+    margin-bottom: 74px;
+  }
+
+  .result-marker {
+    position: absolute;
+    top: 7px;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .result-marker-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+    display: block;
+    box-shadow: 0 4px 12px rgba(8, 38, 21, 0.28);
+  }
+
+  .result-marker-box {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(220px, 42vw);
+    background: var(--white);
+    border: 1px solid #d2e6db;
+    border-radius: 12px;
+    padding: 8px 10px;
+    box-shadow: 0 10px 22px rgba(16, 44, 28, 0.12);
+  }
+
+  .result-marker-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-soft);
+    margin-bottom: 3px;
+  }
+
+  .result-marker-value {
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: var(--g800);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 3px;
+  }
+
+  .result-marker-meta {
+    font-size: 11px;
+    color: var(--text-mid);
+    line-height: 1.45;
+  }
+
+  .result-marker-tag {
+    font-size: 11px;
+    color: var(--g700);
+    font-weight: 700;
+    margin-top: 3px;
+  }
+
+  .next-steps-callout {
+    margin-top: 18px;
+    border: 1px solid #d1e5da;
+    border-radius: 18px;
+    padding: 18px;
+    background: linear-gradient(145deg, #ffffff 0%, #f4fbf7 100%);
+  }
+
+  .next-steps-callout h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .next-steps-list {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .next-step-item {
+    border-radius: 14px;
+    border: 1px solid #d4e8dc;
+    background: #ffffff;
+    padding: 12px 8px;
+    font-size: 11px;
+    color: var(--text-mid);
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .next-step-link {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .next-step-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(16, 44, 28, 0.2);
+  }
+
+  .next-step-item i {
+    font-size: 20px;
+    color: var(--g700);
+  }
+
+  .next-step-item span {
+    display: block;
+    line-height: 1.25;
+  }
+
+  .next-step-item.highlight {
+    border-color: #0f5a2f;
+    background: linear-gradient(145deg, #1b6f35, #0f5a2f);
+    color: var(--white);
+    box-shadow: 0 10px 24px rgba(16, 44, 28, 0.25);
+  }
+
+  .next-step-item.highlight i {
+    color: var(--white);
+  }
+
+  .data-section {
+    background: var(--g000);
+    border-top: 1px solid rgba(20, 82, 40, 0.08);
+    border-bottom: 1px solid rgba(20, 82, 40, 0.08);
+  }
+
+  .data-bubbles {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    flex-wrap: wrap;
+  }
+
+  .bubble {
+    width: 178px;
+    height: 178px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, var(--g800), var(--g600));
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 18px;
+    box-shadow: 0 14px 30px rgba(20, 82, 40, 0.25);
+    transition: transform 0.18s;
+  }
+
+  .bubble:hover { transform: scale(1.04); }
+
+  .bubble-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .bubble-num {
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .bubble-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.86);
+    line-height: 1.35;
+  }
+
+  .funnel {
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .funnel-line {
+    width: 2px;
+    height: 52px;
+    background: var(--g500);
+  }
+
+  .feature-card {
+    margin: 18px auto 0;
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 28px rgba(17, 50, 30, 0.09);
+    display: grid;
+    grid-template-columns: 260px 1fr 1fr;
+  }
+
+  .feature-side {
+    background: linear-gradient(155deg, #d4ebdd, #eff9f3);
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .feature-side h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .feature-side p {
+    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column: 2 / 4;
+  }
+
+  .feat {
+    padding: 24px;
+    border-left: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .feat:nth-child(2n + 1) { border-left: none; }
+  .feat:nth-last-child(-n + 2) { border-bottom: none; }
+
+  .feat-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--g100);
+    color: var(--g800);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .feat h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    margin-bottom: 7px;
+  }
+
+  .feat p {
+    color: var(--text-soft);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .panel-section {
+    background: linear-gradient(150deg, var(--g900), var(--g700));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .panel-section .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .panel-copy .section-title,
+  .panel-copy .section-sub { color: var(--white); }
+
+  .panel-copy .section-sub { color: rgba(255, 255, 255, 0.75); }
+
+  .phone-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .price-chip {
+    position: absolute;
+    left: -54px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--white);
+    color: var(--g800);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    white-space: nowrap;
+  }
+
+  .phone {
+    width: 236px;
+    background: var(--white);
+    border-radius: 30px;
+    overflow: hidden;
+    padding: 11px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+  }
+
+  .phone-header {
+    background: linear-gradient(145deg, var(--g700), var(--g500));
+    color: var(--white);
+    border-radius: 14px;
+    padding: 10px 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .phone-addr {
+    font-size: 10px;
+    color: #51695d;
+    line-height: 1.45;
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+
+  .phone-card {
+    background: var(--g050);
+    border-radius: 11px;
+    padding: 12px;
+    border: 1px solid var(--line);
+  }
+
+  .phone-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #557366;
+    margin-bottom: 7px;
+  }
+
+  .phone-prices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .phone-price-val {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+
+  .phone-price-label {
+    font-size: 9px;
+    color: #6a8376;
+  }
+
+  .phone-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .phone-stat {
+    font-size: 9px;
+    color: #6e867a;
+    line-height: 1.35;
+  }
+
+  .phone-stat strong {
+    display: block;
+    font-size: 10px;
+    color: var(--text-dark);
+  }
+
+  .compare-section {
+    background:
+      linear-gradient(rgba(246, 252, 249, 0.7), rgba(246, 252, 249, 0.8)),
+      url('https://img.freepik.com/vetores-premium/mapa-da-cidade-para-plano-de-estradas-de-navegacao-de-rua-de-rota-gps_152104-219.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .compare-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(20, 82, 40, 0.08) 0.8px, transparent 0.8px);
+    background-size: 12px 12px;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  .compare-section .wrap { position: relative; z-index: 1; }
+
+  .carousel-wrap { margin-top: 26px; }
+
+  .carousel-card {
+    background: var(--white);
+    border: 1px solid #d3e6db;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 10px 24px rgba(16, 44, 28, 0.08);
+  }
+
+  .carousel {
+    display: flex;
+    gap: 14px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+  }
+
+  .sample-card {
+    min-width: 276px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 26px rgba(16, 44, 28, 0.08);
+    flex-shrink: 0;
+    transition: transform 0.18s;
+  }
+
+  .sample-card:hover { transform: translateY(-4px); }
+
+  .sample-media {
+    height: 168px;
+    background: linear-gradient(145deg, #d4ebdd, #edf8f2);
+    position: relative;
+  }
+
+  .sample-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sample-media::after {
+    content: 'Amostra de Mercado';
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: rgba(10, 51, 24, 0.7);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 5px 10px;
+    letter-spacing: 0.2px;
+  }
+
+  .sample-body { padding: 14px; }
+
+  .sample-bairro {
+    font-size: 10px;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--g600);
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .sample-addr {
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .sample-spec {
+    color: var(--text-soft);
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .sample-price {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    color: var(--g800);
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  .sample-sqm {
+    font-size: 11px;
+    color: var(--text-soft);
+  }
+
+  .carousel-controls {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #c8dfd0;
+    background: var(--white);
+    color: var(--g700);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.16s;
+  }
+
+  .carousel-btn:hover {
+    background: var(--g700);
+    color: var(--white);
+    border-color: var(--g700);
+  }
+
+  .benefits-section {
+    background: var(--white);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .benefits-visual {
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    min-height: 420px;
+    background: linear-gradient(145deg, #d9efe2, #f0faf5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .consultant-card {
+    width: 100%;
+    max-width: 380px;
+    background: var(--white);
+    border-radius: 18px;
+    border: 1px solid #d8eadf;
+    padding: 18px;
+    box-shadow: 0 12px 26px rgba(16, 44, 28, 0.08);
+  }
+
+  .consultant-top {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--g100);
+    color: var(--g800);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .consultant-name {
+    font-family: 'Manrope', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .consultant-role {
+    font-size: 12px;
+    color: var(--text-soft);
+  }
+
+  .consultant-bio {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .consultant-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mini {
+    background: var(--g050);
+    border: 1px solid #d9ebdf;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .mini strong {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    color: var(--g800);
+    display: block;
+  }
+
+  .mini span {
+    font-size: 10px;
+    color: var(--text-soft);
+  }
+
+  .benefits-list .section-title { margin-bottom: 22px; }
+
+  .benefit-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+
+  .benefit-dot {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--g100);
+    color: var(--g800);
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .benefit-item h4 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .benefit-item p {
+    color: var(--text-soft);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .cta-section {
+    background: var(--g050);
+    border-top: 1px solid #d5e8dd;
+    border-bottom: 1px solid #d5e8dd;
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+  }
+
+  .cta-main h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(24px, 2.8vw, 34px);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+
+  .cta-main p {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .stat h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px;
+    margin-bottom: 3px;
+  }
+
+  .stat p {
+    color: var(--text-soft);
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  .help h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .help p {
+    color: var(--text-soft);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border: 1px solid #cfe2d7;
+    border-radius: 999px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--g800);
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  .faq-section {
+    background: var(--white);
+    padding: 66px 0 80px;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 34px;
+  }
+
+  .faq-col h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    margin-bottom: 22px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #edf4f0;
+    padding: 17px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .faq-item span {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .faq-chevron {
+    color: #6e857a;
+    transition: transform 0.2s;
+  }
+
+  .faq-item:hover .faq-chevron { transform: rotate(180deg); }
+
+  .how-card {
+    background: linear-gradient(150deg, var(--g900), var(--g700));
+    border-radius: 24px;
+    padding: 28px;
+    color: var(--white);
+    align-self: start;
+    box-shadow: 0 14px 34px rgba(16, 44, 28, 0.3);
+  }
+
+  .how-card h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .how-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .how-step p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 980px) {
+    .feature-card { grid-template-columns: 1fr; }
+    .feature-side { border-right: none; border-bottom: 1px solid var(--line); }
+    .feature-grid { grid-column: auto; }
+    .panel-section .wrap { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .cta-grid { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .price-chip { display: none; }
+    .phone-wrap { justify-content: flex-start; }
+    .property-grid { grid-template-columns: 1fr; }
+    .legacy-grid-two { grid-template-columns: 1fr; }
+    .legacy-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .legacy-portal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .legacy-portal-grid .legacy-portal { grid-column: auto; }
+    .legacy-portal-grid .legacy-portal:nth-child(4),
+    .legacy-portal-grid .legacy-portal:nth-child(5) { grid-column: auto; }
+    .legacy-mini-grid { grid-template-columns: 1fr; }
+    .next-steps-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .result-range-track { margin-bottom: 16px; }
+    .result-marker {
+      position: static;
+      transform: none;
+      margin-top: 8px;
+    }
+    .result-marker-dot { display: none; }
+    .result-marker-box {
+      position: static;
+      transform: none;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .section { padding: 58px 0; }
+    .hero { min-height: 360px; }
+    .hero-top { margin-bottom: 26px; }
+    .brand-badge img { width: 104px; max-height: 44px; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .bubble { width: 148px; height: 148px; }
+    .bubble-num { font-size: 24px; }
+    .sample-card { min-width: 242px; }
+    .sample-media { height: 150px; }
+    .legacy-timeline { grid-template-columns: 1fr; }
+    .legacy-portal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .legacy-step-side-icon i { font-size: 56px; }
+    .next-steps-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .wrap { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bars" id="heroBars"></div>
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="brand" aria-label="GDS Imóveis">
+        <span class="brand-badge"><img src="logo-sem-fundo.png" alt="Logo GDS Imóveis"></span>
+        <span class="brand-text">Estudo de mercado e plano de marketing</span>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h1>Olá, <span id="heroNomeCliente"></span>.</h1>
+      <p class="hero-sub">Entender qual a posição do seu imóvel no mercado é o primeiro passo para realizar a venda com qualidade e segurança. Para isso, realizamos um estudo feito com base nas características do seu imóvel e das ofertas de imóveis similares na região.</p>
+      <div class="hero-consultant">
+        <div class="hero-consultant-avatar" id="heroConsultorAvatar"></div>
+        <div>
+          <span class="hero-consultant-kicker">Consultor(a) responsável</span>
+          <div class="hero-consultant-name" id="heroConsultorNome"></div>
+          <div class="hero-consultant-role" id="heroConsultorCargo"></div>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-pill" id="heroCliente"></div>
+        <div class="meta-pill" id="heroEndereco"></div>
+        <div class="meta-pill" id="heroConsultora"></div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="btnWhatsapp" href="#etapa-contrato">Prosseguir com contrato</a>
+        <a class="btn btn-ghost" href="#comparativo">Ver comparativo de amostras</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section property-section">
+  <div class="wrap">
+    <h2 class="section-title">Dados principais do seu imóvel</h2>
+    <p class="section-sub">Antes da precificação, organizamos os pontos centrais do imóvel para orientar posicionamento, comunicação e estratégia comercial.</p>
+
+    <div class="property-card">
+      <div class="property-top">
+        <div>
+          <span class="property-type">Resumo técnico</span>
+          <h3 class="property-address" id="imovelEnderecoTitulo"></h3>
+          <p class="property-region" id="imovelBairroCidade"></p>
+        </div>
+        <div class="property-summary">
+          <div class="property-summary-label">Visão geral do imóvel</div>
+          <div class="property-summary-value" id="imovelResumoPrincipal"></div>
+        </div>
+      </div>
+
+      <div class="property-grid">
+        <div class="property-panel">
+          <h4>Dados estruturais</h4>
+          <div class="property-main-chips" id="imovelMainChips"></div>
+        </div>
+        <div class="property-panel">
+          <h4>Características adicionais</h4>
+          <div class="property-attrs" id="imovelAttrs"></div>
+        </div>
+      </div>
+
+      <div class="property-note">
+        <div class="property-note-title">O que identificamos no seu imóvel</div>
+        <div id="imovelResumoTexto"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section data-section">
+  <div class="wrap">
+    <h2 class="section-title">Dados que sustentam uma precificação assertiva</h2>
+    <p class="section-sub">Nossa recomendação combina experiência local, histórico de negociações e leitura do comportamento de compra na região para reduzir improviso e aumentar a probabilidade de uma venda eficiente.</p>
+
+    <div class="data-bubbles" id="dataBubbles"></div>
+
+    <div class="funnel">
+      <div class="funnel-line"></div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-side">
+        <h3>Como estruturamos sua proposta</h3>
+        <p>Conteúdo adaptado para o seu imóvel, com foco em decisão segura e estratégia comercial objetiva.</p>
+      </div>
+      <div class="feature-grid" id="featuresGrid"></div>
+    </div>
+
+    <div class="section-cta-center">
+      <a class="btn btn-primary contract-scroll-btn" href="#etapa-contrato">Prosseguir com contrato</a>
+    </div>
+  </div>
+</section>
+
+<section class="section compare-section" id="comparativo">
+  <div class="wrap">
+    <h2 class="section-title">Comparativo do seu imóvel com as principais ofertas similares encontradas no mercado</h2>
+    <p class="section-sub">Mantivemos a visualização em carrossel para facilitar leitura rápida de cada amostra e comparação de preço, metragem e tipologia.</p>
+
+    <div class="carousel-wrap">
+      <div class="carousel-card">
+        <div class="carousel" id="sampleCarousel"></div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn" aria-label="Anterior">&#8249;</button>
+          <button class="carousel-btn" id="nextBtn" aria-label="Próximo">&#8250;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section benefits-section">
+  <div class="wrap benefits-grid">
+    <div class="benefits-visual">
+      <div class="consultant-card">
+        <div class="consultant-top">
+          <div class="avatar" id="consultorInicial"></div>
+          <div>
+            <div class="consultant-name" id="consultorNome"></div>
+            <div class="consultant-role" id="consultorCargo"></div>
+          </div>
+        </div>
+        <p class="consultant-bio" id="consultorBio"></p>
+        <div class="consultant-mini" id="consultorMini"></div>
+      </div>
+    </div>
+
+    <div class="benefits-list">
+      <h2 class="section-title">Nossos compromissos com você</h2>
+      <div id="benefitsList"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section price-speed-section">
+  <div class="wrap">
+    <div class="legacy-card">
+      <div class="legacy-grid-two">
+        <div>
+          <h2 class="section-title">Relação do preço com a velocidade de venda</h2>
+          <p class="section-sub">A velocidade de venda do seu imóvel está diretamente relacionada à precificação correta. Nosso histórico de vendas mostra que imóveis com avaliações acima do preço de mercado têm como resultado um processo de venda mais lento.</p>
+          <div class="legacy-speed-table">
+            <div class="legacy-speed-row legacy-speed-1"><div>Preço de Mercado</div><div>Menor tempo de venda</div></div>
+            <div class="legacy-speed-row legacy-speed-2"><div>+10%</div><div>Tempo um pouco maior</div></div>
+            <div class="legacy-speed-row legacy-speed-3"><div>+20%</div><div>Processo lento</div></div>
+            <div class="legacy-speed-row legacy-speed-4"><div>+30%</div><div>Maior tempo de venda</div></div>
+          </div>
+        </div>
+        <div class="legacy-checklist">
+          <h3 style="font-family:'Manrope',sans-serif;font-size:17px;margin-bottom:8px;">Imóvel com preço correto garante</h3>
+          <ul>
+            <li><i class="fa-solid fa-clock" aria-hidden="true"></i><span>Venda dentro de um prazo mais curto.</span></li>
+            <li><i class="fa-solid fa-face-smile" aria-hidden="true"></i><span>Menos inconvenientes.</span></li>
+            <li><i class="fa-solid fa-users" aria-hidden="true"></i><span>Mais clientes interessados e maior número de visitas.</span></li>
+            <li><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Corretores motivados em mostrar o imóvel.</span></li>
+            <li><i class="fa-solid fa-sack-dollar" aria-hidden="true"></i><span>Ofertas mais altas e menos chances de perder dinheiro.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Plano de marketing para o seu imóvel</h2>
+    <p class="section-sub">Com nosso plano de marketing, o seu imóvel chega ao maior número de compradores possível.</p>
+    <div class="legacy-timeline" id="marketingTimeline"></div>
+
+    <div class="section-cta-center">
+      <a class="btn btn-primary contract-scroll-btn" href="#etapa-contrato">Prosseguir com contrato</a>
+    </div>
+  </div>
+</section>
+
+<section class="section compare-table-section">
+  <div class="wrap">
+    <h2 class="section-title">Tabela comparativa das amostras</h2>
+    <div class="legacy-table-wrap">
+      <table class="legacy-table">
+        <thead id="comparativeTableHead"></thead>
+        <tbody id="comparativeTableBody"></tbody>
+      </table>
+    </div>
+    <p class="section-sub" style="margin-top:10px;max-width:none;font-size:12px;">Usamos como base para este estudo imóveis que estão anunciados nos principais portais de divulgação. A escolha dos imóveis foi feita a partir do nosso conhecimento de mercado e também por apresentarem características que muitas vezes não são encontradas por uma busca automática.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap legacy-mini-grid">
+    <div class="legacy-mini-box">
+      <h3 style="font-family:'Manrope',sans-serif;font-size:18px;">Portais imobiliários</h3>
+      <p class="section-sub" style="font-size:13px;">Os portais imobiliários oferecem um alcance e uma promoção significativamente maiores. Por exemplo, apenas no grupo ZAP Imóveis, há milhões de buscas.</p>
+      <div class="legacy-portal-grid" id="portaisMiniGrid"></div>
+    </div>
+    <div class="legacy-mini-box">
+      <h3 style="font-family:'Manrope',sans-serif;font-size:18px;">Redes sociais</h3>
+      <p class="section-sub" style="font-size:13px;">Seu imóvel terá ampla divulgação nas redes sociais, garantindo maior alcance e visibilidade para atrair potenciais compradores.</p>
+      <div class="legacy-portal-grid" id="redesMiniGrid"></div>
+    </div>
+    <div class="legacy-mini-box partners-card">
+      <h3 style="font-family:'Manrope',sans-serif;font-size:18px;">Rede de parceiros para impulsionar a venda do seu imóvel</h3>
+      <p class="section-sub" style="font-size:13px;max-width:none;">A GDS Imóveis é aberta a parcerias com outras imobiliárias e corretores que não fazem parte da rede. Essas parcerias maximizam oportunidades de negócios, aumentam a visibilidade do seu imóvel e melhoram o atendimento ao cliente em um mercado imobiliário cada vez mais competitivo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="etapa-contrato">
+  <div class="wrap">
+    <div class="legacy-card">
+      <h2 class="section-title">Resultados encontrados</h2>
+      <div class="result-card">
+        <p class="section-sub" style="max-width:none;">Faixa comparativa de precificação para facilitar a decisão comercial e visualizar o posicionamento do seu imóvel frente ao mercado.</p>
+        <div class="result-range">
+          <div class="result-range-scale">
+            <span id="resultScaleMin"></span>
+            <span id="resultScaleMax"></span>
+          </div>
+          <div class="result-range-track" id="priceRangeTrack"></div>
+        </div>
+      </div>
+      <div class="next-steps-callout">
+        <h3>Próximos passos da venda</h3>
+        <p class="section-sub" style="margin-top:0;max-width:none;">Obrigado por chegar até aqui. Avançando nestas etapas, colocamos seu imóvel em operação com agilidade e foco em resultado.</p>
+        <div class="next-steps-list" id="nextStepsList"></div>
+        <div class="section-cta-center">
+          <a class="btn btn-primary" id="btnAssinarContratoFinal" href="#">Assinar contrato</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const DATA = {
+    empresa: {
+      nome: 'GDS Imóveis',
+      razaosocial: 'Guedes Consultoria Imobiliária LTDA',
+      creci: '20451-J-SP',
+      endereco: 'Av. do Anastácio, 1525 — Parque São Domingos, SP',
+      telefone: '(11) 99165-3010',
+      whatsapp: '5511991653010',
+      email: 'contato@gdsimoveis.com.br',
+      anos: 16,
+      imoveis_vendidos: '+800',
+      corretores: 14
+    },
+    corretor: {
+      nome: 'Sandra Guedes',
+      titulo: 'Consultora Imobiliária',
+      creci: 'CRECI-SP 98765',
+      iniciais: 'SG',
+      bio: 'Profissional com vasta experiência no mercado imobiliário da região. Especialista em avaliação de imóveis residenciais, com foco em oferecer a melhor experiência de venda para os seus clientes, unindo conhecimento técnico, atenção personalizada e resultados comprovados.'
+    },
+    cliente: { nome: 'José Roberto' },
+    imovel: {
+      tipo: 'Casa',
+      endereco: 'Rua das Acácias, 420',
+      bairro: 'Parque São Domingos',
+      cidade: 'São Paulo — SP',
+      ano_construcao: '2003',
+      area: '75m²',
+      dormitorios: '2',
+      suites: '1',
+      banheiros: '2',
+      vagas: '1'
+      ,infraestrutura: 'Completa'
+      ,portaria: 'Não possui'
+      ,posicao_solar: 'Leste'
+      ,estado: 'Bom'
+      ,mobiliado: 'Semi-mobiliado'
+      ,demanda_regiao: 'Alta'
+      ,observacoes: 'O imóvel encontra-se desabitado no momento, com conservação adequada e excelente potencial de valorização dado o crescimento da região.'
+    },
+    avaliacao: {
+      valor_sugerido: 'R$ 371.169,84',
+      valor_min: 'R$ 355.000',
+      valor_max: 'R$ 390.000',
+      valor_sqm: 'R$ 6.873,52/m²',
+      media_amostras: 'R$ 357.000',
+      posicao: 'Destaque relativo',
+      opcao_mercado: { valor: 'R$ 371.169,84', sqm: 'R$ 6.873,52/m²', tag: 'Destaque relativo', label: 'Ajuste de Preço de Mercado' },
+      opcao_competitiva: { valor: 'R$ 378.593,23', sqm: 'R$ 7.010,99/m²', tag: 'Grande destaque', label: 'Ajuste de Preço Competitivo' }
+    },
+    amostras: [
+      { bairro: 'Vila Tupi', endereco: 'Rua Cataguases', area: '116m²', dormitorios: '3', suites: '1', banheiros: '2', vagas: '2', preco: 'R$ 410.000', preco_sqm: 'R$ 3.534/m²', foto: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80&auto=format&fit=crop' },
+      { bairro: 'Vila Tupi', endereco: 'Rua S. Leonardo Villas Boas', area: '70m²', dormitorios: '2', suites: '0', banheiros: '2', vagas: '2', preco: 'R$ 380.000', preco_sqm: 'R$ 5.428/m²', foto: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80&auto=format&fit=crop' },
+      { bairro: 'Vila Tupiry', endereco: 'Rua João Balbino Correa, 129', area: '69m²', dormitorios: '2', suites: '1', banheiros: '2', vagas: '0', preco: 'R$ 319.990', preco_sqm: 'R$ 4.637/m²', foto: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1200&q=80&auto=format&fit=crop' },
+      { bairro: 'Vila Tupiry', endereco: 'Sem endereço de rua', area: '70m²', dormitorios: '2', suites: '0', banheiros: '1', vagas: '2', preco: 'R$ 360.000', preco_sqm: 'R$ 5.142/m²', foto: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80&auto=format&fit=crop' },
+      { bairro: 'Vila Tupiry', endereco: 'Rua C. Luiz Gonzaga, 8105', area: '75m²', dormitorios: '1', suites: '0', banheiros: '1', vagas: '1', preco: 'R$ 220.000', preco_sqm: 'R$ 2.933/m²', foto: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=1200&q=80&auto=format&fit=crop' }
+    ],
+    marketing: {
+      portais: ['VivaReal', 'ZAP Imóveis', 'OLX', 'Órulo', 'Chaves na Mão'],
+      redes: ['Facebook', 'Google', 'Instagram', 'TikTok', 'YouTube'],
+      cronograma: [
+        { titulo: 'Fotos profissionais e vídeos', desc: 'Com nosso plano de marketing contemplamos todos os aspectos básicos necessários de divulgação e, através de um marketing digital de alta performance, colocamos o seu imóvel para o maior número de clientes compradores possíveis.', items: ['Preparação do imóvel', 'Fotógrafos profissionais', 'Compartilhamento das fotos', 'Vídeos de imóveis'] },
+        { titulo: 'Tour Virtual 360°', desc: 'Seu imóvel contará com tour virtual 360° para que os compradores possam conhecer o imóvel de qualquer lugar do mundo, aumentando o interesse e as chances de venda.', items: ['Tour 360° profissional', 'Compartilhamento online', 'Experiência imersiva', 'Disponível 24h'] },
+        { titulo: 'Placa no imóvel', desc: 'Colocação de placa com identificação da GDS Imóveis e contato do consultor responsável para captar clientes da região.', items: ['Placa profissional', 'Identificação visual', 'Contato direto', 'Alta visibilidade local'] },
+        { titulo: 'Envio de E-mail Marketing', desc: 'Seu imóvel contará com envios estratégicos de e-mail marketing, alcançando um público-alvo selecionado para garantir maior visibilidade e interesse.', items: ['Lista de Clientes Compradores', 'Lista de Clientes Proprietários', 'Lista de Corretores Parceiros', 'Lista de Imobiliárias Parceiras'] },
+        { titulo: 'Divulgação nas Redes Sociais', desc: 'Seu imóvel terá ampla divulgação nas redes sociais, garantindo maior alcance e visibilidade para atrair potenciais compradores.', items: ['Facebook', 'Instagram', 'TikTok', 'YouTube'] },
+        { titulo: 'Anúncios Patrocinados', desc: 'Mais destaque. Seu imóvel receberá divulgação através de anúncios pagos e patrocinados, garantindo uma exposição ainda maior e alcançando um público mais amplo.', items: ['Facebook Ads', 'Google Ads', 'Instagram Ads', 'YouTube Ads'] },
+        { titulo: 'Site exclusivo do imóvel', desc: 'Seu imóvel contará com uma página exclusiva no site da GDS Imóveis, com todas as informações, fotos e contato do corretor responsável.', items: ['Página exclusiva', 'SEO otimizado', 'Fácil compartilhamento', 'Atualização em tempo real'] },
+        { titulo: 'Placa no elevador do condomínio', desc: 'Colocação de placa no elevador do condomínio para captar compradores que já conhecem e valorizam o local, aumentando as chances de venda.', items: ['Alta visibilidade interna', 'Captação de moradores interessados', 'Formato profissional', 'Contato direto para agendamento'] },
+        { titulo: 'Open House', desc: 'Uma oportunidade para potenciais compradores visitarem a propriedade em um horário específico.', items: ['Visitas de clientes', 'Visita de corretores parceiros', 'Visita de corretores da GDS', 'Visibilidade ao imóvel'] }
+      ]
+    },
+    features: [
+      {
+        titulo: 'Avaliação comparativa real',
+        texto: 'Amostras selecionadas por similaridade de tipologia, região e metragem para sustentar o valor indicado.'
+      },
+      {
+        titulo: 'Plano de marketing em etapas',
+        texto: 'Fotos profissionais, divulgação digital, portais e estratégia de comunicação para atrair compradores qualificados.'
+      },
+      {
+        titulo: 'Rede de parceiros ativa',
+        texto: 'Conexão com corretores e imobiliárias para ampliar alcance sem perder coerência de precificação.'
+      },
+      {
+        titulo: 'Gestão e feedback contínuo',
+        texto: 'Acompanhamento de visitas, retorno estruturado e ajustes táticos para evoluir o processo de venda.'
+      }
+    ],
+    diferenciais: [
+      {
+        titulo: 'Avaliação sem custo',
+        texto: 'O estudo de mercado é realizado sem qualquer ônus ao proprietário, com metodologia comparativa e critérios objetivos.'
+      },
+      {
+        titulo: 'Assessoria financeira',
+        texto: 'Somos correspondentes bancários credenciados, oferecendo condições exclusivas de financiamento aos compradores.'
+      },
+      {
+        titulo: 'Divulgação em múltiplos canais',
+        texto: 'O imóvel é anunciado simultaneamente nos principais portais do país e nas redes sociais, com gestão de mídia profissional.'
+      },
+      {
+        titulo: 'Rede de corretores parceiros',
+        texto: 'Contamos com uma rede ativa de corretores na região, multiplicando as chances de encontrar o comprador ideal.'
+      },
+      {
+        titulo: 'Feedback estruturado',
+        texto: 'O proprietário recebe relatórios periódicos sobre o andamento das ações, visitas realizadas e percepções de mercado.'
+      },
+      {
+        titulo: 'Exclusividade com compromisso',
+        texto: 'A captação exclusiva garante foco total, evitando conflitos de precificação e preservando o valor percebido do imóvel.'
+      }
+    ]
+  };
+
+  (function () {
+    const d = DATA;
+
+    document.getElementById('heroNomeCliente').textContent = d.cliente.nome;
+    document.getElementById('heroCliente').textContent = 'Cliente: ' + d.cliente.nome;
+    document.getElementById('heroEndereco').textContent = d.imovel.tipo + ' - ' + d.imovel.endereco;
+    document.getElementById('heroConsultora').textContent = d.corretor.nome;
+    document.getElementById('heroConsultorAvatar').textContent = d.corretor.iniciais;
+    document.getElementById('heroConsultorNome').textContent = d.corretor.nome;
+    document.getElementById('heroConsultorCargo').textContent = d.corretor.titulo;
+    document.getElementById('btnWhatsapp').href = '#etapa-contrato';
+    document.querySelectorAll('a[href="#etapa-contrato"]').forEach((btnContrato) => {
+      btnContrato.addEventListener('click', (event) => {
+        event.preventDefault();
+        const target = document.getElementById('etapa-contrato');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.getElementById('imovelEnderecoTitulo').textContent = d.imovel.tipo + ' — ' + d.imovel.endereco;
+    document.getElementById('imovelBairroCidade').textContent = d.imovel.bairro + ', ' + d.imovel.cidade;
+    document.getElementById('imovelResumoPrincipal').textContent = d.imovel.area + ' | ' + d.imovel.dormitorios + ' dorm. | ' + d.imovel.vagas + ' vaga';
+    document.getElementById('imovelResumoTexto').textContent = d.imovel.observacoes;
+
+    const imovelMainChips = document.getElementById('imovelMainChips');
+    imovelMainChips.innerHTML = [
+      { label: 'Ano de construção', value: d.imovel.ano_construcao },
+      { label: 'Área útil', value: d.imovel.area },
+      { label: 'Dormitórios', value: d.imovel.dormitorios },
+      { label: 'Suítes', value: d.imovel.suites },
+      { label: 'Banheiros', value: d.imovel.banheiros },
+      { label: 'Vagas', value: d.imovel.vagas }
+    ].map((item) =>
+      '<div class="property-kv">' +
+      '<div class="property-kv-label">' + item.label + '</div>' +
+      '<div class="property-kv-value">' + item.value + '</div>' +
+      '</div>'
+    ).join('');
+
+    const imovelAttrs = document.getElementById('imovelAttrs');
+    imovelAttrs.innerHTML = [
+      { label: 'Infraestrutura', value: d.imovel.infraestrutura },
+      { label: 'Portaria', value: d.imovel.portaria },
+      { label: 'Posição solar', value: d.imovel.posicao_solar },
+      { label: 'Estado', value: d.imovel.estado },
+      { label: 'Semi-mobiliado', value: d.imovel.mobiliado },
+      { label: 'Demanda da região', value: d.imovel.demanda_regiao }
+    ].map((item) =>
+      '<div class="property-kv">' +
+      '<div class="property-kv-label">' + item.label + '</div>' +
+      '<div class="property-kv-value">' + item.value + '</div>' +
+      '</div>'
+    ).join('');
+
+    const phoneAddr = document.getElementById('phoneAddr');
+    const phoneMin = document.getElementById('phoneMin');
+    const phoneMax = document.getElementById('phoneMax');
+    const priceChip = document.getElementById('priceChip');
+    const phoneStats = document.getElementById('phoneStats');
+
+    if (phoneAddr) phoneAddr.textContent = d.imovel.endereco + ', ' + d.imovel.bairro + ' - ' + d.imovel.cidade;
+    if (phoneMin) phoneMin.textContent = d.avaliacao.valor_min;
+    if (phoneMax) phoneMax.textContent = d.avaliacao.valor_max;
+    if (priceChip) priceChip.textContent = 'Valor sugerido: ' + d.avaliacao.valor_sugerido;
+
+    if (phoneStats) {
+      phoneStats.innerHTML = [
+        '<div class="phone-stat"><strong>' + d.avaliacao.media_amostras + '</strong>Média das amostras</div>',
+        '<div class="phone-stat"><strong>' + d.avaliacao.valor_sqm + '</strong>Preço por metro quadrado</div>',
+        '<div class="phone-stat"><strong>' + d.avaliacao.posicao + '</strong>Posicionamento</div>',
+        '<div class="phone-stat"><strong>' + d.imovel.area + '</strong>Área útil analisada</div>'
+      ].join('');
+    }
+
+    const dataBubbles = document.getElementById('dataBubbles');
+    dataBubbles.innerHTML = [
+      { label: 'histórico', num: d.empresa.imoveis_vendidos, desc: 'imóveis vendidos', via: 'na região' },
+      { label: 'experiência', num: d.empresa.anos + ' anos', desc: 'atuação no mercado', via: 'consultoria GDS' },
+      { label: 'time', num: d.empresa.corretores, desc: 'consultores ativos', via: 'rede de parceiros' }
+    ].map((b) =>
+      '<div class="bubble">' +
+      '<div class="bubble-label">' + b.label + '</div>' +
+      '<div class="bubble-num">' + b.num + '</div>' +
+      '<div class="bubble-desc">' + b.desc + '<br><span style="opacity:.8;">' + b.via + '</span></div>' +
+      '</div>'
+    ).join('');
+
+    const featuresGrid = document.getElementById('featuresGrid');
+    featuresGrid.innerHTML = d.features.map((f, i) =>
+      '<div class="feat">' +
+      '<div class="feat-icon">0' + (i + 1) + '</div>' +
+      '<h4>' + f.titulo + '</h4>' +
+      '<p>' + f.texto + '</p>' +
+      '</div>'
+    ).join('');
+
+    const sampleCarousel = document.getElementById('sampleCarousel');
+    const fallbackFotos = [
+      'https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1464890100898-a385f744067f?w=1200&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80&auto=format&fit=crop'
+    ];
+    sampleCarousel.innerHTML = d.amostras.map((a, idx) =>
+      '<article class="sample-card">' +
+      '<div class="sample-media"><img src="' + (a.foto || fallbackFotos[idx % fallbackFotos.length]) + '" alt="Imóvel em ' + a.endereco + '" loading="lazy"></div>' +
+      '<div class="sample-body">' +
+      '<div class="sample-bairro">' + a.bairro + '</div>' +
+      '<div class="sample-addr">' + a.endereco + '</div>' +
+      '<div class="sample-spec">Área: ' + a.area + ' | Dormitórios: ' + a.dormitorios + ' | Vagas: ' + a.vagas + '</div>' +
+      '<div class="sample-price">' + a.preco + '</div>' +
+      '<div class="sample-sqm">' + a.preco_sqm + '</div>' +
+      '</div>' +
+      '</article>'
+    ).join('');
+
+    document.getElementById('consultorInicial').textContent = d.corretor.iniciais;
+    document.getElementById('consultorNome').textContent = d.corretor.nome;
+    document.getElementById('consultorCargo').textContent = d.corretor.titulo;
+    document.getElementById('consultorBio').textContent = d.corretor.bio;
+
+    const consultorMini = document.getElementById('consultorMini');
+    consultorMini.innerHTML = [
+      { val: d.empresa.anos + ' anos', lbl: 'de mercado' },
+      { val: d.empresa.imoveis_vendidos, lbl: 'imóveis vendidos' },
+      { val: d.empresa.corretores, lbl: 'consultores' }
+    ].map((m) =>
+      '<div class="mini"><strong>' + m.val + '</strong><span>' + m.lbl + '</span></div>'
+    ).join('');
+
+    const benefitsList = document.getElementById('benefitsList');
+    benefitsList.innerHTML = d.diferenciais.map((b, i) =>
+      '<div class="benefit-item">' +
+      '<div class="benefit-dot">' + (i + 1) + '</div>' +
+      '<div><h4>' + b.titulo + '</h4><p>' + b.texto + '</p></div>' +
+      '</div>'
+    ).join('');
+
+    const normalizeText = (text) =>
+      (text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    const marketingItemIconClass = (label) => {
+      const t = normalizeText(label);
+      if (t.includes('foto') || t.includes('video')) return 'fa-solid fa-camera';
+      if (t.includes('tour') || t.includes('360') || t.includes('imersiva')) return 'fa-solid fa-vr-cardboard';
+      if (t.includes('placa') || t.includes('condominio') || t.includes('elevador')) return 'fa-solid fa-sign-hanging';
+      if (t.includes('email') || t.includes('lista')) return 'fa-solid fa-envelope';
+      if (t.includes('facebook')) return 'fa-brands fa-facebook-f';
+      if (t.includes('google')) return 'fa-brands fa-google';
+      if (t.includes('instagram')) return 'fa-brands fa-instagram';
+      if (t.includes('tiktok')) return 'fa-brands fa-tiktok';
+      if (t.includes('youtube')) return 'fa-brands fa-youtube';
+      if (t.includes('ads') || t.includes('patrocin')) return 'fa-solid fa-bullhorn';
+      if (t.includes('site') || t.includes('seo') || t.includes('pagina')) return 'fa-solid fa-globe';
+      if (t.includes('visita') || t.includes('open house')) return 'fa-solid fa-house';
+      return 'fa-solid fa-circle-check';
+    };
+
+    const brandIconClass = (name) => {
+      const t = normalizeText(name);
+      if (t.includes('facebook')) return 'fa-brands fa-facebook-f';
+      if (t.includes('google')) return 'fa-brands fa-google';
+      if (t.includes('instagram')) return 'fa-brands fa-instagram';
+      if (t.includes('tiktok')) return 'fa-brands fa-tiktok';
+      if (t.includes('youtube')) return 'fa-brands fa-youtube';
+      if (t.includes('zap')) return 'fa-solid fa-building';
+      if (t.includes('vivareal') || t.includes('viva')) return 'fa-solid fa-house-chimney';
+      if (t.includes('olx')) return 'fa-solid fa-bullseye';
+      if (t.includes('orulo')) return 'fa-solid fa-compass-drafting';
+      if (t.includes('chaves')) return 'fa-solid fa-key';
+      return 'fa-solid fa-circle';
+    };
+
+    const brandIconColor = (name) => {
+      const t = normalizeText(name);
+      if (t.includes('facebook')) return '#1877F2';
+      if (t.includes('google')) return '#EA4335';
+      if (t.includes('instagram')) return '#E4405F';
+      if (t.includes('tiktok')) return '#111111';
+      if (t.includes('youtube')) return '#FF0000';
+      if (t.includes('zap')) return '#6A38F5';
+      if (t.includes('vivareal') || t.includes('viva')) return '#F36C21';
+      if (t.includes('olx')) return '#6F30FF';
+      if (t.includes('orulo')) return '#14A0A8';
+      if (t.includes('chaves')) return '#E0A800';
+      return '#1b6f35';
+    };
+
+    const brandLogoData = (name) => {
+      const t = normalizeText(name);
+      if (t.includes('facebook')) return { domain: 'facebook.com' };
+      if (t.includes('google')) return { domain: 'google.com' };
+      if (t.includes('instagram')) return { domain: 'instagram.com' };
+      if (t.includes('tiktok')) return { domain: 'tiktok.com' };
+      if (t.includes('youtube')) return { domain: 'youtube.com' };
+      if (t.includes('zap')) return { domain: 'zapimoveis.com.br' };
+      if (t.includes('vivareal') || t.includes('viva')) return { domain: 'vivareal.com.br' };
+      if (t.includes('olx')) return { domain: 'olx.com.br' };
+      if (t.includes('orulo')) return { domain: 'orulo.com.br' };
+      if (t.includes('chaves')) return { domain: 'chavesnamao.com.br' };
+      return { domain: 'gdsimoveis.com.br' };
+    };
+
+    const brandLogoMarkup = (name) => {
+      const logo = brandLogoData(name);
+      const logoSrc = 'https://www.google.com/s2/favicons?sz=64&domain_url=' + logo.domain;
+      return '<span class="legacy-portal-logo"><img src="' + logoSrc + '" alt="Logo ' + name + '" loading="lazy"></span>';
+    };
+
+    const marketingSideIconClass = (title) => {
+      const t = normalizeText(title);
+      if (t.includes('foto') || t.includes('video')) return 'fa-solid fa-camera-retro';
+      if (t.includes('tour')) return 'fa-solid fa-cube';
+      if (t.includes('placa')) return 'fa-solid fa-sign-hanging';
+      if (t.includes('email')) return 'fa-solid fa-paper-plane';
+      if (t.includes('redes')) return 'fa-solid fa-hashtag';
+      if (t.includes('patrocin')) return 'fa-solid fa-bullhorn';
+      if (t.includes('site')) return 'fa-solid fa-globe';
+      if (t.includes('elevador') || t.includes('condominio')) return 'fa-solid fa-building';
+      if (t.includes('open house')) return 'fa-solid fa-door-open';
+      return 'fa-solid fa-star';
+    };
+
+    const marketingTimeline = document.getElementById('marketingTimeline');
+    marketingTimeline.innerHTML = d.marketing.cronograma.map((item, idx) =>
+      '<article class="legacy-step">' +
+      '<button class="legacy-step-info" type="button" aria-label="Alternar detalhes"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></button>' +
+      '<div class="legacy-step-n">' + String(idx + 1).padStart(2, '0') + '</div>' +
+      '<div class="legacy-step-side-icon" aria-hidden="true"><i class="' + marketingSideIconClass(item.titulo) + '"></i></div>' +
+      '<div class="legacy-step-card">' +
+      '<h4>' + item.titulo + '</h4>' +
+      '<div class="legacy-step-content-list">' +
+      '<ul>' + item.items.map((it) => '<li><i class="' + marketingItemIconClass(it) + '" aria-hidden="true"></i><span>' + it + '</span></li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="legacy-step-content-desc"><p>' + item.desc + '</p></div>' +
+      '</div>' +
+      '</article>'
+    ).join('');
+
+    marketingTimeline.querySelectorAll('.legacy-step-info').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.legacy-step');
+        const showDesc = card.classList.toggle('show-desc');
+        btn.setAttribute('aria-pressed', showDesc ? 'true' : 'false');
+      });
+    });
+
+    const comparativeTableHead = document.getElementById('comparativeTableHead');
+    const comparativeTableBody = document.getElementById('comparativeTableBody');
+    const imovelComparativo = {
+      endereco: d.imovel.endereco,
+      area: d.imovel.area,
+      dormitorios: d.imovel.dormitorios,
+      suites: d.imovel.suites,
+      banheiros: d.imovel.banheiros,
+      vagas: d.imovel.vagas,
+      preco: d.avaliacao.valor_sugerido,
+      preco_sqm: d.avaliacao.valor_sqm
+    };
+    const comparativeRows = [
+      { label: 'Endereço', key: 'endereco' },
+      { label: 'Área priv.', key: 'area' },
+      { label: 'Dorm.', key: 'dormitorios' },
+      { label: 'Suítes', key: 'suites' },
+      { label: 'Banh.', key: 'banheiros' },
+      { label: 'Vagas', key: 'vagas' },
+      { label: 'Preço', key: 'preco' },
+      { label: 'Preço/m²', key: 'preco_sqm' }
+    ];
+
+    comparativeTableHead.innerHTML =
+      '<tr>' +
+      '<th>Atributo</th>' +
+      '<th>Seu imóvel</th>' +
+      d.amostras.map((_, idx) => '<th>Amostra ' + (idx + 1) + '</th>').join('') +
+      '</tr>';
+
+    comparativeTableBody.innerHTML = comparativeRows.map((row) =>
+      '<tr>' +
+      '<td class="legacy-table-attr">' + row.label + '</td>' +
+      '<td>' + (imovelComparativo[row.key] || '-') + '</td>' +
+      d.amostras.map((a) => '<td>' + (a[row.key] || '-') + '</td>').join('') +
+      '</tr>'
+    ).join('');
+
+    document.getElementById('portaisMiniGrid').innerHTML = d.marketing.portais.map((p) => '<div class="legacy-portal">' + brandLogoMarkup(p) + '<span>' + p + '</span></div>').join('');
+    document.getElementById('redesMiniGrid').innerHTML = d.marketing.redes.map((r) => '<div class="legacy-portal">' + brandLogoMarkup(r) + '<span>' + r + '</span></div>').join('');
+
+    const parseCurrencyBRL = (valueText) => {
+      const normalized = String(valueText || '').replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+      const parsed = Number(normalized);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+
+    const formatCurrencyBRL = (value) =>
+      value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+
+    const priceRangeTrack = document.getElementById('priceRangeTrack');
+    const resultScaleMin = document.getElementById('resultScaleMin');
+    const resultScaleMax = document.getElementById('resultScaleMax');
+    const nextStepsList = document.getElementById('nextStepsList');
+
+    const resultItems = [
+      {
+        label: d.avaliacao.opcao_mercado.label,
+        valor: d.avaliacao.opcao_mercado.valor,
+        meta: d.avaliacao.opcao_mercado.sqm,
+        tag: d.avaliacao.opcao_mercado.tag,
+        color: '#2daa52'
+      },
+      {
+        label: 'Valor médio',
+        valor: d.avaliacao.media_amostras,
+        meta: 'Média das amostras',
+        tag: 'Referência central',
+        color: '#145228'
+      },
+      {
+        label: d.avaliacao.opcao_competitiva.label,
+        valor: d.avaliacao.opcao_competitiva.valor,
+        meta: d.avaliacao.opcao_competitiva.sqm,
+        tag: d.avaliacao.opcao_competitiva.tag,
+        color: '#0f5a2f'
+      }
+    ];
+
+    const priceValues = resultItems.map((item) => parseCurrencyBRL(item.valor));
+    const minValue = Math.min.apply(null, priceValues);
+    const maxValue = Math.max.apply(null, priceValues);
+    const spread = Math.max(maxValue - minValue, 1);
+    const rangeMin = Math.max(minValue - spread * 0.2, 0);
+    const rangeMax = maxValue + spread * 0.2;
+
+    resultScaleMin.textContent = formatCurrencyBRL(rangeMin);
+    resultScaleMax.textContent = formatCurrencyBRL(rangeMax);
+
+    priceRangeTrack.innerHTML = resultItems.map((item, idx) => {
+      const value = parseCurrencyBRL(item.valor);
+      const left = ((value - rangeMin) / (rangeMax - rangeMin)) * 100;
+      return '<div class="result-marker" style="left:' + left.toFixed(2) + '%;">' +
+        '<span class="result-marker-dot" style="background:' + item.color + ';"></span>' +
+        '<div class="result-marker-box">' +
+        '<div class="result-marker-label">' + item.label + '</div>' +
+        '<div class="result-marker-value">' + item.valor + '</div>' +
+        '<div class="result-marker-meta">' + item.meta + '</div>' +
+        '<div class="result-marker-tag">&#9660; ' + item.tag + '</div>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+
+    nextStepsList.innerHTML = [
+      { label: 'Visita', icon: 'fa-solid fa-house' },
+      { label: 'Plano de Marketing', icon: 'fa-solid fa-bullhorn' },
+      { label: 'Estudo de Mercado', icon: 'fa-solid fa-chart-line' },
+      { label: 'Assinar Contrato', icon: 'fa-solid fa-file-signature', highlight: true, href: 'https://wa.me/' + d.empresa.whatsapp },
+      { label: 'Vender', icon: 'fa-solid fa-key' }
+    ].map((step) => {
+      if (step.href) {
+        return '<a class="next-step-item next-step-link highlight" href="' + step.href + '" target="_blank" rel="noopener noreferrer">' +
+          '<i class="' + step.icon + '" aria-hidden="true"></i>' +
+          '<span>' + step.label + '</span>' +
+          '</a>';
+      }
+      return '<div class="next-step-item' + (step.highlight ? ' highlight' : '') + '">' +
+        '<i class="' + step.icon + '" aria-hidden="true"></i>' +
+        '<span>' + step.label + '</span>' +
+        '</div>';
+    }).join('');
+
+    const btnAssinarContratoFinal = document.getElementById('btnAssinarContratoFinal');
+    if (btnAssinarContratoFinal) {
+      btnAssinarContratoFinal.href = 'https://wa.me/' + d.empresa.whatsapp;
+      btnAssinarContratoFinal.target = '_blank';
+      btnAssinarContratoFinal.rel = 'noopener noreferrer';
+    }
+
+    const barsEl = document.getElementById('heroBars');
+    const skyline = [
+      { h: 70, f: 2.8 }, { h: 86, f: 1.6 }, { h: 62, f: 2.2 }, { h: 94, f: 1.9 },
+      { h: 76, f: 2.6 }, { h: 58, f: 1.5 }, { h: 88, f: 2.4 }, { h: 68, f: 1.8 },
+      { h: 96, f: 2.7 }, { h: 74, f: 1.7 }, { h: 83, f: 2.1 }, { h: 60, f: 1.4 },
+      { h: 91, f: 2.5 }, { h: 72, f: 1.8 }, { h: 98, f: 2.9 }, { h: 66, f: 1.6 }
+    ];
+    skyline.forEach((b, i) => {
+      const bar = document.createElement('span');
+      bar.style.height = b.h + '%';
+      bar.style.flex = b.f + ' 0 0';
+      bar.style.animationDelay = (i * 0.1) + 's';
+      bar.style.animationDuration = (3.2 + Math.random() * 1.4) + 's';
+      barsEl.appendChild(bar);
+    });
+
+    const carousel = document.getElementById('sampleCarousel');
+    const cardWidth = 290;
+    let currentPos = 0;
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      currentPos = Math.min(currentPos + cardWidth, maxScroll);
+      carousel.scrollLeft = currentPos;
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      currentPos = Math.max(currentPos - cardWidth, 0);
+      carousel.scrollLeft = currentPos;
+    });
+
+  })();
+</script>
+</body>
+</html>

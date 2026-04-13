@@ -7,10 +7,7 @@
   <title>GDS Imóveis — Proposta Comercial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap"
-    rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     /* =============================================
    DESIGN SYSTEM — GDS IMÓVEIS  (modern / light)
@@ -42,8 +39,8 @@
       --shadow-md: 0 4px 24px rgba(22, 42, 30, 0.10);
       --shadow-lg: 0 8px 40px rgba(22, 42, 30, 0.13);
       --shadow-xl: 0 18px 56px rgba(16, 44, 28, 0.16);
-      --ff: 'Nunito Sans', system-ui, sans-serif;
-      --ff-display: 'Sora', 'Nunito Sans', system-ui, sans-serif;
+      --ff: 'Inter', system-ui, sans-serif;
+      --ff-display: 'Manrope', 'Inter', system-ui, sans-serif;
     }
 
     *,
@@ -531,6 +528,17 @@
       transform: translateY(-6px);
       box-shadow: var(--shadow-xl);
       border-color: rgba(45, 170, 82, 0.35);
+    }
+
+    .amostra-card-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .amostra-card-link:focus-visible {
+      outline: 3px solid rgba(45, 170, 82, 0.55);
+      outline-offset: 2px;
     }
 
     .amostra-img {
@@ -1205,6 +1213,10 @@
       overflow: hidden;
     }
 
+    .sec-cover .card-green {
+      border-radius: 0 28px 28px 0 !important;
+    }
+
     .sec-consultor .pad,
     .sec-metodologia .pad,
     .sec-parceiros .pad {
@@ -1725,6 +1737,10 @@
         grid-template-columns: 1fr !important;
       }
 
+      .sec-cover .card-green {
+        border-radius: 0 0 28px 28px !important;
+      }
+
       .steps {
         gap: 2px;
       }
@@ -2208,7 +2224,7 @@
               <div>
                 <div class="num-bullet">
                   <div class="nb-dot"></div>
-                  <div class="nb-num">3</div>
+                  <div class="nb-num">5</div>
                 </div>
                 <h3 style="font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px;">Portais imobiliários
                 </h3>
@@ -2537,14 +2553,17 @@
           const fotoHtml = a.foto
             ? '<img class="amostra-img" src="' + a.foto + '" alt="' + a.endereco + '" style="display:block;">'
             : '<div class="amostra-img"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>';
-          return '<div class="amostra-card">' + fotoHtml +
+          const cardOpen = a.link
+            ? '<a class="amostra-card amostra-card-link" href="' + a.link + '" target="_blank" rel="noopener" aria-label="Abrir anúncio de ' + a.endereco + '">'
+            : '<div class="amostra-card">';
+          const cardClose = a.link ? '</a>' : '</div>';
+          return cardOpen + fotoHtml +
             '<div class="amostra-body">' +
             '<div class="amostra-bairro">' + a.bairro + '</div>' +
             '<div class="amostra-addr">' + a.endereco + '</div>' +
             '<div class="amostra-specs">Área priv: ' + a.area + ' &mdash; Dorm.: ' + a.dormitorios + ' &mdash; Vagas: ' + a.vagas + '</div>' +
             '<div class="amostra-price">' + a.preco + ' <small>' + a.preco_sqm + '</small></div>' +
-            (a.link ? '<a class="amostra-link" href="' + a.link + '" target="_blank" rel="noopener">Ver anúncio ↗</a>' : '') +
-            '</div></div>';
+            '</div>' + cardClose;
         }).join('');
       }
 
