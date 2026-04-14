@@ -353,6 +353,47 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   border: 1px solid var(--g200);
 }
 
+/* Search modal */
+.search-result-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1.5px solid var(--g100);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  margin-bottom: 6px;
+}
+.search-result-item:hover { background: var(--g050); }
+.search-result-item.sr-selected { background: var(--g050); border-color: var(--g400, var(--g300)); }
+.sr-check { margin-top: 3px; flex-shrink: 0; width: 17px; height: 17px; accent-color: var(--g600); cursor: pointer; }
+.sr-body { flex: 1; min-width: 0; }
+.sr-title { font-weight: 700; font-size: 14px; color: var(--g800); margin-bottom: 3px; line-height: 1.35; }
+.sr-snippet { font-size: 12px; color: var(--muted); margin-bottom: 5px; line-height: 1.45; }
+.sr-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.sr-url { font-size: 11px; color: var(--g600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; text-decoration: none; }
+.sr-url:hover { text-decoration: underline; }
+
+.search-results-list { max-height: 360px; overflow-y: auto; padding-right: 2px; }
+.search-empty { text-align: center; color: var(--muted); font-size: 14px; padding: 28px 0; }
+.search-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 28px 0; color: var(--muted); font-size: 14px; }
+.search-spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--g200); border-top-color: var(--g500);
+  border-radius: 50%; animation: spin .7s linear infinite;
+}
+
+.btn-search {
+  background: linear-gradient(145deg, #1a5276, #2e86c1);
+  color: var(--white);
+  box-shadow: 0 10px 20px rgba(26,82,118,0.18);
+}
+
+.gapi-config-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.gapi-hint { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+.gapi-hint a { color: var(--g600); }
+
 @media (max-width: 760px) {
   .form-shell { padding: 14px; }
   .section { padding: 12px; }
@@ -360,6 +401,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   .modal-fields .field.col-6,
   .modal-fields .field.col-4,
   .modal-fields .field.col-3 { grid-column: span 12; }
+  .gapi-config-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -512,6 +554,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
           <div class="row-actions">
             <button class="btn btn-main" type="button" id="add-amostra">+ Adicionar amostra</button>
+            <button class="btn btn-search" type="button" id="btn-buscar-similares">&#128269; Buscar imóveis similares</button>
           </div>
         </section>
 
@@ -630,6 +673,40 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
       <div class="modal-footer">
         <button class="btn btn-soft" id="modal-cancel" type="button">Cancelar</button>
         <button class="btn btn-main" id="modal-confirm" type="button">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Busca Google -->
+  <div class="modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+    <div class="modal" style="max-width:720px">
+      <div class="modal-header">
+        <span class="modal-title" id="search-modal-title">&#128269; Buscar imóveis similares</span>
+        <button class="modal-close" id="search-modal-close" type="button" aria-label="Fechar">&#x2715;</button>
+      </div>
+
+      <div style="margin-bottom:10px">
+        <div class="field" style="margin:0">
+          <label for="apify-token">Apify API Token <span style="color:#c0392b">*</span></label>
+          <input id="apify-token" type="password" placeholder="apify_api_..." autocomplete="off">
+        </div>
+      </div>
+      <p class="gapi-hint">Crie uma conta gratuita em <a href="https://apify.com" target="_blank" rel="noopener">apify.com</a> e copie seu token em <strong>Settings → Integrations</strong>. Plano gratuito inclui $5/mês (~100 buscas). Token salvo localmente no navegador.</p>
+
+      <div id="search-filters-summary" style="background:var(--g050);border:1px solid var(--g100);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Preencha os dados do imóvel no formulário para gerar os filtros automaticamente.
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px">
+        <button class="btn btn-main" id="do-search-btn" type="button">Buscar imóveis similares</button>
+      </div>
+
+      <div id="search-results-area"></div>
+
+      <div class="modal-footer" style="align-items:center">
+        <span id="search-sel-count" style="font-size:13px;font-weight:700;color:var(--muted);margin-right:auto">0 / 5 selecionados</span>
+        <button class="btn btn-soft" id="search-modal-cancel" type="button">Cancelar</button>
+        <button class="btn btn-main" id="search-modal-confirm" type="button" disabled>Adicionar selecionados</button>
       </div>
     </div>
   </div>
@@ -799,6 +876,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
   ---------------------------------------------------------------- */
 
   var samplesData = [];
+  var linkQueue   = [];   // fila de links a processar após busca
 
   /* ----------------------------------------------------------------
      Tabela
@@ -976,6 +1054,7 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
     renderTable();
     closeModal();
+    processNextLink();
   });
 
   /* ----------------------------------------------------------------
@@ -988,6 +1067,301 @@ table.samples-table tbody tr:hover { background: #f7fcf9; }
 
   /* Iniciar */
   renderTable();
+
+  /* ----------------------------------------------------------------
+     Fila de links — processa próximo link pendente da busca
+  ---------------------------------------------------------------- */
+
+  function processNextLink() {
+    if (!linkQueue.length) return;
+    var next = linkQueue.shift();
+    openModal(null);
+    mLink.value = next.link || '';
+    // Usa dados estruturados do Apify se disponíveis, senão extrai do link
+    var data = (next.bairro || next.preco || next.area) ? next : extractFromLink(next.link);
+    if (data.bairro)      mBairro.value = data.bairro;
+    if (data.area)        mArea.value   = data.area;
+    if (data.dormitorios) mDorm.value   = data.dormitorios;
+    if (data.suites)      mSuites.value = data.suites;
+    if (data.banheiros)   mBanh.value   = data.banheiros;
+    if (data.vagas)       mVagas.value  = data.vagas;
+    if (data.preco)       mPreco.value  = data.preco;
+    recalcSqm();
+  }
+
+  /* ----------------------------------------------------------------
+     Busca Google — modal
+  ---------------------------------------------------------------- */
+
+  var ALLOWED_HOSTS = ['vivareal.com.br', 'zapimoveis.com.br', 'olx.com.br', 'chavesnamao.com.br'];
+
+  var searchOverlay        = document.getElementById('search-modal-overlay');
+  var apifyTokenInput      = document.getElementById('apify-token');
+  var searchFiltersSummary = document.getElementById('search-filters-summary');
+  var searchResultsArea    = document.getElementById('search-results-area');
+  var searchSelCountEl     = document.getElementById('search-sel-count');
+  var searchConfirmBtn     = document.getElementById('search-modal-confirm');
+
+  // Carregar token salvo
+  apifyTokenInput.value = localStorage.getItem('gds_apify_token') || '';
+
+  var searchSelectedLinks = [];   // { link, title }
+  var searchItems         = [];   // resultados atuais
+
+  function escapeHtml(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function getPlatformLabel(url) {
+    try {
+      var h = new URL(url).hostname;
+      if (h.includes('vivareal'))    return 'VivaReal';
+      if (h.includes('zapimoveis')) return 'ZAP Imóveis';
+      if (h.includes('olx'))        return 'OLX';
+      if (h.includes('chavesnamao'))return 'Chaves na Mão';
+    } catch(_) {}
+    return 'Portal';
+  }
+
+  function isAllowedHost(url) {
+    try {
+      var h = new URL(url).hostname;
+      return ALLOWED_HOSTS.some(function(ah){ return h.endsWith(ah); });
+    } catch(_) { return false; }
+  }
+
+  // Retorna true apenas para URLs de anúncios individuais (não páginas de busca/galeria)
+  function isIndividualListing(url) {
+    try {
+      var parsed = new URL(url);
+      var h    = parsed.hostname;
+      var path = parsed.pathname.toLowerCase();
+      if (h.includes('vivareal') || h.includes('zapimoveis')) {
+        // Anúncios individuais contêm /imovel/ no path ou o padrão -id- no slug
+        return path.includes('/imovel/') || /-id-/.test(path);
+      }
+      if (h.includes('chavesnamao')) {
+        return path.includes('/imovel/');
+      }
+      if (h.includes('olx')) {
+        // Anúncios OLX terminam com ID numérico de 8+ dígitos
+        return /\d{8,}/.test(path);
+      }
+    } catch(_) {}
+    return false;
+  }
+
+  function cityToSlug(city) {
+    if (!city) return '';
+    return city.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '').trim()
+      .replace(/\s+/g, '-');
+  }
+
+  function typeToApify(tipo) {
+    var t = (tipo || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (/apart|apto|cobertura|studio|loft/.test(t))   return 'apartments';
+    if (/casa|sobrado|village|chacara|sitio/.test(t)) return 'houses';
+    if (/terreno|lote|fazenda/.test(t))               return 'land';
+    if (/comercial|sala|loja|galpao|escrit/.test(t))  return 'commercial';
+    return 'all';
+  }
+
+  function buildApifyInput() {
+    var state  = (document.getElementById('imovel_uf').value          || 'sp').trim().toLowerCase();
+    var cidade = (document.getElementById('imovel_cidade').value       || '').trim();
+    var tipo   = (document.getElementById('imovel_tipo').value         || '').trim();
+    var dorms  = parseInt(document.getElementById('imovel_dormitorios').value || '0');
+    var banhs  = parseInt(document.getElementById('imovel_banheiros').value   || '0');
+    var area   = parseFloat(document.getElementById('imovel_area').value      || '0');
+    var input  = {
+      transactionType: 'sale',
+      propertyType: typeToApify(tipo),
+      state: state || 'sp',
+      maxListings: 10,
+      sources: 'all'
+    };
+    var slug = cityToSlug(cidade);
+    if (slug)  input.city        = slug;
+    if (dorms) input.bedroomsMin = dorms;
+    if (banhs) input.bathroomsMin = banhs;
+    if (area)  input.areaMin     = Math.floor(area * 0.7); // margem -30%
+    return input;
+  }
+
+  function buildFiltersSummary() {
+    var inp    = buildApifyInput();
+    var tipo   = (document.getElementById('imovel_tipo').value || '').trim() || 'Imóvel';
+    var cidade = (document.getElementById('imovel_cidade').value || '').trim();
+    var bairro = (document.getElementById('imovel_bairro').value || '').trim();
+    var tags   = [];
+    tags.push('<strong>Tipo:</strong> ' + escapeHtml(tipo));
+    tags.push('<strong>Estado:</strong> ' + escapeHtml(inp.state.toUpperCase()));
+    if (cidade) tags.push('<strong>Cidade:</strong> ' + escapeHtml(cidade));
+    if (bairro) tags.push('<strong>Bairro referência:</strong> ' + escapeHtml(bairro) + ' <small>(filtro pós-busca)</small>');
+    if (inp.bedroomsMin)  tags.push('<strong>Mín. quartos:</strong> ' + inp.bedroomsMin);
+    if (inp.bathroomsMin) tags.push('<strong>Mín. banheiros:</strong> ' + inp.bathroomsMin);
+    if (inp.areaMin)      tags.push('<strong>Área mín.:</strong> ' + inp.areaMin + ' m²');
+    tags.push('<strong>Portais:</strong> OLX · QuintoAndar · ImovelWeb');
+    return '<span style="color:var(--g800);font-weight:700;display:block;margin-bottom:4px">Filtros da busca</span>' + tags.join(' &nbsp;·&nbsp; ');
+  }
+
+  function openSearchModal() {
+    searchSelectedLinks = [];
+    searchItems = [];
+    searchResultsArea.innerHTML = '';
+    updateSearchCount();
+    searchFiltersSummary.innerHTML = buildFiltersSummary();
+    searchOverlay.classList.add('open');
+    setTimeout(function(){ apifyTokenInput.focus(); }, 50);
+  }
+
+  function closeSearchModal() {
+    searchOverlay.classList.remove('open');
+  }
+
+  function updateSearchCount() {
+    var n = searchSelectedLinks.length;
+    searchSelCountEl.textContent = n + ' / 5 selecionados';
+    searchConfirmBtn.disabled = n === 0;
+  }
+
+  function renderSearchResults(items) {
+    if (!items.length) {
+      searchResultsArea.innerHTML = '<p class="search-empty">Nenhum resultado encontrado. Verifique se cidade e estado estão preenchidos no formulário.</p>';
+      return;
+    }
+    var html = '<div class="search-results-list">';
+    items.forEach(function(item, i) {
+      var platform = getPlatformLabel(item.link);
+      var details  = [];
+      if (item.area)        details.push(item.area + ' m²');
+      if (item.dormitorios) details.push(item.dormitorios + ' dorm.');
+      if (item.banheiros)   details.push(item.banheiros + ' banh.');
+      if (item.vagas)       details.push(item.vagas + ' vaga' + (Number(item.vagas) > 1 ? 's' : ''));
+      html +=
+        '<label class="search-result-item" id="sri-' + i + '">' +
+          '<input type="checkbox" class="sr-check" data-idx="' + i + '">' +
+          '<div class="sr-body">' +
+            '<div class="sr-title">' + escapeHtml(item.title) + '</div>' +
+            (item.preco ? '<div style="font-size:15px;font-weight:800;color:var(--g700);margin:3px 0">' + escapeHtml(item.preco) + '</div>' : '') +
+            (details.length ? '<div class="sr-snippet">' + escapeHtml(details.join(' · ')) + '</div>' : '') +
+            '<div class="sr-meta">' +
+              '<span class="sample-platform-badge">' + escapeHtml(platform) + '</span>' +
+              (item.bairro ? '<span style="font-size:12px;color:var(--muted)">' + escapeHtml(item.bairro) + '</span>' : '') +
+              '<a class="sr-url" href="' + escapeHtml(item.link) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">ver anúncio ↗</a>' +
+            '</div>' +
+          '</div>' +
+        '</label>';
+    });
+    html += '</div>';
+    searchResultsArea.innerHTML = html;
+
+    searchResultsArea.querySelectorAll('.sr-check').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        var idx    = Number(cb.dataset.idx);
+        var item   = searchItems[idx];
+        var labelEl = document.getElementById('sri-' + idx);
+        if (cb.checked) {
+          if (searchSelectedLinks.length >= 5) {
+            cb.checked = false;
+            alert('Você pode selecionar no máximo 5 imóveis.');
+            return;
+          }
+          searchSelectedLinks.push(item);
+          if (labelEl) labelEl.classList.add('sr-selected');
+        } else {
+          searchSelectedLinks = searchSelectedLinks.filter(function(s){ return s.link !== item.link; });
+          if (labelEl) labelEl.classList.remove('sr-selected');
+        }
+        updateSearchCount();
+      });
+    });
+  }
+
+  async function doSearch() {
+    var token = apifyTokenInput.value.trim();
+    if (!token) {
+      alert('Informe o API Token do Apify para realizar a busca.');
+      apifyTokenInput.focus();
+      return;
+    }
+
+    localStorage.setItem('gds_apify_token', token);
+    searchFiltersSummary.innerHTML = buildFiltersSummary();
+
+    searchResultsArea.innerHTML =
+      '<div class="search-loading"><div class="search-spinner"></div>Buscando via Apify… pode levar até 30 segundos.</div>';
+    searchSelectedLinks = [];
+    updateSearchCount();
+
+    try {
+      var input = buildApifyInput();
+      var resp  = await fetch(
+        'https://api.apify.com/v2/acts/viralanalyzer~brazil-real-estate-scraper/run-sync-get-dataset-items?token=' +
+          encodeURIComponent(token) + '&memory=256&timeout=120',
+        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input) }
+      );
+
+      var data = await resp.json();
+
+      if (!resp.ok || !Array.isArray(data)) {
+        var errMsg = Array.isArray(data) ? ('HTTP ' + resp.status)
+          : (data.error || data.message || 'HTTP ' + resp.status);
+        searchResultsArea.innerHTML =
+          '<p class="search-empty" style="color:#c0392b">Erro Apify: ' + escapeHtml(String(errMsg)) + '</p>';
+        return;
+      }
+
+      var bairroRef = (document.getElementById('imovel_bairro').value || '').trim().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      searchItems = data
+        .filter(function(r) { return r.url; })
+        .map(function(r) {
+          return {
+            title:       r.title         || '',
+            link:        r.url           || '',
+            bairro:      r.neighborhood  || '',
+            area:        r.area          ? String(r.area)          : '',
+            dormitorios: r.bedrooms      ? String(r.bedrooms)      : '',
+            banheiros:   r.bathrooms     ? String(r.bathrooms)     : '',
+            vagas:       r.parkingSpaces ? String(r.parkingSpaces) : '',
+            preco:       r.priceFormatted || '',
+            source:      r.source        || ''
+          };
+        })
+        .sort(function(a, b) {
+          if (!bairroRef) return 0;
+          var na = (a.bairro || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+          var nb = (b.bairro || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+          return (na.includes(bairroRef) ? 0 : 1) - (nb.includes(bairroRef) ? 0 : 1);
+        });
+
+      renderSearchResults(searchItems);
+
+    } catch (err) {
+      searchResultsArea.innerHTML =
+        '<p class="search-empty" style="color:#c0392b">Erro ao conectar com o Apify: ' + escapeHtml(err.message) + '</p>';
+    }
+  }
+
+  // Eventos do modal de busca
+  document.getElementById('btn-buscar-similares').addEventListener('click', openSearchModal);
+  document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
+  document.getElementById('search-modal-cancel').addEventListener('click', closeSearchModal);
+  searchOverlay.addEventListener('click', function(e){ if (e.target === searchOverlay) closeSearchModal(); });
+  document.getElementById('do-search-btn').addEventListener('click', doSearch);
+
+  searchConfirmBtn.addEventListener('click', function() {
+    if (!searchSelectedLinks.length) return;
+    closeSearchModal();
+    linkQueue = searchSelectedLinks.slice();  // copia para a fila
+    searchSelectedLinks = [];
+    processNextLink();
+  });
+
 })();
 </script>
 </body>
