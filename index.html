@@ -1,116 +1,234 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GDS Imóveis — Estudo de Mercado</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-/* =============================================
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GDS Imóveis — Estudo de Mercado</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* =============================================
    DESIGN SYSTEM — GDS IMÓVEIS
    Aesthetic: Refined Editorial / Luxury Real Estate
 ============================================= */
-:root {
-  /* Verdes — fixos */
-  --verde-profundo:   #14351f;
-  --verde-escuro:     #1e4d2b;
-  --verde-medio:      #2d6e3e;
-  --verde-claro:      #3d8f52;
-  --verde-sage:       #7aaa89;
-  --verde-nebula:     #c6deca;
-  --ivory:            #f5f0e8;
-  --ivory-dark:       #ede7d9;
-  --texto-escuro:     #1a2920;
-  --texto-medio:      #3a5044;
-  --texto-leve:       #6a8572;
-  --branco:           #ffffff;
-  --sombra:           rgba(20,53,31,0.12);
-  --ff-display:       'Arial', Georgia, serif;
-  --ff-body:          'Jost', sans-serif;
-}
-.html-body-reset{ }
-html,body{height:100%;margin:0}
+    :root {
+      /* Verdes — fixos */
+      --verde-profundo: #14351f;
+      --verde-escuro: #1e4d2b;
+      --verde-medio: #2d6e3e;
+      --verde-claro: #3d8f52;
+      --verde-sage: #7aaa89;
+      --verde-nebula: #c6deca;
+      --ivory: #f5f0e8;
+      --ivory-dark: #ede7d9;
+      --texto-escuro: #1a2920;
+      --texto-medio: #3a5044;
+      --texto-leve: #6a8572;
+      --branco: #ffffff;
+      --sombra: rgba(20, 53, 31, 0.12);
+      --ff-display: 'Arial', Georgia, serif;
+      --ff-body: 'Jost', sans-serif;
+    }
 
-/* Galeria de propostas */
-.propostas-section{padding:40px 20px;background:var(--ivory);font-family:var(--ff-body);color:var(--texto-escuro);position:relative;height:100vh}
-.propostas-section{padding:40px 20px;background:transparent;width:100vw;height:100vh;box-sizing:border-box;font-family:var(--ff-body);color:var(--texto-escuro);position:relative;overflow:hidden}
-.propostas-container{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-wrap:nowrap;gap:20px;justify-content:center;align-items:center;width:auto}
-.proposta-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-decoration:none;padding:18px;border-radius:12px;background:linear-gradient(135deg,var(--verde-nebula),var(--ivory));box-shadow:0 6px 18px var(--sombra);flex:0 0 280px;color:var(--texto-escuro);transition:transform .18s ease,box-shadow .18s ease}
-.proposta-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(20,53,31,0.18)}
-.proposta-icon{width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(180deg,var(--verde-medio),var(--verde-claro));color:var(--branco);padding:8px}
-.proposta-title{font-family:var(--ff-display);font-size:18px;margin:0;color:var(--verde-escuro)}
-.proposta-desc{margin:0;font-size:14px;color:var(--texto-leve)}
-.proposta-meta{margin-top:6px;font-size:13px;color:var(--texto-medio)}
+    .html-body-reset {}
 
-</style>
-<style>
-@media (max-width: 768px) {
-  .propostas-section{height:auto;padding:24px 12px}
-  .propostas-container{
-    position:static;
-    left:auto;
-    top:auto;
-    transform:none;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    align-items:stretch;
-    width:100%;
-    padding:0;
-  }
-  .proposta-card{
-    flex:1 1 auto;
-    width:100%;
-    max-width:720px;
-    box-sizing:border-box;
-    margin:0 auto;
-  }
-}
-</style>
+    html,
+    body {
+      height: 100%;
+      margin: 0
+    }
+
+    /* Galeria de propostas */
+    .propostas-section {
+      padding: 40px 20px;
+      background: var(--ivory);
+      font-family: var(--ff-body);
+      color: var(--texto-escuro);
+      position: relative;
+      height: 100vh
+    }
+
+    .propostas-section {
+      padding: 40px 20px;
+      background: transparent;
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      font-family: var(--ff-body);
+      color: var(--texto-escuro);
+      position: relative;
+      overflow: hidden
+    }
+
+    .propostas-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+      width: min(1200px, 94vw)
+    }
+
+    .proposta-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      text-decoration: none;
+      padding: 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--verde-nebula), var(--ivory));
+      box-shadow: 0 6px 18px var(--sombra);
+      min-width: 0;
+      color: var(--texto-escuro);
+      transition: transform .18s ease, box-shadow .18s ease
+    }
+
+    .proposta-card--destaque {
+      grid-column: 1 / -1;
+    }
+
+    .proposta-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(20, 53, 31, 0.18)
+    }
+
+    .proposta-icon {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(180deg, var(--verde-medio), var(--verde-claro));
+      color: var(--branco);
+      padding: 8px
+    }
+
+    .proposta-title {
+      font-family: var(--ff-display);
+      font-size: 18px;
+      margin: 0;
+      color: var(--verde-escuro)
+    }
+
+    .proposta-desc {
+      margin: 0;
+      font-size: 14px;
+      color: var(--texto-leve)
+    }
+
+    .proposta-meta {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--texto-medio)
+    }
+  </style>
+  <style>
+    @media (max-width: 768px) {
+      .propostas-section {
+        height: auto;
+        padding: 24px 12px
+      }
+
+      .propostas-container {
+        position: static;
+        left: auto;
+        top: auto;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+        width: 100%;
+        padding: 0;
+      }
+
+      .proposta-card {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 720px;
+        box-sizing: border-box;
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<section class="propostas-section" aria-label="Galeria de propostas">
-  <div class="propostas-container">
+  <section class="propostas-section" aria-label="Galeria de propostas">
+    <div class="propostas-container">
 
-    <a class="proposta-card" href="gds-proposta-cadastro.html">
-      <div class="proposta-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z" fill="currentColor"/><path d="M4 20a8 8 0 0116 0" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3 class="proposta-title">Cadastro</h3>
-      <p class="proposta-desc">Formulário de cadastro da proposta</p>
-      <div class="proposta-meta">gds-proposta-cadastro.html</div>
-    </a>
+      <a class="proposta-card proposta-card--destaque" href="gds-proposta-cadastro.html">
+        <div class="proposta-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" fill="currentColor" />
+            <path d="M4 20a8 8 0 0116 0" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="proposta-title">Cadastro</h3>
+        <p class="proposta-desc">Formulário de cadastro da proposta</p>
+        <div class="proposta-meta">gds-proposta-cadastro.html</div>
+      </a>
 
-    <a class="proposta-card" href="gds-proposta1.html">
-      <div class="proposta-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16v11a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" fill="currentColor"/><path d="M9 3h6v4H9z" stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-linejoin="round"/></svg>
-      </div>
-      <h3 class="proposta-title">Proposta 1</h3>
-      <p class="proposta-desc">Relatório e resumo da Proposta 1</p>
-      <div class="proposta-meta">gds-proposta1.html</div>
-    </a>
+      <a class="proposta-card" href="gds-proposta1.html">
+        <div class="proposta-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7h16v11a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" fill="currentColor" />
+            <path d="M9 3h6v4H9z" stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="proposta-title">Proposta 1</h3>
+        <p class="proposta-desc">Relatório e resumo da Proposta 1</p>
+        <div class="proposta-meta">gds-proposta1.html</div>
+      </a>
 
-    <a class="proposta-card" href="gds-proposta2.html">
-      <div class="proposta-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 7l-7 7-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3 class="proposta-title">Proposta 2</h3>
-      <p class="proposta-desc">Dados, gráficos e conclusões da Proposta 2</p>
-      <div class="proposta-meta">gds-proposta2.html</div>
-    </a>
+      <a class="proposta-card" href="gds-proposta2.html">
+        <div class="proposta-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 7l-7 7-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="proposta-title">Proposta 2</h3>
+        <p class="proposta-desc">Dados, gráficos e conclusões da Proposta 2</p>
+        <div class="proposta-meta">gds-proposta2.html</div>
+      </a>
 
-    <a class="proposta-card" href="gds-proposta3.html">
-      <div class="proposta-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7h18v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor"/><path d="M3 7l9 6 9-6" stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-linejoin="round"/></svg>
-      </div>
-      <h3 class="proposta-title">Proposta 3</h3>
-      <p class="proposta-desc">Análise complementar e anexos da Proposta 3</p>
-      <div class="proposta-meta">gds-proposta3.html</div>
-    </a>
+      <a class="proposta-card" href="gds-proposta3.html">
+        <div class="proposta-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7h18v11a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="currentColor" />
+            <path d="M3 7l9 6 9-6" stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="proposta-title">Proposta 3</h3>
+        <p class="proposta-desc">Análise complementar e anexos da Proposta 3</p>
+        <div class="proposta-meta">gds-proposta3.html</div>
+      </a>
 
-  </div>
-</section>
+      <a class="proposta-card" href="gds-proposta4.html">
+        <div class="proposta-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7h16v11a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" fill="currentColor" />
+            <path d="M9 3h6v4H9z" stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="proposta-title">Proposta 4</h3>
+        <p class="proposta-desc">Relatório e resumo da Proposta 4</p>
+        <div class="proposta-meta">gds-proposta4.html</div>
+      </a>
+
+    </div>
+  </section>
 
 </body>
+
 </html>
