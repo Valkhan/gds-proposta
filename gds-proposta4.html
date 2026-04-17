@@ -392,6 +392,11 @@
     margin-bottom: 14px;
   }
 
+  .table-p {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
   .section-sub {
     max-width: 760px;
     color: var(--text-soft);
@@ -884,6 +889,29 @@
 
   .compare-table-section .section-sub {
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  .real-sales-block {
+    margin-top: 42px;
+  }
+
+  .variation-cell {
+    font-weight: 800;
+  }
+
+  .variation-positive {
+    color: #0f5a2f;
+    background: #e8f7ee;
+  }
+
+  .variation-negative {
+    color: #8b1f1f;
+    background: #fdeeee;
+  }
+
+  .variation-neutral {
+    color: #405a4d;
+    background: #eef4f0;
   }
 
   .legacy-table-attr {
@@ -2145,6 +2173,18 @@
       </table>
     </div>
     <p class="section-sub" style="margin-top:10px;max-width:none;font-size:12px;">Usamos como base para este estudo imóveis que estão anunciados nos principais portais de divulgação. A escolha dos imóveis foi feita a partir do nosso conhecimento de mercado e também por apresentarem características que muitas vezes não são encontradas por uma busca automática.</p>
+
+    <div class="real-sales-block">
+      <h2 class="section-title">Tabela comparativa de vendas reais</h2>
+    <p class="section-sub table-p">Comparamos seu imóvel com transações efetivamente realizadas na região para validar posicionamento e sensibilidade de preço.</p>
+    <div class="legacy-table-wrap">
+      <table class="legacy-table">
+        <thead id="realSalesTableHead"></thead>
+        <tbody id="realSalesTableBody"></tbody>
+      </table>
+    </div>
+    <p class="section-sub" style="margin-top:10px;max-width:none;font-size:12px;">A linha de variação mostra a diferença percentual do preço de cada venda real em relação ao valor sugerido para o seu imóvel.</p>
+    </div>
   </div>
 </section>
 
@@ -2250,6 +2290,12 @@
       { bairro: 'Vila Tupiry', endereco: 'Rua João Balbino Correa, 129', area: '69m²', dormitorios: '2', suites: '1', banheiros: '2', vagas: '0', preco: 'R$ 319.990', preco_sqm: 'R$ 4.637/m²', foto: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1200&q=80&auto=format&fit=crop' },
       { bairro: 'Vila Tupiry', endereco: 'Sem endereço de rua', area: '70m²', dormitorios: '2', suites: '0', banheiros: '1', vagas: '2', preco: 'R$ 360.000', preco_sqm: 'R$ 5.142/m²', foto: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80&auto=format&fit=crop' },
       { bairro: 'Vila Tupiry', endereco: 'Rua C. Luiz Gonzaga, 8105', area: '75m²', dormitorios: '1', suites: '0', banheiros: '1', vagas: '1', preco: 'R$ 220.000', preco_sqm: 'R$ 2.933/m²', foto: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=1200&q=80&auto=format&fit=crop' }
+    ],
+    vendas_reais: [
+      { bairro: 'Parque São Domingos', endereco: 'Rua Inácio Luís da Costa', area: '78m²', dormitorios: '2', suites: '1', banheiros: '2', vagas: '1', preco: 'R$ 365.000', preco_sqm: 'R$ 4.679/m²', data_venda: 'Fev/2026' },
+      { bairro: 'Parque São Domingos', endereco: 'Rua Brigadeiro Henrique Fontenelle', area: '82m²', dormitorios: '3', suites: '1', banheiros: '2', vagas: '1', preco: 'R$ 389.000', preco_sqm: 'R$ 4.743/m²', data_venda: 'Jan/2026' },
+      { bairro: 'Vila Mangalot', endereco: 'Rua Frei Henrique de Coimbra', area: '74m²', dormitorios: '2', suites: '1', banheiros: '2', vagas: '1', preco: 'R$ 352.000', preco_sqm: 'R$ 4.756/m²', data_venda: 'Dez/2025' },
+      { bairro: 'Parque São Domingos', endereco: 'Rua Willis Roberto Banks', area: '88m²', dormitorios: '3', suites: '1', banheiros: '3', vagas: '2', preco: 'R$ 412.000', preco_sqm: 'R$ 4.681/m²', data_venda: 'Nov/2025' }
     ],
     marketing: {
       portais: ['VivaReal', 'ZAP Imóveis', 'OLX', 'Órulo', 'Chaves na Mão'],
@@ -2631,6 +2677,73 @@
       d.amostras.map((a) => '<td>' + (a[row.key] || '-') + '</td>').join('') +
       '</tr>'
     ).join('');
+
+    const parseCurrencyForSales = (valueText) => {
+      const normalized = String(valueText || '').replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+      const parsed = Number(normalized);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+
+    const formatVariationPct = (value) => {
+      const sign = value > 0 ? '+' : '';
+      return sign + value.toFixed(2).replace('.', ',') + '%';
+    };
+
+    const variationClassByValue = (value) => {
+      if (value > 0) return 'variation-positive';
+      if (value < 0) return 'variation-negative';
+      return 'variation-neutral';
+    };
+
+    const realSalesTableHead = document.getElementById('realSalesTableHead');
+    const realSalesTableBody = document.getElementById('realSalesTableBody');
+    const salesRows = [
+      { label: 'Endereço', key: 'endereco' },
+      { label: 'Bairro', key: 'bairro' },
+      { label: 'Data da venda', key: 'data_venda' },
+      { label: 'Área priv.', key: 'area' },
+      { label: 'Dorm.', key: 'dormitorios' },
+      { label: 'Suítes', key: 'suites' },
+      { label: 'Banh.', key: 'banheiros' },
+      { label: 'Vagas', key: 'vagas' },
+      { label: 'Preço de venda', key: 'preco' },
+      { label: 'Preço/m²', key: 'preco_sqm' },
+      { label: 'Variação vs seu imóvel', key: 'variacao' }
+    ];
+
+    if (realSalesTableHead && realSalesTableBody) {
+      realSalesTableHead.innerHTML =
+        '<tr>' +
+        '<th>Atributo</th>' +
+        '<th>Seu imóvel</th>' +
+        d.vendas_reais.map((_, idx) => '<th>Venda real ' + (idx + 1) + '</th>').join('') +
+        '</tr>';
+
+      const precoBaseImovel = parseCurrencyForSales(d.avaliacao.valor_sugerido);
+
+      realSalesTableBody.innerHTML = salesRows.map((row) => {
+        if (row.key === 'variacao') {
+          const variacoes = d.vendas_reais.map((sale) => {
+            const salePrice = parseCurrencyForSales(sale.preco);
+            const variation = precoBaseImovel > 0 ? ((salePrice - precoBaseImovel) / precoBaseImovel) * 100 : 0;
+            const cls = variationClassByValue(variation);
+            return '<td class="variation-cell ' + cls + '">' + formatVariationPct(variation) + '</td>';
+          }).join('');
+
+          return '<tr>' +
+            '<td class="legacy-table-attr">' + row.label + '</td>' +
+            '<td class="variation-cell variation-neutral">Base (0,00%)</td>' +
+            variacoes +
+            '</tr>';
+        }
+
+        return '<tr>' +
+          '<td class="legacy-table-attr">' + row.label + '</td>' +
+          '<td>' + (imovelComparativo[row.key] || '-') + '</td>' +
+          d.vendas_reais.map((sale) => '<td>' + (sale[row.key] || '-') + '</td>').join('') +
+          '</tr>';
+      }).join('');
+    }
 
     document.getElementById('portaisMiniGrid').innerHTML = d.marketing.portais.map((p) => '<div class="legacy-portal">' + brandLogoMarkup(p) + '<span>' + p + '</span></div>').join('');
     document.getElementById('redesMiniGrid').innerHTML = d.marketing.redes.map((r) => '<div class="legacy-portal">' + brandLogoMarkup(r) + '<span>' + r + '</span></div>').join('');
